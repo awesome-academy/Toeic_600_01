@@ -7,4 +7,5 @@
     <color name="material_brown_300">#B8977E</color>
     <color name="material_blue_accent_400">#00A6FF</color>
     <color name="material_red_accent_200">#F95F62</color>
+    <color name="material_white_100">#f9f6f6</color>
 </resources>
