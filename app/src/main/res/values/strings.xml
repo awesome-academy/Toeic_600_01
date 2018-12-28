@@ -2,8 +2,16 @@
     <string name="app_name">Toeic600</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="action_grammar">Sổ tay ngữ pháp</string>
+    <string name="action_vocabulary">Sổ tay từ vựng</string>
+    <string name="action_basic_test">Bài tập cơ bản</string>
+    <string name="action_exam">Luyện đề</string>
+    <string name="title_process">Tiến độ</string>
+    <string name="action_share">Chia sẻ</string>
+    <string name="action_setting">Cài đặt</string>
+    <string name="action_rating">Đánh giá</string>
+    <string name="action_about">Giới thiệu</string>
+    <string name="title_communicate">Liên hệ</string>
 </resources>
