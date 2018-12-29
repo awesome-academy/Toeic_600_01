@@ -1,19 +1,16 @@
-package com.framgia.toeic.screen.grammar;
+package com.framgia.toeic.screen.grammar_detail;
 
-import android.content.Context;
-import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.framgia.toeic.R;
 import com.framgia.toeic.screen.base.BaseActivity;
-import com.framgia.toeic.screen.grammar_detail.GrammarDetailAcvitity;
 
-public class GrammarActivity extends BaseActivity {
-
-    public static Intent getGrammarIntent(Context context) {
-        return new Intent(context, GrammarActivity.class);
-    }
+public class GrammarDetailAcvitity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,19 +19,20 @@ public class GrammarActivity extends BaseActivity {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.activity_grammar;
+        return R.layout.activity_grammar_detail_acvitity;
     }
 
     @Override
     protected void initComponent() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(getResources().getString(R.string.action_grammar));
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     @Override
-    protected void initData() {
-
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.grammar_detail, menu);
+        return true;
     }
 
     @Override
@@ -45,5 +43,10 @@ public class GrammarActivity extends BaseActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void initData() {
+
     }
 }

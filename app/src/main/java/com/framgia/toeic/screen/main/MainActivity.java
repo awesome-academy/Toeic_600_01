@@ -7,15 +7,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ViewFlipper;
 
 import com.framgia.toeic.R;
 import com.framgia.toeic.screen.base.BaseActivity;
+import com.framgia.toeic.screen.grammar.GrammarActivity;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     private static final int BACKGROUNDS_INTRO[] = {R.drawable.bg_intro_1,
             R.drawable.bg_intro_2, R.drawable.bg_intro_3, R.drawable.bg_intro_4};
     private Toolbar mToolbar;
@@ -26,6 +29,7 @@ public class MainActivity extends BaseActivity
     private ProgressBar mProgressBasicTest;
     private ProgressBar mProgressExam;
     private DrawerLayout mDrawer;
+    private Button mButtonVocabulary, mButtonGrammar, mButtonBasicTest, mButtonExam;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,10 @@ public class MainActivity extends BaseActivity
         mProgressGrammar = findViewById(R.id.progress_grammar);
         mProgressBasicTest = findViewById(R.id.progress_basic_test);
         mProgressExam = findViewById(R.id.progress_exam);
+        mButtonVocabulary = findViewById(R.id.button_vocabulary);
+        mButtonGrammar = findViewById(R.id.button_grammar);
+        mButtonBasicTest = findViewById(R.id.button_basic_test);
+        mButtonExam = findViewById(R.id.button_exam);
     }
 
     @Override
@@ -71,6 +79,10 @@ public class MainActivity extends BaseActivity
         mProgressExam.getProgressDrawable().setColorFilter(
                 getResources().getColor(R.color.material_red_accent_200),
                 android.graphics.PorterDuff.Mode.MULTIPLY);
+        mButtonVocabulary.setOnClickListener(this);
+        mButtonGrammar.setOnClickListener(this);
+        mButtonBasicTest.setOnClickListener(this);
+        mButtonExam.setOnClickListener(this);
     }
 
     @Override
@@ -91,6 +103,7 @@ public class MainActivity extends BaseActivity
                 break;
 
             case R.id.nav_grammar:
+                startActivity(GrammarActivity.getGrammarIntent(this));
                 break;
 
             case R.id.nav_basic_test:
@@ -116,13 +129,31 @@ public class MainActivity extends BaseActivity
         return true;
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.button_vocabulary:
+                break;
+
+            case R.id.button_grammar:
+                startActivity(GrammarActivity.getGrammarIntent(this));
+                break;
+
+            case R.id.button_basic_test:
+                break;
+
+            case R.id.button_exam:
+                break;
+        }
+    }
+
     private void slideAdvertise() {
         for (int image : BACKGROUNDS_INTRO) {
             flipperImage(image);
         }
     }
 
-    public void flipperImage(int image) {
+    private void flipperImage(int image) {
         ImageView imageView = new ImageView(this);
         imageView.setBackgroundResource(image);
         mViewFlipper.addView(imageView);

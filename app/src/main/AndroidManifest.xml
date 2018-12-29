@@ -19,13 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <activity android:name=".screen.vocabulary.VocabularyDetailActivity"/>
-
-        <activity
-            android:name=".screen.grammar.GrammarActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
+        <activity android:name=".screen.vocabulary.VocabularyDetailActivity" />
+        <activity android:name=".screen.grammar.GrammarActivity" />
+        <activity android:name=".screen.grammar_detail.GrammarDetailAcvitity" />
     </application>
 
 </manifest>
