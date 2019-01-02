@@ -14,4 +14,6 @@
     <string name="action_rating">Đánh giá</string>
     <string name="action_about">Giới thiệu</string>
     <string name="title_communicate">Liên hệ</string>
+    <string name="action_submit">Nộp bài</string>
+    <string name="title_auto_next">Tự động chuyển</string>
 </resources>
