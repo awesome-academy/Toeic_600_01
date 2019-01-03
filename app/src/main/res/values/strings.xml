@@ -17,4 +17,5 @@
     <string name="action_submit">Nộp bài</string>
     <string name="title_auto_next">Tự động chuyển</string>
     <string name="action_test">Kiểm tra</string>
+    <string name="title_lesson">Bài </string>
 </resources>
