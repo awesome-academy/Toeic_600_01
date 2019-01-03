@@ -19,11 +19,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".screen.vocabulary_detail.VocabularyDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".screen.vocabulary_detail.VocabularyDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".screen.grammar.GrammarActivity" />
         <activity android:name=".screen.grammar_detail.GrammarDetailAcvitity" />
-        <activity android:name=".screen.vocabulary.VocabularyActivity"/>
+        <activity android:name=".screen.vocabulary.VocabularyActivity" />
+        <activity
+            android:name=".screen.grammar_test.GrammarTestActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
