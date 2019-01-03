@@ -17,4 +17,10 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="LessonTitle" parent="TextAppearance.AppCompat.Large"/>
+
+    <style name="LessonDescription" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textStyle">italic</item>
+    </style>
+
 </resources>

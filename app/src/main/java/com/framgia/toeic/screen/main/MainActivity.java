@@ -16,6 +16,7 @@ import android.widget.ViewFlipper;
 import com.framgia.toeic.R;
 import com.framgia.toeic.screen.base.BaseActivity;
 import com.framgia.toeic.screen.grammar.GrammarActivity;
+import com.framgia.toeic.screen.vocabulary.VocabularyActivity;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -100,6 +101,7 @@ public class MainActivity extends BaseActivity
         int id = item.getItemId();
         switch (id) {
             case R.id.nav_vocabulary:
+                startActivity(VocabularyActivity.getVocabularyIntent(this));
                 break;
 
             case R.id.nav_grammar:
@@ -133,6 +135,7 @@ public class MainActivity extends BaseActivity
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.button_vocabulary:
+                startActivity(VocabularyActivity.getVocabularyIntent(this));
                 break;
 
             case R.id.button_grammar:
