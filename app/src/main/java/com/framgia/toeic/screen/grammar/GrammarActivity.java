@@ -7,7 +7,6 @@ import android.view.MenuItem;
 
 import com.framgia.toeic.R;
 import com.framgia.toeic.screen.base.BaseActivity;
-import com.framgia.toeic.screen.grammar_detail.GrammarDetailAcvitity;
 
 public class GrammarActivity extends BaseActivity {
 

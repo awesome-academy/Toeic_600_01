@@ -1,10 +1,7 @@
 package com.framgia.toeic.screen.grammar_detail;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.framgia.toeic.R;
