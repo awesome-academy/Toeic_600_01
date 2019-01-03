@@ -26,7 +26,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/text_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_alarm" />
+        app:srcCompat="@drawable/ic_alarm"
+        tools:ignore="VectorDrawableCompat" />
 
     <TextView
         android:id="@+id/text_timer"
