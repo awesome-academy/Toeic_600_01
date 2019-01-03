@@ -16,4 +16,5 @@
     <string name="title_communicate">Liên hệ</string>
     <string name="action_submit">Nộp bài</string>
     <string name="title_auto_next">Tự động chuyển</string>
+    <string name="action_test">Kiểm tra</string>
 </resources>
