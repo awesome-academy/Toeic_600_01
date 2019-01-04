@@ -15,6 +15,7 @@ import android.widget.ViewFlipper;
 
 import com.framgia.toeic.R;
 import com.framgia.toeic.screen.base.BaseActivity;
+import com.framgia.toeic.screen.basic_test.BasicTestActivity;
 import com.framgia.toeic.screen.grammar.GrammarActivity;
 import com.framgia.toeic.screen.vocabulary.VocabularyActivity;
 
@@ -109,6 +110,7 @@ public class MainActivity extends BaseActivity
                 break;
 
             case R.id.nav_basic_test:
+                startActivity(BasicTestActivity.getBasicTestIntent(this));
                 break;
 
             case R.id.nav_exam:
@@ -143,6 +145,7 @@ public class MainActivity extends BaseActivity
                 break;
 
             case R.id.button_basic_test:
+                startActivity(BasicTestActivity.getBasicTestIntent(this));
                 break;
 
             case R.id.button_exam:
