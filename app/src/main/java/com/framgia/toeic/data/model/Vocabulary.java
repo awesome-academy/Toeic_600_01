@@ -1,6 +1,9 @@
 package com.framgia.toeic.data.model;
 
-public class Vocabulary extends Question {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Vocabulary extends Question implements Parcelable {
     private int mId;
     private boolean mCheck;
 
@@ -11,6 +14,34 @@ public class Vocabulary extends Question {
         super(vocabularyBuilder);
         mId = vocabularyBuilder.mId;
         mCheck = vocabularyBuilder.mCheck;
+    }
+
+    protected Vocabulary(Parcel in) {
+        mId = in.readInt();
+        mCheck = in.readByte() != 0;
+    }
+
+    public static final Creator<Vocabulary> CREATOR = new Creator<Vocabulary>() {
+        @Override
+        public Vocabulary createFromParcel(Parcel in) {
+            return new Vocabulary(in);
+        }
+
+        @Override
+        public Vocabulary[] newArray(int size) {
+            return new Vocabulary[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(mId);
+        parcel.writeByte((byte) (mCheck ? 1 : 0));
     }
 
     public static class VocabularyBuilder extends QuestionBuilder {

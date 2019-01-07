@@ -1,35 +1,22 @@
 package com.framgia.toeic.data.model;
 
+import android.os.Parcel;
+
 import java.util.List;
 
-public class VocabularyLesson {
-    private int mId;
-    private String mName;
+public class VocabularyLesson extends Lesson {
     private List<Vocabulary> mVocabularies;
 
     public VocabularyLesson() {
     }
 
-    public VocabularyLesson(int id, String name, List<Vocabulary> vocabularies) {
-        mId = id;
-        mName = name;
-        mVocabularies = vocabularies;
+
+    public VocabularyLesson(int id, String name) {
+        super(id, name);
     }
 
-    public int getId() {
-        return mId;
-    }
-
-    public void setId(int id) {
-        mId = id;
-    }
-
-    public String getName() {
-        return mName;
-    }
-
-    public void setName(String name) {
-        mName = name;
+    public VocabularyLesson(Parcel in) {
+        super(in);
     }
 
     public List<Vocabulary> getVocabularies() {
