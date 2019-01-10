@@ -28,7 +28,6 @@
         <activity
             android:name=".screen.grammar_test.GrammarTestActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".screen.basic_test.BasicTestActivity"/>
+        <activity android:name=".screen.exam.ExamActivity" />
     </application>
-
 </manifest>
