@@ -14,15 +14,6 @@ public class Question implements Parcelable {
     public Question() {
     }
 
-    public Question(QuestionBuilder questionBuilder) {
-        mQuestion = questionBuilder.mQuestion;
-        mResult = questionBuilder.mResult;
-        mAnwserA = questionBuilder.mAnwserA;
-        mAnwserB = questionBuilder.mAnwserB;
-        mAnwserC = questionBuilder.mAnwserC;
-        mAnwserD = questionBuilder.mAnwserD;
-    }
-
     protected Question(Parcel in) {
         mQuestion = in.readString();
         mResult = in.readString();
@@ -43,6 +34,40 @@ public class Question implements Parcelable {
             return new Question[size];
         }
     };
+
+    public String getQuestion() {
+        return mQuestion;
+    }
+
+    public String getResult() {
+        return mResult;
+    }
+
+    public String getAnwserA() {
+        return mAnwserA;
+    }
+
+    public String getAnwserB() {
+        return mAnwserB;
+    }
+
+    public String getAnwserC() {
+        return mAnwserC;
+    }
+
+    public String getAnwserD() {
+        return mAnwserD;
+    }
+
+    public Question(QuestionBuilder questionBuilder) {
+        mQuestion = questionBuilder.mQuestion;
+        mResult = questionBuilder.mResult;
+        mAnwserA = questionBuilder.mAnwserA;
+        mAnwserB = questionBuilder.mAnwserB;
+        mAnwserC = questionBuilder.mAnwserC;
+        mAnwserD = questionBuilder.mAnwserD;
+    }
+
 
     @Override
     public int describeContents() {
@@ -98,30 +123,6 @@ public class Question implements Parcelable {
         public QuestionBuilder setAnwserD(String anwserD) {
             mAnwserD = anwserD;
             return this;
-        }
-
-        public String getQuestion() {
-            return mQuestion;
-        }
-
-        public String getResult() {
-            return mResult;
-        }
-
-        public String getAnwserA() {
-            return mAnwserA;
-        }
-
-        public String getAnwserB() {
-            return mAnwserB;
-        }
-
-        public String getAnwserC() {
-            return mAnwserC;
-        }
-
-        public String getAnwserD() {
-            return mAnwserD;
         }
 
         public Question build() {

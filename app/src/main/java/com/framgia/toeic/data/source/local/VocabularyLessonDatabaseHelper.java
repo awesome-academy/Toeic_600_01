@@ -30,7 +30,7 @@ public class VocabularyLessonDatabaseHelper implements VocabularyLessonDataSourc
         mDBHelper = DBHelper;
     }
 
-    public void getLessonVocabularies(Callback<List<VocabularyLessonItem>> callback) {
+    public void getVocabularyLessons(Callback<List<VocabularyLessonItem>> callback) {
         try {
             mDBHelper.createDataBase();
         } catch (IOException e) {

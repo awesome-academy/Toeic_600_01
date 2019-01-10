@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class Vocabulary extends Question implements Parcelable {
     private int mId;
-    private boolean mCheck;
+    private boolean mSelected;
 
     public Vocabulary() {
     }
@@ -13,12 +13,13 @@ public class Vocabulary extends Question implements Parcelable {
     public Vocabulary(VocabularyBuilder vocabularyBuilder) {
         super(vocabularyBuilder);
         mId = vocabularyBuilder.mId;
-        mCheck = vocabularyBuilder.mCheck;
+        mSelected = vocabularyBuilder.mCheck;
     }
 
     protected Vocabulary(Parcel in) {
+        super(in);
         mId = in.readInt();
-        mCheck = in.readByte() != 0;
+        mSelected = in.readByte() != 0;
     }
 
     public static final Creator<Vocabulary> CREATOR = new Creator<Vocabulary>() {
@@ -39,9 +40,18 @@ public class Vocabulary extends Question implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(mId);
-        parcel.writeByte((byte) (mCheck ? 1 : 0));
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeInt(mId);
+        dest.writeByte((byte) (mSelected ? 1 : 0));
+    }
+
+    public void setSelected(boolean selected) {
+        mSelected = selected;
+    }
+
+    public boolean isSelected() {
+        return mSelected;
     }
 
     public static class VocabularyBuilder extends QuestionBuilder {
