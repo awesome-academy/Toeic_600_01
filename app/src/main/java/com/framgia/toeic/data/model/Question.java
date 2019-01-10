@@ -1,6 +1,9 @@
 package com.framgia.toeic.data.model;
 
-public class Question {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Question implements Parcelable {
     protected String mQuestion;
     protected String mResult;
     protected String mAnwserA;
@@ -18,6 +21,42 @@ public class Question {
         mAnwserB = questionBuilder.mAnwserB;
         mAnwserC = questionBuilder.mAnwserC;
         mAnwserD = questionBuilder.mAnwserD;
+    }
+
+    protected Question(Parcel in) {
+        mQuestion = in.readString();
+        mResult = in.readString();
+        mAnwserA = in.readString();
+        mAnwserB = in.readString();
+        mAnwserC = in.readString();
+        mAnwserD = in.readString();
+    }
+
+    public static final Creator<Question> CREATOR = new Creator<Question>() {
+        @Override
+        public Question createFromParcel(Parcel in) {
+            return new Question(in);
+        }
+
+        @Override
+        public Question[] newArray(int size) {
+            return new Question[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(mQuestion);
+        parcel.writeString(mResult);
+        parcel.writeString(mAnwserA);
+        parcel.writeString(mAnwserB);
+        parcel.writeString(mAnwserC);
+        parcel.writeString(mAnwserD);
     }
 
     public static class QuestionBuilder {
