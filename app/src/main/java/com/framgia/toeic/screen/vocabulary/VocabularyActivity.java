@@ -4,18 +4,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.framgia.toeic.R;
-import com.framgia.toeic.data.model.VocabularyLesson;
+import com.framgia.toeic.data.model.Vocabulary;
+import com.framgia.toeic.data.model.VocabularyLessonItem;
 import com.framgia.toeic.data.repository.VocabularyLessonRepository;
 import com.framgia.toeic.data.source.local.DBHelper;
+import com.framgia.toeic.data.source.local.VocabularyLessonDatabaseHelper;
 import com.framgia.toeic.data.source.local.VocabularyLessonLocalDataSource;
 import com.framgia.toeic.screen.base.BaseActivity;
 import com.framgia.toeic.screen.vocabulary_detail.VocabularyDetailActivity;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class VocabularyActivity extends BaseActivity implements View.OnClickListener, VocabularyContract.View {
@@ -44,13 +49,14 @@ public class VocabularyActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void initData() {
         mPresenter = new VocabularyPresenter(this, new VocabularyLessonRepository(
-                new VocabularyLessonLocalDataSource(new DBHelper(this))));
+                new VocabularyLessonLocalDataSource(new VocabularyLessonDatabaseHelper(
+                        new DBHelper(this)))));
         mPresenter.getVocabularies();
     }
 
     @Override
     public void onClick(View view) {
-        startActivity(VocabularyDetailActivity.getVocabularyIntent(this));
+        mPresenter.pushVocabularies();
     }
 
     @Override
@@ -64,11 +70,23 @@ public class VocabularyActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
-    public void showVocabularies(List<VocabularyLesson> vocabularyLessons) {
-        mVocabularyLessonAdapter = new VocabularyLessonAdapter(this, vocabularyLessons);
+    public void showVocabularies(List<VocabularyLessonItem> vocabularyLessonItems) {
+        mVocabularyLessonAdapter = new VocabularyLessonAdapter(this, vocabularyLessonItems);
         mRecyclerView.setLayoutManager(new
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mVocabularyLessonAdapter);
+    }
+
+    @Override
+    public void showVocabularyDeatailActivity(List<VocabularyLessonItem> vocabularyLessonItems) {
+        List<Vocabulary> vocabularies = new ArrayList<>();
+        for (VocabularyLessonItem vocabularyLessonItem : vocabularyLessonItems) {
+            if (vocabularyLessonItem.isSelected()) {
+                vocabularies.addAll(vocabularyLessonItem.getVocabularies());
+            }
+        }
+        Collections.shuffle(vocabularies);
+        startActivity(VocabularyDetailActivity.getVocabularyDetailIntent(this, vocabularies));
     }
 
     @Override

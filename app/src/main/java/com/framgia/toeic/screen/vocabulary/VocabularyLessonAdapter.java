@@ -7,20 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.framgia.toeic.R;
-import com.framgia.toeic.data.model.VocabularyLesson;
+import com.framgia.toeic.data.model.VocabularyLessonItem;
 
 import java.util.List;
 
 public class VocabularyLessonAdapter extends RecyclerView.Adapter<VocabularyLessonAdapter.ViewHolder> {
     private Context mContext;
-    private List<VocabularyLesson> mLessons;
+    private List<VocabularyLessonItem> mLessons;
 
-    public VocabularyLessonAdapter(Context context, List<VocabularyLesson> vocabularyLessons) {
+    public VocabularyLessonAdapter(Context context, List<VocabularyLessonItem> vocabularyLessonItems) {
         mContext = context;
-        mLessons = vocabularyLessons;
+        mLessons = vocabularyLessonItems;
     }
 
     @NonNull
@@ -46,22 +47,30 @@ public class VocabularyLessonAdapter extends RecyclerView.Adapter<VocabularyLess
         private TextView mTextDescription;
         private CheckBox mCheckBox;
         private Context mContext;
+        private List<VocabularyLessonItem> mItemList;
 
-        public ViewHolder(Context context, View itemView, List<VocabularyLesson> vocabularyLessons) {
+        public ViewHolder(Context context, View itemView, List<VocabularyLessonItem> vocabularyLessonItems) {
             super(itemView);
             mContext = context;
+            mItemList = vocabularyLessonItems;
             mTextTitle = itemView.findViewById(R.id.text_title_vocabulary);
             mTextDescription = itemView.findViewById(R.id.text_description_vocabulary);
             mCheckBox = itemView.findViewById(R.id.check_vocabulary);
         }
 
-        public void bindData(VocabularyLesson vocabularyLesson) {
-            if (vocabularyLesson == null) {
+        public void bindData(final VocabularyLessonItem vocabularyLessonItem) {
+            if (vocabularyLessonItem == null) {
                 return;
             }
-            mTextTitle.setText(mContext.getResources().getString(R.string.title_lesson) + vocabularyLesson.getId());
-            mTextDescription.setText(vocabularyLesson.getName());
-            mCheckBox.setChecked(false);
+            mTextTitle.setText(mContext.getResources().getString(R.string.title_lesson) + vocabularyLessonItem.getId());
+            mTextDescription.setText(vocabularyLessonItem.getName());
+            mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    vocabularyLessonItem.setSelected(b);
+                }
+            });
+            mCheckBox.setChecked(vocabularyLessonItem.isSelected());
         }
     }
 }
