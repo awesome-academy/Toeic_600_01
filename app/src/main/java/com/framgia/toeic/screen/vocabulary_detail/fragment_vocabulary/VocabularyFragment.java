@@ -1,6 +1,7 @@
 package com.framgia.toeic.screen.vocabulary_detail.fragment_vocabulary;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,9 +16,11 @@ import android.widget.TextView;
 import com.framgia.toeic.R;
 import com.framgia.toeic.data.model.Vocabulary;
 import com.framgia.toeic.screen.base.BaseFragment;
+import com.framgia.toeic.screen.vocabulary_detail.DisplayAnwser;
+import com.framgia.toeic.screen.vocabulary_detail.ShowAnswerListener;
 
 public class VocabularyFragment extends BaseFragment
-        implements RadioGroup.OnCheckedChangeListener, VocabularyDetailContract.View {
+        implements RadioGroup.OnCheckedChangeListener, VocabularyDetailContract.View, DisplayAnwser {
     static final String ARGUMENT_QUESTION = "ARGUMENT_QUESTION";
     static final String ARGUMENT_NUMBER_QUESTION = "ARGUMENT_NUMBER_QUESTION";
     private TextView mTextViewNumberQuestion;
@@ -61,7 +64,6 @@ public class VocabularyFragment extends BaseFragment
         mRadioAnswerB = view.findViewById(R.id.radio_b);
         mRadioAnswerC = view.findViewById(R.id.radio_c);
         mRadioGroup = view.findViewById(R.id.radio_group);
-        mPresenter = new VocabularyPresenter(this);
     }
 
     @Override
@@ -77,6 +79,8 @@ public class VocabularyFragment extends BaseFragment
         mRadioAnswerB.setText(mVocabulary.getAnwserB());
         mRadioAnswerC.setText(mVocabulary.getAnwserC());
         mRadioGroup.setOnCheckedChangeListener(this);
+        mPresenter = new VocabularyPresenter(this, mVocabulary.getResult());
+
     }
 
     @Override
@@ -101,7 +105,7 @@ public class VocabularyFragment extends BaseFragment
                 result = mRadioAnswerC.getText().toString();
                 break;
         }
-        mPresenter.checkAnwser(result, mVocabulary.getResult());
+        mPresenter.checkAnwser(result);
     }
 
     @Override
@@ -118,6 +122,35 @@ public class VocabularyFragment extends BaseFragment
         if (mCallback != null) {
             mCallback.onChanged(mVocabulary);
         }
+    }
+
+    @Override
+    public void onAnswerARight() {
+        mRadioAnswerA.setBackgroundColor(Color.RED);
+    }
+
+    @Override
+    public void onAnswerBRight() {
+        mRadioAnswerB.setBackgroundColor(Color.RED);
+    }
+
+    @Override
+    public void onAnswerCRight() {
+        mRadioAnswerC.setBackgroundColor(Color.RED);
+    }
+
+    @Override
+    public void showAnswer() {
+        mPresenter.displayAnwserA(mRadioAnswerA.getText().toString());
+        mPresenter.displayAnwserB(mRadioAnswerB.getText().toString());
+        mPresenter.displayAnwserC(mRadioAnswerC.getText().toString());
+    }
+
+    @Override
+    public void disableClick() {
+        mRadioAnswerA.setClickable(false);
+        mRadioAnswerB.setClickable(false);
+        mRadioAnswerC.setClickable(false);
     }
 
     public interface OnAnswerChangeListener {

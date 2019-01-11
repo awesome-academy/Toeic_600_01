@@ -11,15 +11,19 @@ import java.util.List;
 
 public class VocabularyViewPager extends FragmentPagerAdapter {
     private List<Vocabulary> mVocabularies;
+    private List<Fragment> mFragments;
 
-    public VocabularyViewPager(FragmentManager fm, List<Vocabulary> vocabularies) {
+    public VocabularyViewPager(FragmentManager fm, List<Vocabulary> vocabularies, List<Fragment> fragments) {
         super(fm);
         mVocabularies = vocabularies;
+        mFragments = fragments;
     }
 
     @Override
     public Fragment getItem(int i) {
-        return VocabularyFragment.newInstance(mVocabularies.get(i), i);
+        Fragment fragment =  VocabularyFragment.newInstance(mVocabularies.get(i), i);
+        mFragments.add(fragment);
+        return fragment;
     }
 
     @Override

@@ -20,4 +20,10 @@
     <string name="title_lesson">Bài\u0020</string>
     <string name="title_question">Câu\u0020</string>
     <string name="title_vocabulary_question">\u0020 có nghĩa là?</string>
+    <string name="title_mark">Đạt:</string>
+    <string name="title_time">Thời gian:</string>
+    <string name="title_reading">Đọc:</string>
+    <string name="title_listening">Nghe:</string>
+    <string name="action_review">Xem lại</string>
+    <string name="action_continue">Tiếp tục</string>
 </resources>
