@@ -1,13 +1,26 @@
 package com.framgia.toeic.screen.grammar_detail;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.framgia.toeic.R;
+import com.framgia.toeic.data.model.GrammarLesson;
 import com.framgia.toeic.screen.base.BaseActivity;
+import com.framgia.toeic.screen.grammar_test.GrammarTestActivity;
+import com.github.barteksc.pdfviewer.PDFView;
 
 public class GrammarDetailAcvitity extends BaseActivity {
+    static final String EXTRA_LESSON = "EXTRA_LESSON";
+    private PDFView mPDFView;
+
+    public static Intent getItent(Context context, GrammarLesson grammarLesson) {
+        Intent intent = new Intent(context, GrammarDetailAcvitity.class);
+        intent.putExtra(EXTRA_LESSON, grammarLesson);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +37,8 @@ public class GrammarDetailAcvitity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        mPDFView = findViewById(R.id.pdf_grammar);
+
     }
 
     @Override
@@ -38,12 +53,19 @@ public class GrammarDetailAcvitity extends BaseActivity {
             case android.R.id.home:
                 finish();
                 break;
+            case R.id.action_next:
+                startActivity(GrammarTestActivity.getGrammarTestIntent(this));
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     protected void initData() {
-
+        GrammarLesson lesson = getIntent().getExtras().getParcelable(EXTRA_LESSON);
+        mPDFView.fromAsset(lesson.getName() + getResources().getString(R.string.file))
+                .enableAnnotationRendering(false)
+                .enableSwipe(true)
+                .load();
     }
 }

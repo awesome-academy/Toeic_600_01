@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.ViewFlipper;
 
 import com.framgia.toeic.R;
+import com.framgia.toeic.data.source.local.DBHelper;
 import com.framgia.toeic.screen.base.BaseActivity;
 import com.framgia.toeic.screen.exam.ExamActivity;
 import com.framgia.toeic.screen.grammar.GrammarActivity;
@@ -32,6 +33,7 @@ public class MainActivity extends BaseActivity
     private ProgressBar mProgressExam;
     private DrawerLayout mDrawer;
     private Button mButtonVocabulary, mButtonGrammar, mButtonBasicTest, mButtonExam;
+    private DBHelper mDBHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +138,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.button_vocabulary:
                 startActivity(VocabularyActivity.getVocabularyIntent(this));
                 break;

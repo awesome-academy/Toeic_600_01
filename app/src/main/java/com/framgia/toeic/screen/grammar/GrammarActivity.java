@@ -15,10 +15,12 @@ import com.framgia.toeic.data.source.local.DBHelper;
 import com.framgia.toeic.data.source.local.GrammarLessonDatabaseHelper;
 import com.framgia.toeic.data.source.local.GrammarLessonLocalDataSource;
 import com.framgia.toeic.screen.base.BaseActivity;
+import com.framgia.toeic.screen.grammar_detail.GrammarDetailAcvitity;
 
 import java.util.List;
 
-public class GrammarActivity extends BaseActivity implements GrammarContract.View {
+public class GrammarActivity extends BaseActivity implements GrammarContract.View,
+        GrammarLessonAdapter.OnItemClickListener {
     private GrammarLessonAdapter mLessonAdapter;
     private GrammarContract.Presenter mPresenter;
     private RecyclerView mRecyclerView;
@@ -59,12 +61,12 @@ public class GrammarActivity extends BaseActivity implements GrammarContract.Vie
     protected void initData() {
         mPresenter = new GrammarPresenter(this, GrammarLessonRepository.getInstance(
                 new GrammarLessonLocalDataSource(new GrammarLessonDatabaseHelper(new DBHelper(this)))));
-        mPresenter.getGrammars();
+        mPresenter.getGrammarLessons();
     }
 
     @Override
     public void showGrammars(List<GrammarLesson> grammarLessons) {
-        mLessonAdapter = new GrammarLessonAdapter(this, grammarLessons);
+        mLessonAdapter = new GrammarLessonAdapter(grammarLessons, this);
         mRecyclerView.setLayoutManager(new
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mLessonAdapter);
@@ -73,5 +75,10 @@ public class GrammarActivity extends BaseActivity implements GrammarContract.Vie
     @Override
     public void showError(Exception e) {
         Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(GrammarLesson grammarLesson) {
+        startActivity(GrammarDetailAcvitity.getItent(this, grammarLesson));
     }
 }
