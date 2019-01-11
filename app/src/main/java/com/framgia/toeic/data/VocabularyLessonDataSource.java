@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface VocabularyLessonDataSource {
     interface Local {
-        void getLessonVocabularies(Callback<List<VocabularyLessonItem>> callback);
+        void getVocabularyLessons(Callback<List<VocabularyLessonItem>> callback);
     }
 
     interface Remote {

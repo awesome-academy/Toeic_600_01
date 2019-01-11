@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -48,9 +47,9 @@ public class VocabularyActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void initData() {
-        mPresenter = new VocabularyPresenter(this, new VocabularyLessonRepository(
-                new VocabularyLessonLocalDataSource(new VocabularyLessonDatabaseHelper(
-                        new DBHelper(this)))));
+        mPresenter = new VocabularyPresenter(this,
+                VocabularyLessonRepository.getInstance(new VocabularyLessonLocalDataSource(
+                        new VocabularyLessonDatabaseHelper(new DBHelper(this)))));
         mPresenter.getVocabularies();
     }
 
@@ -72,8 +71,7 @@ public class VocabularyActivity extends BaseActivity implements View.OnClickList
     @Override
     public void showVocabularies(List<VocabularyLessonItem> vocabularyLessonItems) {
         mVocabularyLessonAdapter = new VocabularyLessonAdapter(this, vocabularyLessonItems);
-        mRecyclerView.setLayoutManager(new
-                LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mVocabularyLessonAdapter);
     }
 
@@ -86,7 +84,7 @@ public class VocabularyActivity extends BaseActivity implements View.OnClickList
             }
         }
         Collections.shuffle(vocabularies);
-        startActivity(VocabularyDetailActivity.getVocabularyDetailIntent(this, vocabularies));
+        startActivity(VocabularyDetailActivity.getIntent(this, vocabularies));
     }
 
     @Override

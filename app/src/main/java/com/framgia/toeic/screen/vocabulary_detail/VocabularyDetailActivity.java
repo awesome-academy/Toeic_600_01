@@ -5,20 +5,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 
 import com.framgia.toeic.R;
 import com.framgia.toeic.data.model.Vocabulary;
 import com.framgia.toeic.screen.base.BaseActivity;
+import com.framgia.toeic.screen.vocabulary_detail.fragment_vocabulary.VocabularyFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VocabularyDetailActivity extends BaseActivity {
-    static final String EXTRA_LIST_QUESTION = "com.framgia.toeic.screen.vocabulary.EXTRA_LIST_QUESTION";
+public class VocabularyDetailActivity extends BaseActivity
+        implements VocabularyFragment.OnAnswerChangeListener {
+    private static final String EXTRA_LIST_QUESTION = "EXTRA_LIST_QUESTION";
+    private ViewPager mViewPager;
+    private ArrayList<Vocabulary> mVocabularies;
 
-    public static Intent getVocabularyDetailIntent(Context context, List<Vocabulary> vocabularies) {
+    public static Intent getIntent(Context context, List<Vocabulary> vocabularies) {
         Intent intent = new Intent(context, VocabularyDetailActivity.class);
-        intent.putParcelableArrayListExtra(EXTRA_LIST_QUESTION, (ArrayList<? extends Parcelable>) vocabularies);
+        intent.putParcelableArrayListExtra(EXTRA_LIST_QUESTION,
+                (ArrayList<? extends Parcelable>) vocabularies);
         return intent;
     }
 
@@ -34,11 +40,27 @@ public class VocabularyDetailActivity extends BaseActivity {
 
     @Override
     protected void initComponent() {
-
+        mViewPager = findViewById(R.id.viewPager);
     }
 
     @Override
     protected void initData() {
-        List<Vocabulary> vocabularies = getIntent().getParcelableArrayListExtra(EXTRA_LIST_QUESTION);
+        mVocabularies = getIntent().getParcelableArrayListExtra(EXTRA_LIST_QUESTION);
+        VocabularyViewPager vocabularyViewPager =
+                new VocabularyViewPager(getSupportFragmentManager(), mVocabularies);
+        mViewPager.setPageTransformer(true, new DepthPageTransformer());
+        mViewPager.setAdapter(vocabularyViewPager);
+    }
+
+    public ArrayList<Vocabulary> getVocabularies() {
+        return mVocabularies;
+    }
+
+    @Override
+    public void onChanged(Vocabulary vocabulary) {
+        int index = mVocabularies.indexOf(vocabulary);
+        if (index != -1) {
+            mVocabularies.get(index).setSelected(vocabulary.isSelected());
+        }
     }
 }

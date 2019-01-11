@@ -18,7 +18,7 @@ public class VocabularyPresenter implements VocabularyContract.Presenter {
 
     @Override
     public void getVocabularies() {
-        mRepository.getLessonVocabularies(new Callback<List<VocabularyLessonItem>>() {
+        mRepository.getVocabularyLessons(new Callback<List<VocabularyLessonItem>>() {
             @Override
             public void onGetDataSuccess(List<VocabularyLessonItem> vocabularyLessonItems) {
                 mVocabularyLessonItems = vocabularyLessonItems;

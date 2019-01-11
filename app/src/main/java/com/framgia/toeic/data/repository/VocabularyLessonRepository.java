@@ -1,9 +1,6 @@
 package com.framgia.toeic.data.repository;
 
-import android.util.Log;
-
 import com.framgia.toeic.data.VocabularyLessonDataSource;
-import com.framgia.toeic.data.model.VocabularyLesson;
 import com.framgia.toeic.data.model.VocabularyLessonItem;
 import com.framgia.toeic.data.source.Callback;
 
@@ -25,7 +22,7 @@ public class VocabularyLessonRepository implements VocabularyLessonDataSource.Lo
     }
 
     @Override
-    public void getLessonVocabularies(Callback<List<VocabularyLessonItem>> callback) {
-        mVocabularyLessonDataSource.getLessonVocabularies(callback);
+    public void getVocabularyLessons(Callback<List<VocabularyLessonItem>> callback) {
+        mVocabularyLessonDataSource.getVocabularyLessons(callback);
     }
 }
