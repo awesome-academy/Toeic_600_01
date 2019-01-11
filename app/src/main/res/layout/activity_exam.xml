@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screen.basic_test.BasicTestActivity">
+    tools:context=".screen.exam.ExamActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_basic_test"
+        android:id="@+id/recycler_exam"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_8"
         android:layout_marginEnd="@dimen/dp_8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
