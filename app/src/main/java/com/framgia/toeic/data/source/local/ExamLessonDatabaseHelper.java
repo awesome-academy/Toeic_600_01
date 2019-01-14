@@ -8,6 +8,7 @@ import com.framgia.toeic.data.model.ExamLesson;
 import com.framgia.toeic.data.source.Callback;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,9 +25,10 @@ public class ExamLessonDatabaseHelper implements ExamLessonDataSource.Local {
     @Override
     public void getExamLessons(Callback<List<ExamLesson>> callback) {
         try {
-            mDBHelper.createDataBase();
+            mDBHelper.openDatabase();
         } catch (IOException e) {
             callback.onGetDataFail(e);
+            return;
         }
         List<ExamLesson> examLessons = new ArrayList<>();
         SQLiteDatabase database = mDBHelper.getReadableDatabase();

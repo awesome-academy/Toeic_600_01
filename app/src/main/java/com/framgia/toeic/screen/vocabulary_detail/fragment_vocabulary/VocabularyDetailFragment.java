@@ -16,11 +16,10 @@ import android.widget.TextView;
 import com.framgia.toeic.R;
 import com.framgia.toeic.data.model.Vocabulary;
 import com.framgia.toeic.screen.base.BaseFragment;
-import com.framgia.toeic.screen.vocabulary_detail.DisplayAnwser;
-import com.framgia.toeic.screen.vocabulary_detail.ShowAnswerListener;
+import com.framgia.toeic.screen.base.DisplayAnswerListener;
 
-public class VocabularyFragment extends BaseFragment
-        implements RadioGroup.OnCheckedChangeListener, VocabularyDetailContract.View, DisplayAnwser {
+public class VocabularyDetailFragment extends BaseFragment
+        implements RadioGroup.OnCheckedChangeListener, VocabularyDetailContract.View, DisplayAnswerListener, Runnable {
     static final String ARGUMENT_QUESTION = "ARGUMENT_QUESTION";
     static final String ARGUMENT_NUMBER_QUESTION = "ARGUMENT_NUMBER_QUESTION";
     private TextView mTextViewNumberQuestion;
@@ -38,7 +37,7 @@ public class VocabularyFragment extends BaseFragment
         Bundle bundle = new Bundle();
         bundle.putParcelable(ARGUMENT_QUESTION, vocabulary);
         bundle.putInt(ARGUMENT_NUMBER_QUESTION, numberQuestion);
-        Fragment fragment = new VocabularyFragment();
+        Fragment fragment = new VocabularyDetailFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -79,8 +78,7 @@ public class VocabularyFragment extends BaseFragment
         mRadioAnswerB.setText(mVocabulary.getAnwserB());
         mRadioAnswerC.setText(mVocabulary.getAnwserC());
         mRadioGroup.setOnCheckedChangeListener(this);
-        mPresenter = new VocabularyPresenter(this, mVocabulary.getResult());
-
+        mPresenter = new VocabularyDetailPresenter(this, mVocabulary.getResult());
     }
 
     @Override
@@ -151,6 +149,10 @@ public class VocabularyFragment extends BaseFragment
         mRadioAnswerA.setClickable(false);
         mRadioAnswerB.setClickable(false);
         mRadioAnswerC.setClickable(false);
+    }
+
+    @Override
+    public void run() {
     }
 
     public interface OnAnswerChangeListener {

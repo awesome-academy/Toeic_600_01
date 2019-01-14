@@ -9,6 +9,7 @@ import com.framgia.toeic.data.model.VocabularyLessonItem;
 import com.framgia.toeic.data.source.Callback;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class VocabularyLessonDatabaseHelper implements VocabularyLessonDataSourc
     private static final String COLUMN_ANSWER_B = "question_b";
     private static final String COLUMN_ANSWER_C = "question_c";
     private static final String COLUMN_UNIT = "unit";
+    private static final String COLUMN_COUNT_NUMBER_QUESTION = "count(id)";
     private DBHelper mDBHelper;
 
     public VocabularyLessonDatabaseHelper(DBHelper DBHelper) {
@@ -32,9 +34,10 @@ public class VocabularyLessonDatabaseHelper implements VocabularyLessonDataSourc
 
     public void getVocabularyLessons(Callback<List<VocabularyLessonItem>> callback) {
         try {
-            mDBHelper.createDataBase();
+            mDBHelper.openDatabase();
         } catch (IOException e) {
             callback.onGetDataFail(e);
+            return;
         }
         List<VocabularyLessonItem> vocabularyLessonItems = new ArrayList<>();
         SQLiteDatabase db = mDBHelper.getReadableDatabase();
@@ -51,6 +54,24 @@ public class VocabularyLessonDatabaseHelper implements VocabularyLessonDataSourc
             vocabularyLessonItems.add(vocabularyLessonItem);
         } while (cursorLesson.moveToNext());
         callback.onGetDataSuccess(vocabularyLessonItems);
+        mDBHelper.close();
+    }
+
+    @Override
+    public void getNumberQuestionVocabulary(Callback<Integer> callback) {
+        try {
+            mDBHelper.openDatabase();
+        } catch (IOException e) {
+            callback.onGetDataFail(e);
+            return;
+        }
+        SQLiteDatabase db = mDBHelper.getReadableDatabase();
+        Cursor cursorNumberQuestion = db.query(TABLE_VOCABULARY,
+                new String[]{COLUMN_COUNT_NUMBER_QUESTION},
+                null, null, null, null, null);
+        cursorNumberQuestion.moveToFirst();
+        int numberQuestion = cursorNumberQuestion.getInt(cursorNumberQuestion.getColumnIndex(COLUMN_COUNT_NUMBER_QUESTION));
+        callback.onGetDataSuccess(numberQuestion);
         mDBHelper.close();
     }
 
@@ -72,9 +93,10 @@ public class VocabularyLessonDatabaseHelper implements VocabularyLessonDataSourc
         VocabularyLessonItem lesson = vocabularyLessonItem;
         List<Vocabulary> vocabularies = new ArrayList<>();
         try {
-            mDBHelper.createDataBase();
+            mDBHelper.openDatabase();
         } catch (IOException e) {
             callback.onGetDataFail(e);
+            return;
         }
         SQLiteDatabase db = mDBHelper.getReadableDatabase();
 

@@ -25,4 +25,9 @@ public class VocabularyLessonRepository implements VocabularyLessonDataSource.Lo
     public void getVocabularyLessons(Callback<List<VocabularyLessonItem>> callback) {
         mVocabularyLessonDataSource.getVocabularyLessons(callback);
     }
+
+    @Override
+    public void getNumberQuestionVocabulary(Callback<Integer> callback) {
+        mVocabularyLessonDataSource.getNumberQuestionVocabulary(callback);
+    }
 }

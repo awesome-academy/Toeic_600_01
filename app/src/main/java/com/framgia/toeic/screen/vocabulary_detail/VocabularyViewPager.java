@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.framgia.toeic.data.model.Vocabulary;
-import com.framgia.toeic.screen.vocabulary_detail.fragment_vocabulary.VocabularyFragment;
+import com.framgia.toeic.screen.vocabulary_detail.fragment_vocabulary.VocabularyDetailFragment;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class VocabularyViewPager extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-        Fragment fragment =  VocabularyFragment.newInstance(mVocabularies.get(i), i);
+        Fragment fragment =  VocabularyDetailFragment.newInstance(mVocabularies.get(i), i);
         mFragments.add(fragment);
         return fragment;
     }
