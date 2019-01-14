@@ -12,6 +12,6 @@ public interface GrammarContract {
     }
 
     interface Presenter {
-        void getGrammars();
+        void getGrammarLessons();
     }
 }

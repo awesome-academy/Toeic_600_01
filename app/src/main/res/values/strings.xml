@@ -26,4 +26,5 @@
     <string name="title_listening">Nghe:</string>
     <string name="action_review">Xem lại</string>
     <string name="action_continue">Tiếp tục</string>
+    <string name="file">.pdf</string>
 </resources>

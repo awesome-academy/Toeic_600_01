@@ -10,7 +10,7 @@ public class Grammar extends Question implements Parcelable {
     public Grammar() {
     }
 
-    public Grammar(Grammar.GrammarBuilder grammarBuilder) {
+    public Grammar(GrammarBuilder grammarBuilder) {
         super(grammarBuilder);
         mId = grammarBuilder.mId;
         mIsSelected = grammarBuilder.mIsSelected;
@@ -51,13 +51,13 @@ public class Grammar extends Question implements Parcelable {
         private boolean mIsSelected;
 
         @Override
-        public Grammar.GrammarBuilder setQuestion(String question) {
+        public GrammarBuilder setQuestion(String question) {
             super.setQuestion(question);
             return this;
         }
 
         @Override
-        public Grammar.GrammarBuilder setResult(String result) {
+        public GrammarBuilder setResult(String result) {
             super.setResult(result);
             return this;
         }
@@ -69,30 +69,30 @@ public class Grammar extends Question implements Parcelable {
         }
 
         @Override
-        public Grammar.GrammarBuilder setAnwserB(String anwserB) {
+        public GrammarBuilder setAnwserB(String anwserB) {
             super.setAnwserB(anwserB);
             return this;
         }
 
         @Override
-        public Grammar.GrammarBuilder setAnwserC(String anwserC) {
+        public GrammarBuilder setAnwserC(String anwserC) {
             super.setAnwserC(anwserC);
             return this;
         }
 
         @Override
-        public QuestionBuilder setAnwserD(String anwserD) {
+        public GrammarBuilder setAnwserD(String anwserD) {
             super.setAnwserD(anwserD);
             return this;
         }
 
-        public Grammar.GrammarBuilder setId(int id) {
+        public GrammarBuilder setId(int id) {
             mId = id;
             return this;
         }
 
-        public Grammar.GrammarBuilder setCheck(boolean check) {
-            mIsSelected = check;
+        public GrammarBuilder setIsSelected(boolean isSelected) {
+            mIsSelected = isSelected;
             return this;
         }
 
@@ -100,7 +100,7 @@ public class Grammar extends Question implements Parcelable {
             return mId;
         }
 
-        public boolean isCheck() {
+        public boolean isSelected() {
             return mIsSelected;
         }
 

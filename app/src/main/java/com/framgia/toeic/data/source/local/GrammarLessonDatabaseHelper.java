@@ -2,9 +2,9 @@ package com.framgia.toeic.data.source.local;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.framgia.toeic.data.GrammarLessonDataSource;
+import com.framgia.toeic.data.model.Grammar;
 import com.framgia.toeic.data.model.GrammarLesson;
 import com.framgia.toeic.data.source.Callback;
 
@@ -16,6 +16,15 @@ public class GrammarLessonDatabaseHelper implements GrammarLessonDataSource.Loca
     private static final String TABLE_LESSON_GRAMMAR = "tbl_lesson_grammar";
     private static final String COLUMN_ID_LESSON = "id";
     private static final String COLUMN_NAME = "name";
+    private static final String TABLE_GRAMMAR = "tbl_grammar";
+    private static final String COLUMN_ID_GRAMMAR = "id";
+    private static final String COLUMN_QUESTION = "question";
+    private static final String COLUMN_RESULT = "result";
+    private static final String COLUMN_ANSWER_A = "answer_a";
+    private static final String COLUMN_ANSWER_B = "answer_b";
+    private static final String COLUMN_ANSWER_C = "answer_c";
+    private static final String COLUMN_ANSWER_D = "answer_d";
+    private static final String COLUMN_UNIT = "unit";
     private DBHelper mDBHelper;
 
     public GrammarLessonDatabaseHelper(DBHelper DBHelper) {
@@ -43,6 +52,38 @@ public class GrammarLessonDatabaseHelper implements GrammarLessonDataSource.Loca
             grammarLessons.add(grammarLesson);
         } while (cursorLesson.moveToNext());
         callback.onGetDataSuccess(grammarLessons);
+        mDBHelper.close();
+    }
+
+
+
+    public void getGrammars(GrammarLesson grammarLesson, Callback<List<Grammar>> callback) {
+        GrammarLesson lesson = grammarLesson;
+        List<Grammar> grammars = new ArrayList<>();
+        try {
+            mDBHelper.createDataBase();
+        } catch (IOException e) {
+            callback.onGetDataFail(e);
+        }
+        SQLiteDatabase db = mDBHelper.getReadableDatabase();
+        Cursor cursorGrammar = db.query(TABLE_GRAMMAR,
+                null, COLUMN_UNIT + "=?",
+                new String[]{lesson.getId() + ""},
+                null, null, null, null);
+        cursorGrammar.moveToFirst();
+        do {
+            Grammar grammar = new Grammar.GrammarBuilder()
+                    .setQuestion(cursorGrammar.getString(cursorGrammar.getColumnIndex(COLUMN_QUESTION)))
+                    .setResult(cursorGrammar.getString(cursorGrammar.getColumnIndex(COLUMN_RESULT)))
+                    .setAnwserA(cursorGrammar.getString(cursorGrammar.getColumnIndex(COLUMN_ANSWER_A)))
+                    .setAnwserB(cursorGrammar.getString(cursorGrammar.getColumnIndex(COLUMN_ANSWER_B)))
+                    .setAnwserC(cursorGrammar.getString(cursorGrammar.getColumnIndex(COLUMN_ANSWER_C)))
+                    .setAnwserD(cursorGrammar.getString(cursorGrammar.getColumnIndex(COLUMN_ANSWER_D)))
+                    .setId(cursorGrammar.getInt(cursorGrammar.getColumnIndex(COLUMN_ID_GRAMMAR)))
+                    .setIsSelected(false).build();
+            grammars.add(grammar);
+        } while (cursorGrammar.moveToNext());
+        callback.onGetDataSuccess(grammars);
         mDBHelper.close();
     }
 }

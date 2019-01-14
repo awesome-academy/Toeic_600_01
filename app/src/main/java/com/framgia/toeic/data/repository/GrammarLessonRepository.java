@@ -1,6 +1,7 @@
 package com.framgia.toeic.data.repository;
 
 import com.framgia.toeic.data.GrammarLessonDataSource;
+import com.framgia.toeic.data.model.Grammar;
 import com.framgia.toeic.data.model.GrammarLesson;
 import com.framgia.toeic.data.source.Callback;
 
@@ -24,5 +25,10 @@ public class GrammarLessonRepository implements GrammarLessonDataSource.Local {
     @Override
     public void getGrammarLessons(Callback<List<GrammarLesson>> callback) {
         mLocal.getGrammarLessons(callback);
+    }
+
+    @Override
+    public void getGrammars(GrammarLesson grammarLesson, Callback<List<Grammar>> callback) {
+        mLocal.getGrammars(grammarLesson, callback);
     }
 }
