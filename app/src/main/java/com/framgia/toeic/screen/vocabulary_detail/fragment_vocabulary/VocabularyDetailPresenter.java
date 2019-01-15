@@ -1,16 +1,17 @@
 package com.framgia.toeic.screen.vocabulary_detail.fragment_vocabulary;
 
-public class VocabularyPresenter implements VocabularyDetailContract.Presenter{
+public class VocabularyDetailPresenter implements VocabularyDetailContract.Presenter{
     private VocabularyDetailContract.View mView;
     private String mResult;
-    public VocabularyPresenter(VocabularyDetailContract.View view, String result) {
+
+    public VocabularyDetailPresenter(VocabularyDetailContract.View view, String result) {
         mView = view;
         mResult = result;
     }
 
     @Override
     public void checkAnwser(String chosen) {
-        if (chosen.equals(chosen)){
+        if (chosen.equals(mResult)){
             mView.onRightAnswer();
         } else {
             mView.onWrongAnswer();

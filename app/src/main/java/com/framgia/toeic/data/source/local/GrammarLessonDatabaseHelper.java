@@ -9,6 +9,7 @@ import com.framgia.toeic.data.model.GrammarLesson;
 import com.framgia.toeic.data.source.Callback;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,9 +35,10 @@ public class GrammarLessonDatabaseHelper implements GrammarLessonDataSource.Loca
     @Override
     public void getGrammarLessons(Callback<List<GrammarLesson>> callback) {
         try {
-            mDBHelper.createDataBase();
+            mDBHelper.openDatabase();
         } catch (IOException e) {
             callback.onGetDataFail(e);
+            return;
         }
         List<GrammarLesson> grammarLessons = new ArrayList<>();
         SQLiteDatabase database = mDBHelper.getReadableDatabase();
@@ -61,9 +63,10 @@ public class GrammarLessonDatabaseHelper implements GrammarLessonDataSource.Loca
         GrammarLesson lesson = grammarLesson;
         List<Grammar> grammars = new ArrayList<>();
         try {
-            mDBHelper.createDataBase();
+            mDBHelper.openDatabase();
         } catch (IOException e) {
             callback.onGetDataFail(e);
+            return;
         }
         SQLiteDatabase db = mDBHelper.getReadableDatabase();
         Cursor cursorGrammar = db.query(TABLE_GRAMMAR,

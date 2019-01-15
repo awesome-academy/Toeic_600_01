@@ -11,17 +11,29 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.framgia.toeic.R;
 import com.framgia.toeic.data.source.local.DBHelper;
+import com.framgia.toeic.data.model.Mark;
+import com.framgia.toeic.data.repository.MarkRepository;
+import com.framgia.toeic.data.repository.VocabularyLessonRepository;
+import com.framgia.toeic.data.source.local.MarkDatabaseHelper;
+import com.framgia.toeic.data.source.local.MarkLocalDataSource;
+import com.framgia.toeic.data.source.local.VocabularyLessonDatabaseHelper;
+import com.framgia.toeic.data.source.local.VocabularyLessonLocalDataSource;
 import com.framgia.toeic.screen.base.BaseActivity;
 import com.framgia.toeic.screen.exam.ExamActivity;
 import com.framgia.toeic.screen.grammar.GrammarActivity;
 import com.framgia.toeic.screen.vocabulary.VocabularyActivity;
 
+import java.util.List;
+
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        View.OnClickListener, MainContract.View {
+    private static final int ID_VOCABULARY = 0;
     private static final int BACKGROUNDS_INTRO[] = {R.drawable.bg_intro_1,
             R.drawable.bg_intro_2, R.drawable.bg_intro_3, R.drawable.bg_intro_4};
     private Toolbar mToolbar;
@@ -33,7 +45,7 @@ public class MainActivity extends BaseActivity
     private ProgressBar mProgressExam;
     private DrawerLayout mDrawer;
     private Button mButtonVocabulary, mButtonGrammar, mButtonBasicTest, mButtonExam;
-    private DBHelper mDBHelper;
+    private MainContract.Presenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +63,7 @@ public class MainActivity extends BaseActivity
         setSupportActionBar(mToolbar);
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
-                mDrawer, mToolbar, R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close);
+                mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawer.addDrawerListener(toggle);
         toggle.syncState();
         mNavigationView = findViewById(R.id.nav_view);
@@ -66,6 +77,10 @@ public class MainActivity extends BaseActivity
         mButtonGrammar = findViewById(R.id.button_grammar);
         mButtonBasicTest = findViewById(R.id.button_basic_test);
         mButtonExam = findViewById(R.id.button_exam);
+        mPresenter = new MainPresenter(MarkRepository.getInstance(
+                new MarkLocalDataSource(new MarkDatabaseHelper(new DBHelper(this)))),
+                VocabularyLessonRepository.getInstance(new VocabularyLessonLocalDataSource(
+                        new VocabularyLessonDatabaseHelper(new DBHelper(this)))), this);
     }
 
     @Override
@@ -87,6 +102,7 @@ public class MainActivity extends BaseActivity
         mButtonGrammar.setOnClickListener(this);
         mButtonBasicTest.setOnClickListener(this);
         mButtonExam.setOnClickListener(this);
+        mPresenter.getNumberQuestion();
     }
 
     @Override
@@ -137,6 +153,12 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        mPresenter.getMarks();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_vocabulary:
@@ -170,5 +192,20 @@ public class MainActivity extends BaseActivity
         mViewFlipper.setAutoStart(true);
         mViewFlipper.setInAnimation(this, android.R.anim.slide_in_left);
         mViewFlipper.setOutAnimation(this, android.R.anim.slide_out_right);
+    }
+
+    @Override
+    public void showValueProgressBar(List<Mark> marks) {
+        mProgressVocabulary.setProgress(marks.get(ID_VOCABULARY).getMark());
+    }
+
+    @Override
+    public void setMaxSizeProgressBars(List<Integer> integers) {
+        mProgressVocabulary.setMax(integers.get(ID_VOCABULARY));
+    }
+
+    @Override
+    public void showError(Exception error) {
+        Toast.makeText(this, error.getMessage(), Toast.LENGTH_LONG).show();
     }
 }

@@ -1,4 +1,4 @@
-package com.framgia.toeic.screen.vocabulary_detail;
+package com.framgia.toeic.screen.base;
 
 public interface ShowAnswerListener {
     void notifyFragments();

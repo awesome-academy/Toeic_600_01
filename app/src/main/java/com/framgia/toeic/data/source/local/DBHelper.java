@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,9 +27,13 @@ public class DBHelper extends SQLiteOpenHelper {
         this.mContext = context;
     }
 
-    public void openDataBase() throws SQLException {
+    public void openDatabase() throws IOException {
+        if (!isExistDatabase()) {
+            createDataBase();
+        }
         String path = DB_PATH + DB_NAME;
         mSQLiteDatabase = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
+
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -45,18 +50,10 @@ public class DBHelper extends SQLiteOpenHelper {
         super.close();
     }
 
-    private boolean checkDataBase() {
-        SQLiteDatabase sqLiteDatabase = null;
-        try {
-            String path = DB_PATH + DB_NAME;
-            sqLiteDatabase = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
-        } catch (SQLiteException e) {
-            throw new Error(e.getMessage());
-        }
-        if (sqLiteDatabase != null) {
-            sqLiteDatabase.close();
-        }
-        return sqLiteDatabase != null;
+    public boolean isExistDatabase() {
+        String path = DB_PATH + DB_NAME;
+        File file = new File(path);
+        return file.exists();
     }
 
     private void copyDataBase() throws IOException {
@@ -75,11 +72,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void createDataBase() throws IOException {
         this.getReadableDatabase();
-        try {
-            copyDataBase();
-        } catch (IOException e) {
-            throw new Error(e.getMessage());
-        }
+        copyDataBase();
     }
 
     @Override
