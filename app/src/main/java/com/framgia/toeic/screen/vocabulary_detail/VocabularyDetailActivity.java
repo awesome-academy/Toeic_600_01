@@ -21,6 +21,7 @@ import com.framgia.toeic.data.source.local.DBHelper;
 import com.framgia.toeic.data.source.local.MarkDatabaseHelper;
 import com.framgia.toeic.data.source.local.MarkLocalDataSource;
 import com.framgia.toeic.screen.base.BaseActivity;
+import com.framgia.toeic.screen.base.DepthPageTransformer;
 import com.framgia.toeic.screen.base.DisplayAnswerListener;
 import com.framgia.toeic.screen.base.ShowAnswerListener;
 import com.framgia.toeic.screen.vocabulary_detail.fragment_vocabulary.VocabularyDetailFragment;
@@ -80,10 +81,10 @@ public class VocabularyDetailActivity extends BaseActivity
     @Override
     protected void initData() {
         mVocabularies = getIntent().getParcelableArrayListExtra(EXTRA_LIST_QUESTION);
-        VocabularyViewPager vocabularyViewPager =
-                new VocabularyViewPager(getSupportFragmentManager(), mVocabularies, mVocabularyFragments);
+        VocabularyViewPagerAdapter adapter =
+                new VocabularyViewPagerAdapter(getSupportFragmentManager(), mVocabularies, mVocabularyFragments);
         mViewPager.setPageTransformer(true, new DepthPageTransformer());
-        mViewPager.setAdapter(vocabularyViewPager);
+        mViewPager.setAdapter(adapter);
                 mHandlerCountTime.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -123,8 +124,10 @@ public class VocabularyDetailActivity extends BaseActivity
                 break;
             case R.id.button_review:
                 mDialogResult.dismiss();
+                break;
             case R.id.button_continue:
                 finish();
+                break;
         }
     }
 

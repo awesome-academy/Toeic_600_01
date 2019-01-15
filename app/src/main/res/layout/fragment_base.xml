@@ -21,12 +21,15 @@
 
     <TextView
         android:id="@+id/text_content_question"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_40"
         android:layout_marginLeft="@dimen/dp_40"
         android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/dp_8"
+        android:layout_marginRight="@dimen/dp_8"
         android:textSize="@dimen/sp_20"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_number_question" />
 
@@ -74,5 +77,15 @@
             android:textColor="@color/design_default_color_primary_dark"
             android:textSize="@dimen/sp_20"
             android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/radio_d"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/design_default_color_primary_dark"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/dp_24"
+            android:layout_weight="1" />
     </RadioGroup>
 </android.support.constraint.ConstraintLayout>

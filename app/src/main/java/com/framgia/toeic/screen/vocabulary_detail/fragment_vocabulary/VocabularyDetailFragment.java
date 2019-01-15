@@ -17,17 +17,12 @@ import com.framgia.toeic.R;
 import com.framgia.toeic.data.model.Vocabulary;
 import com.framgia.toeic.screen.base.BaseFragment;
 import com.framgia.toeic.screen.base.DisplayAnswerListener;
+import com.framgia.toeic.screen.base.QuestionFragment;
 
-public class VocabularyDetailFragment extends BaseFragment
+public class VocabularyDetailFragment extends QuestionFragment
         implements RadioGroup.OnCheckedChangeListener, VocabularyDetailContract.View, DisplayAnswerListener, Runnable {
     static final String ARGUMENT_QUESTION = "ARGUMENT_QUESTION";
     static final String ARGUMENT_NUMBER_QUESTION = "ARGUMENT_NUMBER_QUESTION";
-    private TextView mTextViewNumberQuestion;
-    private TextView mTextViewContentQuestion;
-    private RadioButton mRadioAnswerA;
-    private RadioButton mRadioAnswerB;
-    private RadioButton mRadioAnswerC;
-    private RadioGroup mRadioGroup;
     private VocabularyDetailContract.Presenter mPresenter;
     private Vocabulary mVocabulary;
     private int mCurrentQuestionPosition;
@@ -51,24 +46,19 @@ public class VocabularyDetailFragment extends BaseFragment
     }
 
     @Override
-    public int getLayoutResource() {
-        return R.layout.fragment_vocabulary;
-    }
-
-    @Override
     public void initComponent(View view) {
-        mTextViewNumberQuestion = view.findViewById(R.id.text_number_question);
-        mTextViewContentQuestion = view.findViewById(R.id.text_content_question);
-        mRadioAnswerA = view.findViewById(R.id.radio_a);
-        mRadioAnswerB = view.findViewById(R.id.radio_b);
-        mRadioAnswerC = view.findViewById(R.id.radio_c);
-        mRadioGroup = view.findViewById(R.id.radio_group);
+        super.initComponent(view);
     }
 
     @Override
     public void initData() {
         mVocabulary = getArguments().getParcelable(ARGUMENT_QUESTION);
         mCurrentQuestionPosition = getArguments().getInt(ARGUMENT_NUMBER_QUESTION);
+        mPresenter = new VocabularyDetailPresenter(this, mVocabulary.getResult());
+    }
+
+    @Override
+    public void showData() {
         int question = mCurrentQuestionPosition + 1;
         mTextViewNumberQuestion.setText(getResources().getString(R.string.title_question) + (question));
         StringBuilder builder = new StringBuilder();
@@ -77,8 +67,8 @@ public class VocabularyDetailFragment extends BaseFragment
         mRadioAnswerA.setText(mVocabulary.getAnwserA());
         mRadioAnswerB.setText(mVocabulary.getAnwserB());
         mRadioAnswerC.setText(mVocabulary.getAnwserC());
+        mRadioAnswerD.setVisibility(View.GONE);
         mRadioGroup.setOnCheckedChangeListener(this);
-        mPresenter = new VocabularyDetailPresenter(this, mVocabulary.getResult());
     }
 
     @Override
