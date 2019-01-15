@@ -68,7 +68,7 @@ public class VocabularyDetailActivity extends BaseActivity
     @Override
     protected void initComponent() {
         mViewPager = findViewById(R.id.viewPager);
-        mTextViewCheck = findViewById(R.id.text_submit);
+        mTextViewCheck = findViewById(R.id.text_submit_exam);
         mTextViewCheck.setOnClickListener(this);
         mTextViewTime  = findViewById(R.id.text_timer);
         mVocabularyFragments = new ArrayList();
@@ -115,7 +115,7 @@ public class VocabularyDetailActivity extends BaseActivity
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.text_submit:
+            case R.id.text_submit_exam:
                 mPresenter.checkResult(ID_VOCABULARY,  mVocabularies);
                 mHandlerCountTime.removeCallbacksAndMessages(null);
                 notifyFragments();
@@ -123,8 +123,10 @@ public class VocabularyDetailActivity extends BaseActivity
                 break;
             case R.id.button_review:
                 mDialogResult.dismiss();
+                break;
             case R.id.button_continue:
                 finish();
+                break;
         }
     }
 

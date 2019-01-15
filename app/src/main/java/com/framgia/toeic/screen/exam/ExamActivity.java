@@ -14,11 +14,13 @@ import com.framgia.toeic.data.repository.ExamLessonRepository;
 import com.framgia.toeic.data.source.local.DBHelper;
 import com.framgia.toeic.data.source.local.ExamLessonDatabaseHelper;
 import com.framgia.toeic.data.source.local.ExamLessonLocalDataSource;
+import com.framgia.toeic.screen.ExamDetailActivity;
 import com.framgia.toeic.screen.base.BaseActivity;
 
 import java.util.List;
 
-public class ExamActivity extends BaseActivity implements ExamContract.View {
+public class ExamActivity extends BaseActivity implements ExamContract.View,
+        ExamLessonAdapter.OnItemClickListener {
     private ExamLessonAdapter mLessonAdapter;
     private ExamContract.Presenter mPresenter;
     private RecyclerView mRecyclerView;
@@ -64,7 +66,7 @@ public class ExamActivity extends BaseActivity implements ExamContract.View {
 
     @Override
     public void showExams(List<ExamLesson> examLessons) {
-        mLessonAdapter = new ExamLessonAdapter(this, examLessons);
+        mLessonAdapter = new ExamLessonAdapter(examLessons, this);
         mRecyclerView.setLayoutManager(new
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mLessonAdapter);
@@ -73,5 +75,10 @@ public class ExamActivity extends BaseActivity implements ExamContract.View {
     @Override
     public void showError(Exception e) {
         Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(ExamLesson examLesson) {
+        startActivity(ExamDetailActivity.getIntent(this));
     }
 }

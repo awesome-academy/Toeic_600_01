@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.framgia.toeic">
-    
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,5 +29,8 @@
             android:name=".screen.grammar_test.GrammarTestActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".screen.exam.ExamActivity" />
+        <activity
+            android:name=".screen.ExamDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 </manifest>
