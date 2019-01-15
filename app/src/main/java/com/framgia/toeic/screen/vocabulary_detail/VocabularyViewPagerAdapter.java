@@ -9,11 +9,11 @@ import com.framgia.toeic.screen.vocabulary_detail.fragment_vocabulary.Vocabulary
 
 import java.util.List;
 
-public class VocabularyViewPager extends FragmentPagerAdapter {
+public class VocabularyViewPagerAdapter extends FragmentPagerAdapter {
     private List<Vocabulary> mVocabularies;
     private List<Fragment> mFragments;
 
-    public VocabularyViewPager(FragmentManager fm, List<Vocabulary> vocabularies, List<Fragment> fragments) {
+    public VocabularyViewPagerAdapter(FragmentManager fm, List<Vocabulary> vocabularies, List<Fragment> fragments) {
         super(fm);
         mVocabularies = vocabularies;
         mFragments = fragments;

@@ -1,4 +1,4 @@
-package com.framgia.toeic.screen.vocabulary_detail;
+package com.framgia.toeic.screen.base;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;

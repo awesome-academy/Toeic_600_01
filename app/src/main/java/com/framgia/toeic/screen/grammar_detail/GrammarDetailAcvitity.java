@@ -15,8 +15,8 @@ import com.github.barteksc.pdfviewer.PDFView;
 public class GrammarDetailAcvitity extends BaseActivity {
     static final String EXTRA_LESSON = "EXTRA_LESSON";
     private PDFView mPDFView;
-
-    public static Intent getItent(Context context, GrammarLesson grammarLesson) {
+    private GrammarLesson mLesson;
+    public static Intent getIntent(Context context, GrammarLesson grammarLesson) {
         Intent intent = new Intent(context, GrammarDetailAcvitity.class);
         intent.putExtra(EXTRA_LESSON, grammarLesson);
         return intent;
@@ -54,7 +54,7 @@ public class GrammarDetailAcvitity extends BaseActivity {
                 finish();
                 break;
             case R.id.action_next:
-                startActivity(GrammarTestActivity.getGrammarTestIntent(this));
+                startActivity(GrammarTestActivity.getIntent(this, mLesson.getGrammars()));
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -62,8 +62,8 @@ public class GrammarDetailAcvitity extends BaseActivity {
 
     @Override
     protected void initData() {
-        GrammarLesson lesson = getIntent().getExtras().getParcelable(EXTRA_LESSON);
-        mPDFView.fromAsset(lesson.getName() + getResources().getString(R.string.file))
+        mLesson = getIntent().getExtras().getParcelable(EXTRA_LESSON);
+        mPDFView.fromAsset(mLesson.getName() + getResources().getString(R.string.file))
                 .enableAnnotationRendering(false)
                 .enableSwipe(true)
                 .load();

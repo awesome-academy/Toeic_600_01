@@ -22,6 +22,10 @@ public class Grammar extends Question implements Parcelable {
         mIsSelected = in.readByte() != 0;
     }
 
+    public void setIsSelected(boolean isSelected) {
+        mIsSelected = isSelected;
+    }
+
     public static final Creator<Grammar> CREATOR = new Creator<Grammar>() {
         @Override
         public Grammar createFromParcel(Parcel in) {

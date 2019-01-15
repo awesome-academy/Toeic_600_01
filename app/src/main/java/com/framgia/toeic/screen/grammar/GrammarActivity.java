@@ -79,6 +79,6 @@ public class GrammarActivity extends BaseActivity implements GrammarContract.Vie
 
     @Override
     public void onClick(GrammarLesson grammarLesson) {
-        startActivity(GrammarDetailAcvitity.getItent(this, grammarLesson));
+        startActivity(GrammarDetailAcvitity.getIntent(this, grammarLesson));
     }
 }
