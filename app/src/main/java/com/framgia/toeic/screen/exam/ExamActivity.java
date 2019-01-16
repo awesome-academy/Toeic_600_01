@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -14,8 +15,8 @@ import com.framgia.toeic.data.repository.ExamLessonRepository;
 import com.framgia.toeic.data.source.local.DBHelper;
 import com.framgia.toeic.data.source.local.ExamLessonDatabaseHelper;
 import com.framgia.toeic.data.source.local.ExamLessonLocalDataSource;
-import com.framgia.toeic.screen.ExamDetailActivity;
 import com.framgia.toeic.screen.base.BaseActivity;
+import com.framgia.toeic.screen.exam_detail.ExamDetailActivity;
 
 import java.util.List;
 
@@ -79,6 +80,6 @@ public class ExamActivity extends BaseActivity implements ExamContract.View,
 
     @Override
     public void onClick(ExamLesson examLesson) {
-        startActivity(ExamDetailActivity.getIntent(this));
+        startActivity(ExamDetailActivity.getIntent(this,examLesson));
     }
 }

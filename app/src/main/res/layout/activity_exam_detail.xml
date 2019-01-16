@@ -44,7 +44,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_submit_exam"
+        android:id="@+id/text_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_8"
@@ -69,7 +69,7 @@
         android:layout_marginBottom="@dimen/dp_8"
         android:background="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="@+id/text_background"
-        app:layout_constraintEnd_toStartOf="@+id/text_submit_exam"
+        app:layout_constraintEnd_toStartOf="@+id/text_submit"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView

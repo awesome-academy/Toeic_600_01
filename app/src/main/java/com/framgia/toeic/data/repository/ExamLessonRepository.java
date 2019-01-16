@@ -1,6 +1,7 @@
 package com.framgia.toeic.data.repository;
 
 import com.framgia.toeic.data.ExamLessonDataSource;
+import com.framgia.toeic.data.model.Exam;
 import com.framgia.toeic.data.model.ExamLesson;
 import com.framgia.toeic.data.source.Callback;
 
@@ -24,5 +25,10 @@ public class ExamLessonRepository implements ExamLessonDataSource.Local {
     @Override
     public void getExamLessons(Callback<List<ExamLesson>> callback) {
         mLocal.getExamLessons(callback);
+    }
+
+    @Override
+    public void getExams(ExamLesson examLesson, Callback<List<Exam>> callback) {
+        mLocal.getExams(examLesson, callback);
     }
 }
