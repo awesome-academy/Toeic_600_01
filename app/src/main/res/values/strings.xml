@@ -27,4 +27,11 @@
     <string name="action_review">Xem lại</string>
     <string name="action_continue">Tiếp tục</string>
     <string name="file">.pdf</string>
+    <string name="title_number_true">Số câu đúng:</string>
+    <string name="title_number_false">Số câu sai:</string>
+    <string name="title_very_good">Xuất sắc</string>
+    <string name="title_good">Tốt</string>
+    <string name="title_normal">Bình thường</string>
+    <string name="title_bad">Kém</string>
+    <string name="title_very_bad">Rất kém</string>
 </resources>

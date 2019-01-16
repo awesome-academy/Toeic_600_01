@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,9 +19,9 @@ import com.framgia.toeic.data.repository.MarkRepository;
 import com.framgia.toeic.data.source.local.DBHelper;
 import com.framgia.toeic.data.source.local.MarkDatabaseHelper;
 import com.framgia.toeic.data.source.local.MarkLocalDataSource;
-import com.framgia.toeic.screen.base.BaseActivity;
 import com.framgia.toeic.screen.base.DepthPageTransformer;
 import com.framgia.toeic.screen.base.DisplayAnswerListener;
+import com.framgia.toeic.screen.base.ResultTest;
 import com.framgia.toeic.screen.base.ShowAnswerListener;
 import com.framgia.toeic.screen.vocabulary_detail.fragment_vocabulary.VocabularyDetailFragment;
 
@@ -32,7 +31,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class VocabularyDetailActivity extends BaseActivity
+public class VocabularyDetailActivity extends ResultTest
         implements VocabularyDetailContract.View, VocabularyDetailFragment.OnAnswerChangeListener,
         ShowAnswerListener, View.OnClickListener, ViewPager.OnPageChangeListener {
     private static final String EXTRA_LIST_QUESTION = "EXTRA_LIST_QUESTION";
@@ -51,8 +50,7 @@ public class VocabularyDetailActivity extends BaseActivity
 
     public static Intent getIntent(Context context, List<Vocabulary> vocabularies) {
         Intent intent = new Intent(context, VocabularyDetailActivity.class);
-        intent.putParcelableArrayListExtra(EXTRA_LIST_QUESTION,
-                (ArrayList<? extends Parcelable>) vocabularies);
+        intent.putParcelableArrayListExtra(EXTRA_LIST_QUESTION, (ArrayList<? extends Parcelable>) vocabularies);
         return intent;
     }
 
@@ -71,30 +69,30 @@ public class VocabularyDetailActivity extends BaseActivity
         mViewPager = findViewById(R.id.viewPager);
         mTextViewCheck = findViewById(R.id.text_submit);
         mTextViewCheck.setOnClickListener(this);
-        mTextViewTime  = findViewById(R.id.text_timer);
+        mTextViewTime = findViewById(R.id.text_timer);
         mVocabularyFragments = new ArrayList();
-        mPresenter = new VocabularyDetailPresenter(this, MarkRepository.getInstance(
-                new MarkLocalDataSource(new MarkDatabaseHelper(new DBHelper(this)))));
+        mPresenter = new VocabularyDetailPresenter(this,
+                MarkRepository.getInstance(new MarkLocalDataSource(
+                        new MarkDatabaseHelper(new DBHelper(this)))));
         mHandlerCountTime = new Handler();
     }
 
     @Override
     protected void initData() {
         mVocabularies = getIntent().getParcelableArrayListExtra(EXTRA_LIST_QUESTION);
-        VocabularyViewPagerAdapter adapter =
-                new VocabularyViewPagerAdapter(getSupportFragmentManager(), mVocabularies, mVocabularyFragments);
+        VocabularyViewPagerAdapter adapter = new VocabularyViewPagerAdapter(
+                getSupportFragmentManager(), mVocabularies, mVocabularyFragments);
         mViewPager.setPageTransformer(true, new DepthPageTransformer());
         mViewPager.setAdapter(adapter);
-                mHandlerCountTime.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mHandlerCountTime.postDelayed(this, TRANFER_SECOND_TO_MILISECOND);
-                        mCountTime++;
-                        mTextViewTime.setText(getStringDatefromlong(mCountTime));
-                    }
-                }, 0);
+        mHandlerCountTime.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mHandlerCountTime.postDelayed(this, TRANFER_SECOND_TO_MILISECOND);
+                mCountTime++;
+                mTextViewTime.setText(getStringDatefromlong(mCountTime));
+            }
+        }, 0);
     }
-
 
     @Override
     public void onChanged(Vocabulary vocabulary) {
@@ -106,7 +104,7 @@ public class VocabularyDetailActivity extends BaseActivity
 
     @Override
     public void notifyFragments() {
-        for (Fragment fragment: mVocabularyFragments) {
+        for (Fragment fragment : mVocabularyFragments) {
             DisplayAnswerListener displayAnswerListener = (DisplayAnswerListener) fragment;
             displayAnswerListener.showAnswer();
             displayAnswerListener.disableClick();
@@ -132,22 +130,6 @@ public class VocabularyDetailActivity extends BaseActivity
     }
 
     @Override
-    public void showDialogResult(int mark) {
-        mDialogResult = new Dialog(this);
-        mDialogResult.setContentView(R.layout.dialog_result);
-        TextView textViewMark = mDialogResult.findViewById(R.id.text_mark);
-        TextView textViewTime = mDialogResult.findViewById(R.id.text_time);
-        Button buttonReview = mDialogResult.findViewById(R.id.button_review);
-        Button buttonContinue = mDialogResult.findViewById(R.id.button_continue);
-        textViewMark.setText(mark + "/" + mVocabularies.size());
-        textViewTime.setText(mTextViewTime.getText().toString());
-        buttonReview.setOnClickListener(this);
-        buttonContinue.setOnClickListener(this);
-        mDialogResult.setCanceledOnTouchOutside(false);
-        mDialogResult.show();
-    }
-
-    @Override
     public void showError(Exception error) {
         Toast.makeText(this, error.getMessage(), Toast.LENGTH_LONG).show();
     }
@@ -166,7 +148,7 @@ public class VocabularyDetailActivity extends BaseActivity
     }
 
     private String getStringDatefromlong(int countTime) {
-        Date date = new Date(countTime*TRANFER_SECOND_TO_MILISECOND);
+        Date date = new Date(countTime * TRANFER_SECOND_TO_MILISECOND);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(FORMAT_TIME, Locale.getDefault());
         return simpleDateFormat.format(date);
     }

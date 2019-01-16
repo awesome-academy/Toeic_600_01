@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface VocabularyDetailContract {
     interface View {
-        void showDialogResult(int mark);
+        void showDialogResult(int mark, int rating);
         void showError(Exception error);
     }
 
