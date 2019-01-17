@@ -3,6 +3,7 @@ package com.framgia.toeic.screen.grammar_test;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -58,12 +59,13 @@ public class GrammarTestActivity extends ResultTest implements ShowAnswerListene
         mViewPager = findViewById(R.id.viewPager);
         mTextViewCheck = findViewById(R.id.text_submit);
         mTextViewCheck.setOnClickListener(this);
-        mTextViewTime = findViewById(R.id.text_time);
+        mTextViewTime = findViewById(R.id.text_timer);
         mFragments = new ArrayList<>();
         mPresenter = new GrammarTestPresenter(this,
                 MarkRepository.getInstance(new MarkLocalDataSource(
                         new MarkDatabaseHelper(new DBHelper(this)))));
-
+        mHandler = new Handler();
+        mCountTime = START_TIME;
     }
 
     @Override
@@ -72,6 +74,14 @@ public class GrammarTestActivity extends ResultTest implements ShowAnswerListene
         GrammarViewPagerAdapter adapter = new GrammarViewPagerAdapter(
                 getSupportFragmentManager(), mGrammars, mFragments);
         mViewPager.setAdapter(adapter);
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mCountTime++;
+                mHandler.postDelayed(this, TRANFER_SECOND_TO_MILISECOND);
+                mTextViewTime.setText(getStringDatefromlong(mCountTime));
+            }
+        }, 0);
     }
 
     @Override
@@ -100,6 +110,7 @@ public class GrammarTestActivity extends ResultTest implements ShowAnswerListene
     public void showDialogResult(int mark, int rating) {
         super.showDialogResult(mark, rating);
         mTextViewFalse.setText(mGrammars.size() - mark + "");
+        mTextViewTimeResult.setText(mTextViewTime.getText());
     }
 
     @Override
@@ -122,6 +133,7 @@ public class GrammarTestActivity extends ResultTest implements ShowAnswerListene
         switch (v.getId()) {
             case R.id.text_submit:
                 mPresenter.checkResult(GRAMMAR_ID, mGrammars);
+                mHandler.removeCallbacksAndMessages(null);
                 notifyFragments();
                 mViewPager.addOnPageChangeListener(this);
                 break;

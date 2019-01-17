@@ -35,18 +35,13 @@ public class VocabularyDetailActivity extends ResultTest
         implements VocabularyDetailContract.View, VocabularyDetailFragment.OnAnswerChangeListener,
         ShowAnswerListener, View.OnClickListener, ViewPager.OnPageChangeListener {
     private static final String EXTRA_LIST_QUESTION = "EXTRA_LIST_QUESTION";
-    private static final String FORMAT_TIME = "mm:ss";
     private static final int ID_VOCABULARY = 1;
-    private static final int TRANFER_SECOND_TO_MILISECOND = 1000;
     private ViewPager mViewPager;
     private TextView mTextViewCheck;
     private TextView mTextViewTime;
     private ArrayList<Vocabulary> mVocabularies;
     private List<Fragment> mVocabularyFragments;
-    private Dialog mDialogResult;
     private VocabularyDetailContract.Presenter mPresenter;
-    private Handler mHandlerCountTime;
-    private int mCountTime;
 
     public static Intent getIntent(Context context, List<Vocabulary> vocabularies) {
         Intent intent = new Intent(context, VocabularyDetailActivity.class);
@@ -74,7 +69,8 @@ public class VocabularyDetailActivity extends ResultTest
         mPresenter = new VocabularyDetailPresenter(this,
                 MarkRepository.getInstance(new MarkLocalDataSource(
                         new MarkDatabaseHelper(new DBHelper(this)))));
-        mHandlerCountTime = new Handler();
+        mHandler = new Handler();
+        mCountTime = START_TIME;
     }
 
     @Override
@@ -84,10 +80,10 @@ public class VocabularyDetailActivity extends ResultTest
                 getSupportFragmentManager(), mVocabularies, mVocabularyFragments);
         mViewPager.setPageTransformer(true, new DepthPageTransformer());
         mViewPager.setAdapter(adapter);
-        mHandlerCountTime.postDelayed(new Runnable() {
+        mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mHandlerCountTime.postDelayed(this, TRANFER_SECOND_TO_MILISECOND);
+                mHandler.postDelayed(this, TRANFER_SECOND_TO_MILISECOND);
                 mCountTime++;
                 mTextViewTime.setText(getStringDatefromlong(mCountTime));
             }
@@ -112,11 +108,18 @@ public class VocabularyDetailActivity extends ResultTest
     }
 
     @Override
+    public void showDialogResult(int mark, int rating) {
+        super.showDialogResult(mark, rating);
+        mTextViewFalse.setText(mark+"");
+        mTextViewTimeResult.setText(mTextViewTime.getText());
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.text_submit:
                 mPresenter.checkResult(ID_VOCABULARY,  mVocabularies);
-                mHandlerCountTime.removeCallbacksAndMessages(null);
+                mHandler.removeCallbacksAndMessages(null);
                 notifyFragments();
                 mViewPager.addOnPageChangeListener(this);
                 break;
@@ -145,11 +148,5 @@ public class VocabularyDetailActivity extends ResultTest
 
     @Override
     public void onPageScrollStateChanged(int i) {
-    }
-
-    private String getStringDatefromlong(int countTime) {
-        Date date = new Date(countTime * TRANFER_SECOND_TO_MILISECOND);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(FORMAT_TIME, Locale.getDefault());
-        return simpleDateFormat.format(date);
     }
 }
