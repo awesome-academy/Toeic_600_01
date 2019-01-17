@@ -30,7 +30,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".screen.exam.ExamActivity" />
         <activity
-            android:name=".screen.ExamDetailActivity"
+            android:name=".screen.exam_detail.ExamDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 </manifest>
