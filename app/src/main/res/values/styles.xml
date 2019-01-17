@@ -23,4 +23,9 @@
         <item name="android:textStyle">italic</item>
     </style>
 
+    <style name="RatingBar" parent="Base.Widget.AppCompat.RatingBar" >
+        <item name="colorControlNormal">@color/material_orange_300</item>
+        <item name="colorControlActivated">@color/material_orange_300</item>
+    </style>
+
 </resources>

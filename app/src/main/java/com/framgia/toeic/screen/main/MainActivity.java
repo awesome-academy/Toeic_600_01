@@ -34,6 +34,9 @@ public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         View.OnClickListener, MainContract.View {
     private static final int ID_VOCABULARY = 0;
+    private static final int ID_GRAMMAR = 1;
+    private static final int ID_BASIC_TEST = 2;
+    private static final int ID_EXAM = 3;
     private static final int BACKGROUNDS_INTRO[] = {R.drawable.bg_intro_1,
             R.drawable.bg_intro_2, R.drawable.bg_intro_3, R.drawable.bg_intro_4};
     private Toolbar mToolbar;
@@ -174,7 +177,6 @@ public class MainActivity extends BaseActivity
 
             case R.id.button_exam:
                 startActivity(ExamActivity.getExamActivity(this));
-
                 break;
         }
     }
@@ -197,6 +199,9 @@ public class MainActivity extends BaseActivity
     @Override
     public void showValueProgressBar(List<Mark> marks) {
         mProgressVocabulary.setProgress(marks.get(ID_VOCABULARY).getMark());
+        mProgressGrammar.setProgress(marks.get(ID_GRAMMAR).getMark());
+        mProgressBasicTest.setProgress(marks.get(ID_BASIC_TEST).getMark());
+        mProgressExam.setProgress(marks.get(ID_EXAM).getMark());
     }
 
     @Override

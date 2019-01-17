@@ -10,4 +10,6 @@
     <color name="material_white_100">#f9f6f6</color>
     <color name="material_teal_400">#30abaa</color>
     <color name="material_blue_grey_700">#2d5d82</color>
+    <color name="light_green_accent_700">#0cfd04</color>
+    <color name="red_accent_700">#fd0404</color>
 </resources>
