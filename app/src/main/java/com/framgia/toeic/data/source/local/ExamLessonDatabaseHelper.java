@@ -26,6 +26,7 @@ public class ExamLessonDatabaseHelper implements ExamLessonDataSource.Local {
     private static final String COLUMN_ANSWER_D = "answer_d";
     private static final String COLUMN_ID_IMAGE = "id_image";
     private static final String COLUMN_UNIT = "id_lesson";
+    private static final String COLUMN_MAX_MARK = "max_mark";
     private DBHelper mDBHelper;
 
     public ExamLessonDatabaseHelper(DBHelper DBHelper) {
@@ -50,7 +51,9 @@ public class ExamLessonDatabaseHelper implements ExamLessonDataSource.Local {
             ExamLesson examLesson;
             examLesson = new ExamLesson(cursorLesson.getInt(
                     cursorLesson.getColumnIndex(COLUMN_ID_LESSON)),
-                    cursorLesson.getString(cursorLesson.getColumnIndex(COLUMN_NAME)));
+                    cursorLesson.getString(cursorLesson.getColumnIndex(COLUMN_NAME)),
+            cursorLesson.getInt(cursorLesson.getColumnIndex(COLUMN_MAX_MARK)));
+
             examLessons.add(examLesson);
         } while (cursorLesson.moveToNext());
         callback.onGetDataSuccess(examLessons);

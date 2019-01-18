@@ -9,7 +9,24 @@
     <color name="material_red_accent_200">#F95F62</color>
     <color name="material_white_100">#f9f6f6</color>
     <color name="material_teal_400">#30abaa</color>
-    <color name="material_blue_grey_700">#2d5d82</color>
     <color name="light_green_accent_700">#0cfd04</color>
     <color name="red_accent_700">#fd0404</color>
+    <color name="trasparent">#1effffff</color>
+    <color name="material_teal_300">#43C6AC</color>
+    <color name="text_hint">#abffffff</color>
+    <color name="material_cyan_500">#01bcd4</color>
+    <color name="material_brown_600">#6e3159</color>
+    <color name="material_red_400">#ef5555</color>
+    <color name="material_grey_200">#ededed</color>
+    <color name="marterial_deep_purple_200">#e8e6fa</color>
+    <color name="marterial_indigo_400">#7266ba</color>
+    <color name="marterial_indigo_500">#3f009e</color>
+    <color name="material_cyan_300">#47e3c2</color>
+    <color name="material_accent_700">#11c698</color>
+    <color name="test_grammar">#ffe259</color>
+    <color name="white">#ffffff</color>
+    <color name="tranperant_white">#e1dfdf</color>
+    <color name="material_blue_500">#00A6FF</color>
+    <color name="material_blue_dark">#2962FF</color>
+    <color name="material_red_dark_600">#ffcc0000</color>
 </resources>

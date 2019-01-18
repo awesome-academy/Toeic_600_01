@@ -1,5 +1,7 @@
 package com.framgia.toeic.screen.main;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,6 +26,7 @@ import com.framgia.toeic.data.source.local.MarkLocalDataSource;
 import com.framgia.toeic.data.source.local.VocabularyLessonDatabaseHelper;
 import com.framgia.toeic.data.source.local.VocabularyLessonLocalDataSource;
 import com.framgia.toeic.screen.base.BaseActivity;
+import com.framgia.toeic.screen.basic_test.BasicTestActivity;
 import com.framgia.toeic.screen.exam.ExamActivity;
 import com.framgia.toeic.screen.grammar.GrammarActivity;
 import com.framgia.toeic.screen.vocabulary.VocabularyActivity;
@@ -49,6 +52,10 @@ public class MainActivity extends BaseActivity
     private DrawerLayout mDrawer;
     private Button mButtonVocabulary, mButtonGrammar, mButtonBasicTest, mButtonExam;
     private MainContract.Presenter mPresenter;
+
+    public static Intent getMainIntent(Context context){
+        return new Intent(context,MainActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +138,7 @@ public class MainActivity extends BaseActivity
                 break;
 
             case R.id.nav_basic_test:
+                startActivity(BasicTestActivity.getIntent(this));
                 break;
 
             case R.id.nav_exam:
