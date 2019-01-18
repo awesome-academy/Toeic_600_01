@@ -34,4 +34,5 @@
     <string name="title_normal">Bình thường</string>
     <string name="title_bad">Kém</string>
     <string name="title_very_bad">Rất kém</string>
+    <string name="title_start">Start</string>
 </resources>
