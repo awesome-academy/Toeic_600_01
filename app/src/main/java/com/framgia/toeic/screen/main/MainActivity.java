@@ -17,16 +17,15 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.framgia.toeic.R;
-import com.framgia.toeic.data.source.local.DBHelper;
 import com.framgia.toeic.data.model.Mark;
 import com.framgia.toeic.data.repository.MarkRepository;
 import com.framgia.toeic.data.repository.VocabularyLessonRepository;
+import com.framgia.toeic.data.source.local.DBHelper;
 import com.framgia.toeic.data.source.local.MarkDatabaseHelper;
 import com.framgia.toeic.data.source.local.MarkLocalDataSource;
 import com.framgia.toeic.data.source.local.VocabularyLessonDatabaseHelper;
 import com.framgia.toeic.data.source.local.VocabularyLessonLocalDataSource;
 import com.framgia.toeic.screen.base.BaseActivity;
-import com.framgia.toeic.screen.basic_test.BasicTestActivity;
 import com.framgia.toeic.screen.exam.ExamActivity;
 import com.framgia.toeic.screen.grammar.GrammarActivity;
 import com.framgia.toeic.screen.vocabulary.VocabularyActivity;
@@ -53,8 +52,8 @@ public class MainActivity extends BaseActivity
     private Button mButtonVocabulary, mButtonGrammar, mButtonBasicTest, mButtonExam;
     private MainContract.Presenter mPresenter;
 
-    public static Intent getMainIntent(Context context){
-        return new Intent(context,MainActivity.class);
+    public static Intent getMainIntent(Context context) {
+        return new Intent(context, MainActivity.class);
     }
 
     @Override
@@ -138,12 +137,10 @@ public class MainActivity extends BaseActivity
                 break;
 
             case R.id.nav_basic_test:
-                startActivity(BasicTestActivity.getIntent(this));
                 break;
 
             case R.id.nav_exam:
                 startActivity(ExamActivity.getExamActivity(this));
-
                 break;
 
             case R.id.nav_share:
