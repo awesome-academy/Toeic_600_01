@@ -37,6 +37,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".screen.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".screen.basic_test.BasicTestActivity" />
         <service android:name=".screen.splash.ImageService"/>
         <service android:name=".screen.splash.AudioService"/>
     </application>
