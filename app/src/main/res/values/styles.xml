@@ -17,26 +17,31 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="LessonTitle" parent="TextAppearance.AppCompat.Large"/>
+    <style name="LessonTitle" parent="TextAppearance.AppCompat.Large" />
 
     <style name="LessonDescription" parent="TextAppearance.AppCompat.Medium">
         <item name="android:textStyle">italic</item>
     </style>
 
-    <style name="RatingBar" parent="Base.Widget.AppCompat.RatingBar" >
+    <style name="RatingBar" parent="Base.Widget.AppCompat.RatingBar">
         <item name="colorControlNormal">@color/material_orange_300</item>
         <item name="colorControlActivated">@color/material_orange_300</item>
     </style>
 
-    <style name="MyCheckBox" parent="Theme.AppCompat.NoActionBar">
-        <item name="colorControlNormal">#ffffff</item>   <!-- normal border color change as you wish -->
-        <item name="colorControlActivated">#ffffff</item> <!-- activated color change as you wish -->
-    </style>
-
-    <style name="RatingBar1" parent="Base.Widget.AppCompat.RatingBar" >
+    <style name="RatingBar1" parent="Base.Widget.AppCompat.RatingBar">
         <item name="colorControlNormal">@color/white</item>
         <item name="colorControlActivated">@color/white</item>
     </style>
 
+    <style name="MyCheckBox" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorControlNormal">#ffffff
+        </item>   <!-- normal border color change as you wish -->
+        <item name="colorControlActivated">#ffffff
+        </item> <!-- activated color change as you wish -->
+    </style>
 
+    <style name="foodRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:minHeight">22dip</item>
+        <item name="android:maxHeight">22dip</item>
+    </style>
 </resources>
