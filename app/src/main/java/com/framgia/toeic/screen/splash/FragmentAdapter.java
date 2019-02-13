@@ -43,15 +43,16 @@ public class FragmentAdapter extends PagerAdapter {
             R.string.button_intro_2
     };
     private Context mContext;
-    private OnPageChangeListener mOnNext;
+    private OnPageChangeListener mListener;
     private ConstraintLayout mLayoutIntro;
     private ImageView mImageIntro;
     private TextView mTitleIntro;
     private TextView mDesIntro;
     private Button mButtonIntro;
 
-    public FragmentAdapter(Context context) {
-        this.mContext = context;
+    public FragmentAdapter(Context context, OnPageChangeListener listener) {
+        mContext = context;
+        mListener = listener;
     }
 
     @Override
@@ -76,12 +77,12 @@ public class FragmentAdapter extends PagerAdapter {
         container.addView(view);
         return view;
     }
-    public void addItem(final int position){
-        mOnNext = (OnPageChangeListener) mContext;
+
+    public void addItem(final int position) {
         mButtonIntro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnNext.setPosision(position);
+                mListener.setPosision(position);
             }
         });
         mLayoutIntro.setBackgroundResource(BACKGROUND_COLORS[position]);
@@ -97,6 +98,6 @@ public class FragmentAdapter extends PagerAdapter {
     }
 
     public interface OnPageChangeListener {
-        void setPosision(int i);
+        void setPosision(int posision);
     }
 }

@@ -84,7 +84,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View,
     protected void initComponent() {
         mViewPager = findViewById(R.id.viewpager);
         mDotLayout = findViewById(R.id.linear_dot);
-        mAdapter = new FragmentAdapter(this);
+        mAdapter = new FragmentAdapter(this,this);
         mViewPager.setAdapter(mAdapter);
         mHandler = new Handler();
         mPresenter = new SplashPresenter(this, FileRepository.getInstance(
@@ -158,10 +158,10 @@ public class SplashActivity extends BaseActivity implements SplashContract.View,
     }
 
     @Override
-    public void setPosision(int i) {
-        if (i == mAdapter.getCount() - 1) {
+    public void setPosision(int posision) {
+        if (posision == mAdapter.getCount() - 1) {
             startActivity(MainActivity.getMainIntent(SplashActivity.this));
         }
-        mViewPager.setCurrentItem(++i, true);
+        mViewPager.setCurrentItem(++posision, true);
     }
 }
