@@ -29,7 +29,7 @@ public class GrammarDetailAcvitity extends BaseActivity {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.activity_grammar_detail_acvitity;
+        return R.layout.activity_grammar_detail;
     }
 
     @Override

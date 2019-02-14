@@ -2,6 +2,7 @@ package com.framgia.toeic.screen.vocabulary;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -41,6 +42,8 @@ public class VocabularyActivity extends BaseActivity implements View.OnClickList
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(getResources().getString(R.string.action_vocabulary));
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor
+                (R.color.material_cyan_300)));
         findViewById(R.id.fab_next).setOnClickListener(this);
         mRecyclerView = findViewById(R.id.recycler_vocabulary_lesson);
     }
