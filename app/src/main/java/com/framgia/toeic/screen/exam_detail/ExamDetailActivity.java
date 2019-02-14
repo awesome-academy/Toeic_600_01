@@ -40,13 +40,7 @@ public class ExamDetailActivity extends ResultTest {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        Window window = getWindow();
         super.onCreate(savedInstanceState);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.material_accent_700));
-        }
     }
 
     @Override
@@ -85,29 +79,6 @@ public class ExamDetailActivity extends ResultTest {
         mTextViewSubmit.setOnClickListener(this);
         mImagePlayPause.setOnClickListener(this);
         playMedia(mLesson.getId(), EXTENSION_MEDIA);
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mSeekBar.setProgress(MediaPlayerInstance.getInstance().getCurrentPosition());
-                mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                    @Override
-                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    }
-
-                    @Override
-                    public void onStartTrackingTouch(SeekBar seekBar) {
-                        MediaPlayerInstance.getInstance().pause();
-                    }
-
-                    @Override
-                    public void onStopTrackingTouch(SeekBar seekBar) {
-                        MediaPlayerInstance.getInstance().seekTo(seekBar.getProgress());
-                        MediaPlayerInstance.getInstance().start();
-                    }
-                });
-                mHandler.postDelayed(this, TRANFER_SECOND_TO_MILISECOND);
-            }
-        }, 0);
     }
 
     @Override

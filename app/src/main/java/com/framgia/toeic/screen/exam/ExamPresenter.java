@@ -2,6 +2,7 @@ package com.framgia.toeic.screen.exam;
 
 import com.framgia.toeic.data.model.Exam;
 import com.framgia.toeic.data.model.ExamLesson;
+import com.framgia.toeic.data.model.Lesson;
 import com.framgia.toeic.data.repository.ExamLessonRepository;
 import com.framgia.toeic.data.repository.MarkRepository;
 import com.framgia.toeic.data.source.Callback;
@@ -53,12 +54,16 @@ public class ExamPresenter implements ExamContract.Presenter {
         });
     }
 
-    @Override
-    public void updateMark(List<ExamLesson> lessons) {
+    public int caculateMark(List<ExamLesson> lessons) {
         int totalMark = MIN_MARK;
-        for (ExamLesson lesson: lessons){
+        for (Lesson lesson : lessons) {
             totalMark += lesson.getRating();
         }
-        mMarkRepository.updateMark(ID_EXAM, totalMark);
+        return totalMark;
+    }
+
+    @Override
+    public void updateMark(List<ExamLesson> lessons) {
+        mMarkRepository.updateMark(ID_EXAM, caculateMark(lessons));
     }
 }

@@ -37,13 +37,7 @@ public class ExamActivity extends BaseActivity implements ExamContract.View,
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Window window = getWindow();
         super.onCreate(savedInstanceState);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.material_accent_700));
-        }
     }
 
     @Override
@@ -86,8 +80,7 @@ public class ExamActivity extends BaseActivity implements ExamContract.View,
                 new MarkDatabaseHelper(new DBHelper(this))
         );
 
-        mPresenter = new ExamPresenter(this, ExamLessonRepository.getInstance(
-                examLessonLocalDataSource),
+        mPresenter = new ExamPresenter(this, ExamLessonRepository.getInstance(examLessonLocalDataSource),
                 MarkRepository.getInstance(markLocalDataSource));
     }
 
