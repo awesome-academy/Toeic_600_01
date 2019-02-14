@@ -6,7 +6,6 @@
     android:background="@drawable/button_basic_test">
 
     <ImageView
-        android:id="@+id/imageView"
         android:layout_width="@dimen/dp_60"
         android:layout_height="@dimen/dp_60"
         android:layout_marginStart="@dimen/dp_8"
