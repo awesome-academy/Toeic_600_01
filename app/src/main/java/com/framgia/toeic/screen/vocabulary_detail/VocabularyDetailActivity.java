@@ -1,6 +1,5 @@
 package com.framgia.toeic.screen.vocabulary_detail;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,11 +24,8 @@ import com.framgia.toeic.screen.base.ResultTest;
 import com.framgia.toeic.screen.base.ShowAnswerListener;
 import com.framgia.toeic.screen.vocabulary_detail.fragment_vocabulary.VocabularyDetailFragment;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class VocabularyDetailActivity extends ResultTest
         implements VocabularyDetailContract.View, VocabularyDetailFragment.OnAnswerChangeListener,
@@ -61,7 +57,7 @@ public class VocabularyDetailActivity extends ResultTest
 
     @Override
     protected void initComponent() {
-        mViewPager = findViewById(R.id.viewPager);
+        mViewPager = findViewById(R.id.view_pager);
         mTextViewCheck = findViewById(R.id.text_submit);
         mTextViewCheck.setOnClickListener(this);
         mTextViewTime = findViewById(R.id.text_timer);
