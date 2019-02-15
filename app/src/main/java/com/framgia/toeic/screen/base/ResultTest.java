@@ -28,7 +28,7 @@ import static com.framgia.toeic.screen.base.RatingResult.VERY_BAD;
 import static com.framgia.toeic.screen.base.RatingResult.VERY_GOOD;
 
 public abstract class ResultTest extends BaseActivity implements View.OnClickListener {
-    private static final String FORMAT_TIME = "%02d : %02d";
+    private static final String FORMAT_TIME = "%02d:%02d";
     public static final int TRANFER_MINIUTE_TO_SECOND = 60;
     public static final int TRANFER_SECOND_TO_MILISECOND = 1000;
     public static final int START_TIME = 0;
@@ -46,8 +46,31 @@ public abstract class ResultTest extends BaseActivity implements View.OnClickLis
         mHandler = new Handler(getMainLooper());
     }
 
-    @Override
-    protected void initData() {
+    public void showData(){
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                mSeekBar.setProgress(MediaPlayerManager.getInstance(new MediaPlayer()).getCurrentPosition());
+                mHandler.postDelayed(this, TRANFER_SECOND_TO_MILISECOND);
+            }
+        });
+        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                MediaPlayerManager.getInstance(new MediaPlayer()).pause();
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                MediaPlayerManager.getInstance(new MediaPlayer()).seekTo(seekBar.getProgress());
+                MediaPlayerManager.getInstance(new MediaPlayer()).startMedia();
+            }
+        });
         mCountDownTimer.start();
     }
 
@@ -108,5 +131,12 @@ public abstract class ResultTest extends BaseActivity implements View.OnClickLis
     }
 
     public void playMedia(int id, String extension) throws IOException {
+        MediaPlayerManager.getInstance(new MediaPlayer()).playMedia(this, id, extension);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MediaPlayerManager.getInstance(new MediaPlayer()).stop();
     }
 }

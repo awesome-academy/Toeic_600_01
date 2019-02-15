@@ -15,11 +15,16 @@ import android.widget.Toast;
 
 import com.framgia.toeic.R;
 import com.framgia.toeic.data.model.ExamLesson;
+import com.framgia.toeic.data.repository.ExamLessonRepository;
+import com.framgia.toeic.data.source.local.DBHelper;
+import com.framgia.toeic.data.source.local.ExamLessonDatabaseHelper;
+import com.framgia.toeic.data.source.local.ExamLessonLocalDataSource;
+import com.framgia.toeic.screen.base.MediaPlayerManager;
 import com.framgia.toeic.screen.base.ResultTest;
 
 import java.io.IOException;
 
-public class ExamDetailActivity extends ResultTest {
+public class ExamDetailActivity extends ResultTest implements ExamDetailContract.View {
     private static final int TEST_DURATION = 120;
     private static final String EXTRA_EXAM_LESSON = "EXTRA_EXAM_LESSON";
     private static final String EXTENSION_MEDIA = ".m4a";
@@ -28,6 +33,8 @@ public class ExamDetailActivity extends ResultTest {
     private TextView mTextViewSubmit;
     private TextView mTextViewTime;
     private ImageView mImagePlayPause;
+    private ExamDetailContract.Presenter mPresenter;
+    private ExamAdapter mAdapter;
 
     public static Intent getIntent(Context context, ExamLesson examLesson) {
         Intent intent = new Intent(context, ExamDetailActivity.class);
@@ -54,6 +61,9 @@ public class ExamDetailActivity extends ResultTest {
         mTextViewSubmit = findViewById(R.id.text_submit);
         mTextViewTime = findViewById(R.id.text_timer_exam);
         mImagePlayPause = findViewById(R.id.image_play_pause);
+        mPresenter = new ExamDetailPresenter(this,
+                ExamLessonRepository.getInstance(
+                        new ExamLessonLocalDataSource(new ExamLessonDatabaseHelper(new DBHelper(this)))));
         mCountDownTimer = new CountDownTimer(
                 TEST_DURATION * TRANFER_MINIUTE_TO_SECOND * TRANFER_SECOND_TO_MILISECOND,
                 TRANFER_SECOND_TO_MILISECOND) {
@@ -71,8 +81,8 @@ public class ExamDetailActivity extends ResultTest {
 
     @Override
     protected void initData() {
-        super.initData();
         mLesson = getIntent().getExtras().getParcelable(EXTRA_EXAM_LESSON);
+        mAdapter = new ExamAdapter(this, mLesson.getExams(), false);
     }
 
     @Override
@@ -81,6 +91,9 @@ public class ExamDetailActivity extends ResultTest {
         switch (v.getId()) {
             case R.id.text_submit:
                 submitAnswer();
+                break;
+            case R.id.image_play_pause:
+                mPresenter.checkListening();
                 break;
         }
     }
@@ -92,8 +105,22 @@ public class ExamDetailActivity extends ResultTest {
     }
 
     @Override
+    public void listenMedia() {
+        mImagePlayPause.setImageResource(R.drawable.ic_pause_button);
+        MediaPlayerManager.getInstance(new MediaPlayer()).startMedia();
+    }
+
+    @Override
+    public void pauseMedia() {
+        mImagePlayPause.setImageResource(R.drawable.ic_play_button);
+        MediaPlayerManager.getInstance(new MediaPlayer()).pause();
+    }
+
+    @Override
     public void playMedia(int id, String extension) throws IOException {
         super.playMedia(id, extension);
+        MediaPlayerManager.getInstance(new MediaPlayer()).startMedia();
+        mSeekBar.setMax(MediaPlayerManager.getInstance(new MediaPlayer()).getDurationMedia());
     }
 
     @Override
@@ -102,14 +129,12 @@ public class ExamDetailActivity extends ResultTest {
         mCountDownTimer.cancel();
     }
 
-    public void submitAnswer() {
-        mCountDownTimer.cancel();
-        mSeekBar.setEnabled(false);
-    }
-
+    @Override
     public void showData() {
+        super.showData();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setAdapter(mAdapter);
         try {
             playMedia(mLesson.getId(), EXTENSION_MEDIA);
         } catch (IOException e) {
@@ -120,5 +145,14 @@ public class ExamDetailActivity extends ResultTest {
     public void addListener() {
         mTextViewSubmit.setOnClickListener(this);
         mImagePlayPause.setOnClickListener(this);
+    }
+
+    public void submitAnswer() {
+        mPresenter.checkAnswer(mLesson.getExams());
+        mCountDownTimer.cancel();
+        MediaPlayerManager.getInstance(new MediaPlayer()).stop();
+        mSeekBar.setEnabled(false);
+        mAdapter.setChecked(true);
+        mAdapter.notifyDataSetChanged();
     }
 }
