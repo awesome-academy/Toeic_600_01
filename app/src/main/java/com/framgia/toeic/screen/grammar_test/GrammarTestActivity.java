@@ -1,6 +1,5 @@
 package com.framgia.toeic.screen.grammar_test;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -18,7 +17,6 @@ import com.framgia.toeic.data.repository.MarkRepository;
 import com.framgia.toeic.data.source.local.DBHelper;
 import com.framgia.toeic.data.source.local.MarkDatabaseHelper;
 import com.framgia.toeic.data.source.local.MarkLocalDataSource;
-import com.framgia.toeic.screen.base.BaseActivity;
 import com.framgia.toeic.screen.base.DisplayAnswerListener;
 import com.framgia.toeic.screen.base.ResultTest;
 import com.framgia.toeic.screen.base.ShowAnswerListener;
@@ -56,7 +54,7 @@ public class GrammarTestActivity extends ResultTest implements ShowAnswerListene
 
     @Override
     protected void initComponent() {
-        mViewPager = findViewById(R.id.viewPager);
+        mViewPager = findViewById(R.id.view_pager);
         mTextViewCheck = findViewById(R.id.text_submit);
         mTextViewCheck.setOnClickListener(this);
         mTextViewTime = findViewById(R.id.text_timer);
