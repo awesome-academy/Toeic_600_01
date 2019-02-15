@@ -44,7 +44,6 @@ public class BasicTestAdapter extends RecyclerView.Adapter<BasicTestAdapter.Basi
     }
 
     static class BasicTestViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private ImageView mImageView;
         private TextView mTextTitle;
         private CardView mCardView;
         private RatingBar mRatingBar;
@@ -54,7 +53,6 @@ public class BasicTestAdapter extends RecyclerView.Adapter<BasicTestAdapter.Basi
         public BasicTestViewHolder(View itemView, BasicTestAdapter.OnItemClickListener listener) {
             super(itemView);
             mListener = listener;
-            mImageView = itemView.findViewById(R.id.image_basic);
             mTextTitle = itemView.findViewById(R.id.text_name_basic);
             mCardView = itemView.findViewById(R.id.cardview_basic);
             mRatingBar = itemView.findViewById(R.id.ratingBar);
