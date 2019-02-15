@@ -28,7 +28,7 @@ import static com.framgia.toeic.screen.base.RatingResult.VERY_BAD;
 import static com.framgia.toeic.screen.base.RatingResult.VERY_GOOD;
 
 public abstract class ResultTest extends BaseActivity implements View.OnClickListener {
-    private static final String FORMAT_TIME = "%02d";
+    private static final String FORMAT_TIME = "%02d : %02d";
     public static final int TRANFER_MINIUTE_TO_SECOND = 60;
     public static final int TRANFER_SECOND_TO_MILISECOND = 1000;
     public static final int START_TIME = 0;
@@ -47,13 +47,7 @@ public abstract class ResultTest extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    protected void initData() throws IOException {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                mHandler.postDelayed(this, TRANFER_SECOND_TO_MILISECOND);
-            }
-        });
+    protected void initData() {
         mCountDownTimer.start();
     }
 
@@ -98,7 +92,7 @@ public abstract class ResultTest extends BaseActivity implements View.OnClickLis
     protected String getStringDatefromlong(long countTime) {
         long minutes = TimeUnit.MILLISECONDS.toMinutes(countTime);
         long seconds = TimeUnit.MILLISECONDS.toSeconds(countTime) - TimeUnit.MINUTES.toSeconds(minutes);
-        return String.format(FORMAT_TIME, minutes) + ":" + String.format(FORMAT_TIME, seconds);
+        return String.format(FORMAT_TIME, minutes, seconds);
     }
 
     @Override

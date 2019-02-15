@@ -38,11 +38,7 @@ public class ExamDetailActivity extends ResultTest {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {
-            showData();
-        } catch (IOException e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
+        showData();
         addListener();
     }
 
@@ -74,7 +70,7 @@ public class ExamDetailActivity extends ResultTest {
     }
 
     @Override
-    protected void initData() throws IOException {
+    protected void initData() {
         super.initData();
         mLesson = getIntent().getExtras().getParcelable(EXTRA_EXAM_LESSON);
     }
@@ -111,10 +107,14 @@ public class ExamDetailActivity extends ResultTest {
         mSeekBar.setEnabled(false);
     }
 
-    public void showData() throws IOException {
+    public void showData() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
-        playMedia(mLesson.getId(), EXTENSION_MEDIA);
+        try {
+            playMedia(mLesson.getId(), EXTENSION_MEDIA);
+        } catch (IOException e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     public void addListener() {

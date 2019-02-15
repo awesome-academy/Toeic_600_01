@@ -13,16 +13,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResource());
         initComponent();
-        try {
-            initData();
-        } catch (IOException e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
+        initData();
+
     }
 
     protected abstract int getLayoutResource();
 
     protected abstract void initComponent();
 
-    protected abstract void initData() throws IOException;
+    protected abstract void initData();
 }
