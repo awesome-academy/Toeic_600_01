@@ -6,14 +6,22 @@ import com.framgia.toeic.data.model.ExamLesson;
 import java.util.List;
 
 public interface ExamDetailContract {
-    interface View{
+    interface View {
         void showDialogResult(int mark, int rating);
+
         void listenMedia();
+
         void pauseMedia();
+
+        void showError(Exception e);
     }
 
-    interface Presenter{
+    interface Presenter {
         void checkAnswer(List<Exam> exams);
+
         void checkListening();
+
+        void updateLesson(ExamLesson examLesson, int mark);
+
     }
 }

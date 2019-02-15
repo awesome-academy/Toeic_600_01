@@ -1,5 +1,7 @@
 package com.framgia.toeic.screen.exam;
 
+import android.util.Log;
+
 import com.framgia.toeic.data.model.Exam;
 import com.framgia.toeic.data.model.ExamLesson;
 import com.framgia.toeic.data.model.Lesson;
@@ -9,6 +11,8 @@ import com.framgia.toeic.data.source.Callback;
 
 
 import java.util.List;
+
+import static com.framgia.toeic.screen.base.IDModules.ID_EXAM;
 
 public class ExamPresenter implements ExamContract.Presenter {
     private static final int MIN_MARK = 0;
@@ -52,5 +56,18 @@ public class ExamPresenter implements ExamContract.Presenter {
                 mView.showError(error);
             }
         });
+    }
+
+    @Override
+    public void updateMark(List<ExamLesson> lessons) {
+        mMarkRepository.updateMark(ID_EXAM, caculateMark(lessons));
+    }
+
+    public int caculateMark(List<ExamLesson> lessons) {
+        int totalMark = MIN_MARK;
+        for (Lesson lesson : lessons) {
+            totalMark += lesson.getRating();
+        }
+        return totalMark;
     }
 }

@@ -94,4 +94,19 @@ public class ExamLessonDatabaseHelper implements ExamLessonDataSource.Local {
         callback.onGetDataSuccess(exams);
         mDBHelper.close();
     }
+
+    @Override
+    public void updateExamLesson(ExamLesson examLesson, int mark, Callback<ExamLesson> callback) {
+        try {
+            mDBHelper.openDatabase();
+        } catch (IOException e) {
+            callback.onGetDataFail(e);
+            return;
+        }
+        SQLiteDatabase db = mDBHelper.getReadableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_MAX_MARK, mark);
+        db.update(TABLE_LESSON_EXAM, contentValues, COLUMN_ID_LESSON + "=?", new String[]{examLesson.getId() + ""});
+        db.close();
+    }
 }

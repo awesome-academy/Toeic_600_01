@@ -28,12 +28,13 @@ import com.framgia.toeic.screen.vocabulary_detail.fragment_vocabulary.Vocabulary
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.framgia.toeic.screen.base.IDModules.ID_VOCABULARY;
+
 
 public class VocabularyDetailActivity extends ResultTest
         implements VocabularyDetailContract.View, VocabularyDetailFragment.OnAnswerChangeListener,
         ShowAnswerListener, View.OnClickListener, ViewPager.OnPageChangeListener {
     private static final String EXTRA_LIST_QUESTION = "EXTRA_LIST_QUESTION";
-    private static final int ID_VOCABULARY = 1;
     private ViewPager mViewPager;
     private TextView mTextViewCheck;
     private TextView mTextViewTime;

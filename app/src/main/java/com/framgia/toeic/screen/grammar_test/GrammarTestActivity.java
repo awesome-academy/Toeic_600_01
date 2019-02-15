@@ -25,10 +25,11 @@ import com.framgia.toeic.screen.grammar_test.fragment_grammar.GrammarTestFragmen
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.framgia.toeic.screen.base.IDModules.ID_GRAMMAR;
+
 public class GrammarTestActivity extends ResultTest implements ShowAnswerListener,
         GrammarTestContract.View, GrammarTestFragment.OnAnswerChangeListener, ViewPager.OnPageChangeListener {
     static final String EXTRA_LIST_GRAMMAR = "EXTRA_LIST_GRAMMAR";
-    private static final int GRAMMAR_ID = 2;
     private ViewPager mViewPager;
     private TextView mTextViewCheck;
     private TextView mTextViewTime;
@@ -130,7 +131,7 @@ public class GrammarTestActivity extends ResultTest implements ShowAnswerListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.text_submit:
-                mPresenter.checkResult(GRAMMAR_ID, mGrammars);
+                mPresenter.checkResult(ID_GRAMMAR, mGrammars);
                 mHandler.removeCallbacksAndMessages(null);
                 notifyFragments();
                 mViewPager.addOnPageChangeListener(this);

@@ -102,6 +102,7 @@ public class ExamDetailActivity extends ResultTest implements ExamDetailContract
     public void showDialogResult(int mark, int rating) {
         super.showDialogResult(mark, rating);
         mTextViewFalse.setText(mLesson.getExams().size() - mark + "");
+        mPresenter.updateLesson(mLesson, mark);
     }
 
     @Override
@@ -114,6 +115,11 @@ public class ExamDetailActivity extends ResultTest implements ExamDetailContract
     public void pauseMedia() {
         mImagePlayPause.setImageResource(R.drawable.ic_play_button);
         MediaPlayerManager.getInstance(new MediaPlayer()).pause();
+    }
+
+    @Override
+    public void showError(Exception e) {
+        Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
     }
 
     @Override
