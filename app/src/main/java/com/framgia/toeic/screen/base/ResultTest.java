@@ -41,7 +41,7 @@ public abstract class ResultTest extends BaseActivity implements View.OnClickLis
         mHandler = new Handler(getMainLooper());
     }
 
-    public void showData(){
+    public void showData() {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -66,7 +66,6 @@ public abstract class ResultTest extends BaseActivity implements View.OnClickLis
                 MediaPlayerManager.getInstance(new MediaPlayer()).startMedia();
             }
         });
-        mCountDownTimer.start();
     }
 
     public void showDialogResult(int mark, int rating) {

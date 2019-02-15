@@ -54,11 +54,16 @@ public class MediaPlayerManager {
         mMediaPlayer.seekTo(position);
     }
 
-    public int getCurrentPosition(){
+    public int getCurrentPosition() {
         return mMediaPlayer.getCurrentPosition();
     }
 
-    public boolean isPlaying(){
+    public boolean isPlaying() {
         return mMediaPlayer.isPlaying();
+    }
+
+
+    public void setOnCompletionListener(MediaPlayer.OnCompletionListener onCompletionListener) {
+        mMediaPlayer.setOnCompletionListener(onCompletionListener);
     }
 }

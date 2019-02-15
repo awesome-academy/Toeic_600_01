@@ -64,25 +64,19 @@ public class ExamDetailActivity extends ResultTest implements ExamDetailContract
         mPresenter = new ExamDetailPresenter(this,
                 ExamLessonRepository.getInstance(
                         new ExamLessonLocalDataSource(new ExamLessonDatabaseHelper(new DBHelper(this)))));
-        mCountDownTimer = new CountDownTimer(
-                TEST_DURATION * TRANFER_MINIUTE_TO_SECOND * TRANFER_SECOND_TO_MILISECOND,
-                TRANFER_SECOND_TO_MILISECOND) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                mTextViewTime.setText(getStringDatefromlong(millisUntilFinished) + "");
-            }
-
-            @Override
-            public void onFinish() {
-
-            }
-        };
     }
 
     @Override
     protected void initData() {
         mLesson = getIntent().getExtras().getParcelable(EXTRA_EXAM_LESSON);
         mAdapter = new ExamAdapter(this, mLesson.getExams(), false);
+        MediaPlayerManager.getInstance(new MediaPlayer()).setOnCompletionListener(
+                new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        mImagePlayPause.setImageResource(R.drawable.ic_play_button);
+                    }
+                });
     }
 
     @Override
@@ -125,7 +119,6 @@ public class ExamDetailActivity extends ResultTest implements ExamDetailContract
     @Override
     public void playMedia(int id, String extension) throws IOException {
         super.playMedia(id, extension);
-        MediaPlayerManager.getInstance(new MediaPlayer()).startMedia();
         mSeekBar.setMax(MediaPlayerManager.getInstance(new MediaPlayer()).getDurationMedia());
     }
 
@@ -146,6 +139,20 @@ public class ExamDetailActivity extends ResultTest implements ExamDetailContract
         } catch (IOException e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
+        mCountDownTimer = new CountDownTimer(
+                TEST_DURATION * TRANFER_MINIUTE_TO_SECOND * TRANFER_SECOND_TO_MILISECOND,
+                TRANFER_SECOND_TO_MILISECOND) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                mTextViewTime.setText(getStringDatefromlong(millisUntilFinished) + "");
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        };
+        mCountDownTimer.start();
     }
 
     public void addListener() {
