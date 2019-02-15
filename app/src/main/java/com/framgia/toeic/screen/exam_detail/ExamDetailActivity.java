@@ -2,29 +2,25 @@ package com.framgia.toeic.screen.exam_detail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.framgia.toeic.R;
 import com.framgia.toeic.data.model.ExamLesson;
-import com.framgia.toeic.data.repository.ExamLessonRepository;
-import com.framgia.toeic.data.source.local.DBHelper;
-import com.framgia.toeic.data.source.local.ExamLessonDatabaseHelper;
-import com.framgia.toeic.data.source.local.ExamLessonLocalDataSource;
-import com.framgia.toeic.screen.base.MediaPlayerInstance;
 import com.framgia.toeic.screen.base.ResultTest;
 
+import java.io.IOException;
+
 public class ExamDetailActivity extends ResultTest {
-    private static final int TIMELINE = 120;
+    private static final int TEST_DURATION = 120;
     private static final String EXTRA_EXAM_LESSON = "EXTRA_EXAM_LESSON";
     private static final String EXTENSION_MEDIA = ".m4a";
     private ExamLesson mLesson;
@@ -32,6 +28,7 @@ public class ExamDetailActivity extends ResultTest {
     private TextView mTextViewSubmit;
     private TextView mTextViewTime;
     private ImageView mImagePlayPause;
+
     public static Intent getIntent(Context context, ExamLesson examLesson) {
         Intent intent = new Intent(context, ExamDetailActivity.class);
         intent.putExtra(EXTRA_EXAM_LESSON, examLesson);
@@ -41,6 +38,12 @@ public class ExamDetailActivity extends ResultTest {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try {
+            showData();
+        } catch (IOException e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        addListener();
     }
 
     @Override
@@ -56,7 +59,7 @@ public class ExamDetailActivity extends ResultTest {
         mTextViewTime = findViewById(R.id.text_timer_exam);
         mImagePlayPause = findViewById(R.id.image_play_pause);
         mCountDownTimer = new CountDownTimer(
-                TIMELINE * TRANFER_MINIUTE_TO_SECOND * TRANFER_SECOND_TO_MILISECOND,
+                TEST_DURATION * TRANFER_MINIUTE_TO_SECOND * TRANFER_SECOND_TO_MILISECOND,
                 TRANFER_SECOND_TO_MILISECOND) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -71,14 +74,9 @@ public class ExamDetailActivity extends ResultTest {
     }
 
     @Override
-    protected void initData() {
+    protected void initData() throws IOException {
         super.initData();
         mLesson = getIntent().getExtras().getParcelable(EXTRA_EXAM_LESSON);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this,
-                LinearLayoutManager.VERTICAL, false));
-        mTextViewSubmit.setOnClickListener(this);
-        mImagePlayPause.setOnClickListener(this);
-        playMedia(mLesson.getId(), EXTENSION_MEDIA);
     }
 
     @Override
@@ -88,7 +86,6 @@ public class ExamDetailActivity extends ResultTest {
             case R.id.text_submit:
                 submitAnswer();
                 break;
-            case R.id.image_play_pause:
         }
     }
 
@@ -99,21 +96,29 @@ public class ExamDetailActivity extends ResultTest {
     }
 
     @Override
-    public void playMedia(int id, String extension) {
+    public void playMedia(int id, String extension) throws IOException {
         super.playMedia(id, extension);
-        MediaPlayerInstance.getInstance().start();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        MediaPlayerInstance.getInstance().stop();
         mCountDownTimer.cancel();
     }
 
-    public void submitAnswer(){
+    public void submitAnswer() {
         mCountDownTimer.cancel();
-        MediaPlayerInstance.getInstance().stop();
         mSeekBar.setEnabled(false);
+    }
+
+    public void showData() throws IOException {
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false));
+        playMedia(mLesson.getId(), EXTENSION_MEDIA);
+    }
+
+    public void addListener() {
+        mTextViewSubmit.setOnClickListener(this);
+        mImagePlayPause.setOnClickListener(this);
     }
 }

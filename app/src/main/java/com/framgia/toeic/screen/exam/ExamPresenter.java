@@ -7,10 +7,10 @@ import com.framgia.toeic.data.repository.ExamLessonRepository;
 import com.framgia.toeic.data.repository.MarkRepository;
 import com.framgia.toeic.data.source.Callback;
 
+
 import java.util.List;
 
 public class ExamPresenter implements ExamContract.Presenter {
-    private static final int ID_EXAM = 4;
     private static final int MIN_MARK = 0;
     private ExamContract.View mView;
     private ExamLessonRepository mRepository;
@@ -52,18 +52,5 @@ public class ExamPresenter implements ExamContract.Presenter {
                 mView.showError(error);
             }
         });
-    }
-
-    public int caculateMark(List<ExamLesson> lessons) {
-        int totalMark = MIN_MARK;
-        for (Lesson lesson : lessons) {
-            totalMark += lesson.getRating();
-        }
-        return totalMark;
-    }
-
-    @Override
-    public void updateMark(List<ExamLesson> lessons) {
-        mMarkRepository.updateMark(ID_EXAM, caculateMark(lessons));
     }
 }

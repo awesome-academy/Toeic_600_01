@@ -1,13 +1,12 @@
 package com.framgia.toeic.screen.base;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.content.ContextWrapper;
-import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,7 +17,6 @@ import android.widget.TextView;
 
 import com.framgia.toeic.R;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -30,11 +28,10 @@ import static com.framgia.toeic.screen.base.RatingResult.VERY_BAD;
 import static com.framgia.toeic.screen.base.RatingResult.VERY_GOOD;
 
 public abstract class ResultTest extends BaseActivity implements View.OnClickListener {
-    private static final String FORMAT_TIME = "%2d:%2d";
+    private static final String FORMAT_TIME = "%02d";
     public static final int TRANFER_MINIUTE_TO_SECOND = 60;
     public static final int TRANFER_SECOND_TO_MILISECOND = 1000;
     public static final int START_TIME = 0;
-    private static final int LIMIT_NUMBER = 10;
     protected Dialog mDialogResult;
     protected TextView mTextViewFalse;
     protected CountDownTimer mCountDownTimer;
@@ -44,47 +41,19 @@ public abstract class ResultTest extends BaseActivity implements View.OnClickLis
     protected TextView mTextViewTimeResult;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Window window = getWindow();
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.material_accent_700));
-        }
-    }
-
-    @Override
     protected void initComponent() {
         mSeekBar = findViewById(R.id.seek_bar);
         mHandler = new Handler(getMainLooper());
     }
 
     @Override
-    protected void initData() {
-        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                MediaPlayerInstance.getInstance().pause();
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                MediaPlayerInstance.getInstance().seekTo(seekBar.getProgress());
-                MediaPlayerInstance.getInstance().start();
-            }
-        });
-        mHandler.postDelayed(new Runnable() {
+    protected void initData() throws IOException {
+        mHandler.post(new Runnable() {
             @Override
             public void run() {
-                mSeekBar.setProgress(MediaPlayerInstance.getInstance().getCurrentPosition());
                 mHandler.postDelayed(this, TRANFER_SECOND_TO_MILISECOND);
             }
-        }, 0);
+        });
         mCountDownTimer.start();
     }
 
@@ -127,11 +96,9 @@ public abstract class ResultTest extends BaseActivity implements View.OnClickLis
     }
 
     protected String getStringDatefromlong(long countTime) {
-        String minutes = TimeUnit.MILLISECONDS.toMinutes(countTime) < LIMIT_NUMBER ? String.valueOf(START_TIME) : "";
-        long numberSecond = TimeUnit.MILLISECONDS.toSeconds(countTime) -
-                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(countTime));
-        String second = numberSecond < LIMIT_NUMBER ? String.valueOf(START_TIME) : "";
-        return minutes + ":" + second;
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(countTime);
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(countTime) - TimeUnit.MINUTES.toSeconds(minutes);
+        return String.format(FORMAT_TIME, minutes) + ":" + String.format(FORMAT_TIME, seconds);
     }
 
     @Override
@@ -146,8 +113,6 @@ public abstract class ResultTest extends BaseActivity implements View.OnClickLis
         }
     }
 
-    public void playMedia(int id, String extension) {
-        MediaPlayerInstance.playMedia(this, id, extension);
-        mSeekBar.setMax(MediaPlayerInstance.getInstance().getDuration());
+    public void playMedia(int id, String extension) throws IOException {
     }
 }

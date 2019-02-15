@@ -23,6 +23,7 @@ import com.framgia.toeic.data.source.local.MarkLocalDataSource;
 import com.framgia.toeic.screen.base.BaseActivity;
 import com.framgia.toeic.screen.exam_detail.ExamDetailActivity;
 
+import java.io.IOException;
 import java.util.List;
 
 public class ExamActivity extends BaseActivity implements ExamContract.View,
@@ -90,7 +91,6 @@ public class ExamActivity extends BaseActivity implements ExamContract.View,
         mRecyclerView.setLayoutManager(new
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mAdapter);
-        mPresenter.updateMark(examLessons);
     }
 
     @Override
@@ -100,6 +100,6 @@ public class ExamActivity extends BaseActivity implements ExamContract.View,
 
     @Override
     public void onClick(ExamLesson examLesson) {
-        startActivity(ExamDetailActivity.getIntent(this,examLesson));
+        startActivity(ExamDetailActivity.getIntent(this, examLesson));
     }
 }
