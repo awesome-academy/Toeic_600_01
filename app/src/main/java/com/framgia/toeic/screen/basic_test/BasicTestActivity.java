@@ -35,13 +35,7 @@ public class BasicTestActivity extends BaseActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Window window = getWindow();
         super.onCreate(savedInstanceState);
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.material_accent_700));
-        }
     }
 
     @Override
