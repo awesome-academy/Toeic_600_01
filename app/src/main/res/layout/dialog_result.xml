@@ -130,7 +130,7 @@
         android:layout_marginTop="@dimen/dp_8"
         android:isIndicator="true"
         android:numStars="5"
-        android:theme="@style/RatingBar"
+        android:theme="@style/StyleRatingBarDialogResult"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -3,6 +3,9 @@ package com.framgia.toeic.screen.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
+
+import java.io.IOException;
 
 public abstract class BaseActivity extends AppCompatActivity {
     @Override
@@ -11,6 +14,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLayoutResource());
         initComponent();
         initData();
+
     }
 
     protected abstract int getLayoutResource();

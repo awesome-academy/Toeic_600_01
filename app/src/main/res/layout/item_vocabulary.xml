@@ -21,7 +21,7 @@
             android:layout_marginLeft="@dimen/dp_32"
             android:layout_marginTop="@dimen/dp_16"
             android:layout_marginBottom="@dimen/dp_16"
-            android:theme="@style/MyCheckBox"
+            android:theme="@style/StyleCheckbox"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

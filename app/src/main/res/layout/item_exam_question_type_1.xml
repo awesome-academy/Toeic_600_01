@@ -55,7 +55,7 @@
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_weight="1"
                 android:textColor="@color/white"
-                android:theme="@style/MyCheckBox" />
+                android:theme="@style/StyleCheckbox" />
 
             <RadioButton
                 android:id="@+id/radio_b"
@@ -64,7 +64,7 @@
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_weight="1"
                 android:textColor="@color/white"
-                android:theme="@style/MyCheckBox" />
+                android:theme="@style/StyleCheckbox" />
 
             <RadioButton
                 android:id="@+id/radio_c"
@@ -73,7 +73,7 @@
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_weight="1"
                 android:textColor="@color/white"
-                android:theme="@style/MyCheckBox" />
+                android:theme="@style/StyleCheckbox" />
 
             <RadioButton
                 android:id="@+id/radio_d"
@@ -82,7 +82,7 @@
                 android:layout_marginStart="@dimen/dp_8"
                 android:layout_weight="1"
                 android:textColor="@color/white"
-                android:theme="@style/MyCheckBox" />
+                android:theme="@style/StyleCheckbox" />
 
         </RadioGroup>
 

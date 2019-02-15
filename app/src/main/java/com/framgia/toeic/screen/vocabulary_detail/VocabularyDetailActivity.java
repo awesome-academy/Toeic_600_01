@@ -8,6 +8,7 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import com.framgia.toeic.screen.vocabulary_detail.fragment_vocabulary.Vocabulary
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class VocabularyDetailActivity extends ResultTest
         implements VocabularyDetailContract.View, VocabularyDetailFragment.OnAnswerChangeListener,
@@ -76,14 +78,14 @@ public class VocabularyDetailActivity extends ResultTest
                 getSupportFragmentManager(), mVocabularies, mVocabularyFragments);
         mViewPager.setPageTransformer(true, new DepthPageTransformer());
         mViewPager.setAdapter(adapter);
-        mHandler.postDelayed(new Runnable() {
+        mHandler.post(new Runnable() {
             @Override
             public void run() {
                 mHandler.postDelayed(this, TRANFER_SECOND_TO_MILISECOND);
                 mCountTime++;
                 mTextViewTime.setText(getStringDatefromlong(mCountTime));
             }
-        }, 0);
+        });
     }
 
     @Override
@@ -126,6 +128,12 @@ public class VocabularyDetailActivity extends ResultTest
                 finish();
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
     }
 
     @Override
