@@ -2,6 +2,7 @@ package com.framgia.toeic.screen.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.framgia.toeic.R;
 import com.framgia.toeic.data.model.Mark;
@@ -25,6 +27,7 @@ import com.framgia.toeic.data.source.local.MarkLocalDataSource;
 import com.framgia.toeic.data.source.local.VocabularyLessonDatabaseHelper;
 import com.framgia.toeic.data.source.local.VocabularyLessonLocalDataSource;
 import com.framgia.toeic.screen.base.BaseActivity;
+import com.framgia.toeic.screen.basic_test.BasicTestActivity;
 import com.framgia.toeic.screen.exam.ExamActivity;
 import com.framgia.toeic.screen.grammar.GrammarActivity;
 import com.framgia.toeic.screen.vocabulary.VocabularyActivity;
@@ -32,10 +35,17 @@ import com.framgia.toeic.screen.vocabulary.VocabularyActivity;
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         View.OnClickListener {
+    private static final String DATA = "data_user";
+    private static final String KEY_NAME = "name";
+    private static final String KEY_TARGET = "target";
+    private static final String TARGET = "600";
     private Toolbar mToolbar;
     private NavigationView mNavigationView;
     private DrawerLayout mDrawer;
     private CardView mCardVocabulary, mCardGrammar, mCardBasicTest, mCardExam, mCardUser;
+    private SharedPreferences mPreferences;
+    private TextView mTextName;
+    private TextView mTextTarget;
 
     public static Intent getMainIntent(Context context) {
         return new Intent(context, MainActivity.class);
@@ -79,7 +89,11 @@ public class MainActivity extends BaseActivity
         mCardGrammar = findViewById(R.id.card_grammar);
         mCardExam = findViewById(R.id.card_exam);
         mCardUser = findViewById(R.id.card_user);
+        mPreferences = getSharedPreferences(DATA, MODE_PRIVATE);
+        mTextName = findViewById(R.id.text_name);
+        mTextTarget = findViewById(R.id.text_target);
     }
+
 
     @Override
     protected void initData() {
@@ -115,6 +129,7 @@ public class MainActivity extends BaseActivity
                 break;
 
             case R.id.nav_basic_test:
+                startActivity(BasicTestActivity.getIntent(this));
                 break;
 
             case R.id.nav_exam:
@@ -155,6 +170,7 @@ public class MainActivity extends BaseActivity
                 break;
 
             case R.id.card_basic_test:
+                startActivity(BasicTestActivity.getIntent(this));
                 break;
 
             case R.id.card_exam:
@@ -163,5 +179,12 @@ public class MainActivity extends BaseActivity
             case R.id.card_user:
                 break;
         }
+    }
+
+    public void restoringPreferences() {
+        String name = mPreferences.getString(KEY_NAME,getResources().getString(R.string.hint_name));
+        String target = mPreferences.getString(KEY_TARGET,TARGET);
+        mTextName.setText(name);
+        mTextTarget.setText(target);
     }
 }

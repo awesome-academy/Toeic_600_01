@@ -51,14 +51,12 @@ public class BasicTestActivity extends BaseActivity
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor
                 (R.color.material_cyan_300)));
         mRecyclerView = findViewById(R.id.recycle_basic_test);
-        BasicTestLocalDatasource testLocalDatasource = new BasicTestLocalDatasource(
-                new BasicTestDatabaseHelper(new DBHelper(this)));
-        MarkLocalDataSource markLocalDataSource = new MarkLocalDataSource(
-                new MarkDatabaseHelper(new DBHelper(this)));
         mPresenter = new BasicTestPresenter(this,
-                BasicTestRepository.getInstance(testLocalDatasource), MarkRepository.getInstance(
-                markLocalDataSource));
-
+                BasicTestRepository.getInstance(
+                        new BasicTestLocalDatasource(new BasicTestDatabaseHelper(
+                                new DBHelper(this)))), MarkRepository.getInstance(
+                new MarkLocalDataSource(new MarkDatabaseHelper(new DBHelper(this)))
+        ));
     }
 
     @Override

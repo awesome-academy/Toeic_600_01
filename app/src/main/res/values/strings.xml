@@ -54,4 +54,5 @@
     <string name="title_target">Mục tiêu</string>
     <string name="action_save">Lưu</string>
     <string name="action_cancel">Hủy</string>
+    <string name="title_part">Phần:</string>
 </resources>
