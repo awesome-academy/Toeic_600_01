@@ -38,8 +38,8 @@ public class GrammarDetailAcvitity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor
-                (R.color.material_cyan_300)));
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
+                .getColor(R.color.material_cyan_300)));
         mPDFView = findViewById(R.id.pdf_grammar);
     }
 
