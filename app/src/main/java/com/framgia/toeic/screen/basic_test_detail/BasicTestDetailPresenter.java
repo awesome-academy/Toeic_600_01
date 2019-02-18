@@ -27,18 +27,22 @@ public class BasicTestDetailPresenter extends RatingCaculator implements BasicTe
         for (BasicTest basicTest : basicTests) {
             if (basicTest.isCheckAnswerA() && basicTest.getAnwserA().equals(basicTest.getResult())) {
                 mark++;
+                break;
             }
 
             if (basicTest.isCheckAnswerB() && basicTest.getAnwserB().equals(basicTest.getResult())) {
                 mark++;
+                break;
             }
 
             if (basicTest.isCheckAnswerC() && basicTest.getAnwserC().equals(basicTest.getResult())) {
                 mark++;
+                break;
             }
 
             if (basicTest.isCheckAnswerD() && basicTest.getAnwserD().equals(basicTest.getResult())) {
                 mark++;
+                break;
             }
         }
         return mark;
@@ -54,27 +58,26 @@ public class BasicTestDetailPresenter extends RatingCaculator implements BasicTe
     @Override
     public void checkListening() {
         if (MediaPlayerManager.getInstance(new MediaPlayer()).isPlaying()) {
-            mView.pauseMedia();
+            mView.pauseAudio();
             return;
         }
-        mView.listenMedia();
+        mView.playAudio();
     }
 
     @Override
-    public void updateLesson(BasicTestLesson lesson, int mark) {
+    public void updateLesson(BasicTestLesson lesson, final int mark) {
         if (mark > lesson.getRating()) {
             mRepository.updateTestLesson(lesson, mark, new Callback<BasicTestLesson>() {
                 @Override
-                public void onGetDataSuccess(BasicTestLesson examLesson) {
-
+                public void onGetDataSuccess(BasicTestLesson basicTestLesson) {
+                    basicTestLesson.setRating(mark);
                 }
 
                 @Override
                 public void onGetDataFail(Exception error) {
-
+                    mView.showError(error);
                 }
             });
-            lesson.setRating(mark);
         }
     }
 

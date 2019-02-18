@@ -16,7 +16,7 @@ import java.util.List;
 
 public class BasicTestDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int VIEW_TYPE_PART_2 = 2;
-    private static final int VIEW_TYPE_PART_1= 1;
+    private static final int VIEW_TYPE_PART_1 = 1;
     private static final int VIEW_TYPE_PART_3 = 3;
     private static final String EXTENSION_PNG = ".PNG";
     private Context mContext;
@@ -41,11 +41,11 @@ public class BasicTestDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public int getItemViewType(int position) {
-        if (mPart == 1){
+        if (mPart == 1) {
             return VIEW_TYPE_PART_1;
         }
 
-        if (mPart == 2){
+        if (mPart == 2) {
             return VIEW_TYPE_PART_2;
         }
 

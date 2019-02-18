@@ -9,13 +9,15 @@ public interface BasicTestDetailContract {
     interface View {
         void showDialogResult(int mark, int rating);
 
-        void listenMedia();
+        void playAudio();
 
-        void pauseMedia();
+        void pauseAudio();
 
         void hideSeekBar();
 
         void changeMedia(int id);
+
+        void showError(Exception e);
     }
 
     interface Presenter {

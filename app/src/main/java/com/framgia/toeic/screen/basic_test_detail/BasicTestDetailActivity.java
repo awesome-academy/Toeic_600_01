@@ -33,6 +33,7 @@ public class BasicTestDetailActivity extends ResultTest
     private static final String EXTRA_BASIC_TEST_LESSON = "EXTRA_BASIC_TEST_LESSON";
     private static final String EXTENSION_MEDIA = ".mp3";
     private static final int TIMELINE = 15;
+    private static boolean sflag_submit = false;
     private TextView mTextViewTime;
     private TextView mTextViewSubmit;
     private ImageView mImagePlayPause;
@@ -66,9 +67,31 @@ public class BasicTestDetailActivity extends ResultTest
         mViewPager = findViewById(R.id.view_pager);
         mFragments = new ArrayList<>();
         mImagePlayPause = findViewById(R.id.image_play_pause);
-        mPresenter = new BasicTestDetailPresenter(this, BasicTestRepository
-                .getInstance(new BasicTestLocalDatasource(new BasicTestDatabaseHelper(
-                        new DBHelper(this)))));
+        mPresenter = getBasicTestDetailPresenter();
+        mTextViewSubmit.setOnClickListener(this);
+        mImagePlayPause.setOnClickListener(this);
+        listnerViewPagerChange();
+    }
+
+    public void listnerViewPagerChange() {
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+                if(sflag_submit){
+                    notifyFragments();
+                }
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                mPresenter.changeMediaFile(++i, mLesson.getId());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
     }
 
     @Override
@@ -87,6 +110,11 @@ public class BasicTestDetailActivity extends ResultTest
                 submitAnswer();
             }
         };
+        try {
+            playMedia(mLesson.getBasicTests().get(0).getIdImage(), EXTENSION_MEDIA);
+        } catch (IOException e) {
+            Toast.makeText(this, getResources().getString(R.string.error_audio), Toast.LENGTH_LONG).show();
+        }
         mCountDownTimer.start();
     }
 
@@ -96,36 +124,13 @@ public class BasicTestDetailActivity extends ResultTest
         ViewPagerAdapter adapter =
                 new ViewPagerAdapter(getSupportFragmentManager(), mLesson.getBasicTests(), mFragments);
         mViewPager.setAdapter(adapter);
-        mTextViewSubmit.setOnClickListener(this);
-        mImagePlayPause.setOnClickListener(this);
-        try {
-            playMedia(mLesson.getBasicTests().get(0).getIdImage(), EXTENSION_MEDIA);
-        } catch (IOException e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
         MediaPlayerManager.getInstance(new MediaPlayer()).setOnCompletionListener(
                 new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                mImagePlayPause.setImageResource(R.drawable.ic_play_button);
-            }
-        });
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-                mPresenter.changeMediaFile(++i, mLesson.getId());
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        mImagePlayPause.setImageResource(R.drawable.ic_play_button);
+                    }
+                });
     }
 
 
@@ -134,23 +139,9 @@ public class BasicTestDetailActivity extends ResultTest
         super.onClick(v);
         switch (v.getId()) {
             case R.id.text_submit:
+                sflag_submit = true;
                 submitAnswer();
-                mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                    @Override
-                    public void onPageScrolled(int i, float v, int i1) {
-                        notifyFragments();
-                    }
-
-                    @Override
-                    public void onPageSelected(int i) {
-
-                    }
-
-                    @Override
-                    public void onPageScrollStateChanged(int i) {
-
-                    }
-                });
+                listnerViewPagerChange();
                 break;
             case R.id.image_play_pause:
                 mPresenter.checkListening();
@@ -158,13 +149,13 @@ public class BasicTestDetailActivity extends ResultTest
     }
 
     @Override
-    public void listenMedia() {
+    public void playAudio() {
         mImagePlayPause.setImageResource(R.drawable.ic_pause_button);
         MediaPlayerManager.getInstance(new MediaPlayer()).startMedia();
     }
 
     @Override
-    public void pauseMedia() {
+    public void pauseAudio() {
         mImagePlayPause.setImageResource(R.drawable.ic_play_button);
         MediaPlayerManager.getInstance(new MediaPlayer()).pause();
     }
@@ -185,8 +176,14 @@ public class BasicTestDetailActivity extends ResultTest
         try {
             playMedia(id, EXTENSION_MEDIA);
         } catch (IOException e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getResources().getString(R.string.error_audio),
+                    Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void showError(Exception e) {
+        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -223,5 +220,11 @@ public class BasicTestDetailActivity extends ResultTest
         mCountDownTimer.cancel();
         MediaPlayerManager.getInstance(new MediaPlayer()).stop();
         notifyFragments();
+    }
+
+    private BasicTestDetailPresenter getBasicTestDetailPresenter() {
+        return new BasicTestDetailPresenter(this, BasicTestRepository
+                .getInstance(new BasicTestLocalDatasource(new BasicTestDatabaseHelper(
+                        new DBHelper(this)))));
     }
 }

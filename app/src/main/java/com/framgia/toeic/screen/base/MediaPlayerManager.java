@@ -62,7 +62,6 @@ public class MediaPlayerManager {
         return mMediaPlayer.isPlaying();
     }
 
-
     public void setOnCompletionListener(MediaPlayer.OnCompletionListener onCompletionListener) {
         mMediaPlayer.setOnCompletionListener(onCompletionListener);
     }
