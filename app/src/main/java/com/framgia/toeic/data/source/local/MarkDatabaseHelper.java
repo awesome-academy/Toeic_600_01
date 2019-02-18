@@ -76,5 +76,6 @@ public class MarkDatabaseHelper implements MarkDatasource.Local {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_MARK, mark);
         db.update(TABLE_MARK, contentValues, COLUMN_ID_MARK + "=?", new String[]{id + ""});
+        db.close();
     }
 }

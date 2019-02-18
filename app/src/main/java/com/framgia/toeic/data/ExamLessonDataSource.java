@@ -11,6 +11,8 @@ public interface ExamLessonDataSource {
         void getExamLessons(Callback<List<ExamLesson>> callback);
 
         void getExams(ExamLesson examLesson, Callback<List<Exam>> callback);
+
+        void updateExam(ExamLesson examLesson, int mark, Callback<ExamLesson> callback);
     }
 
     interface Remote {

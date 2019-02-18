@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
@@ -31,7 +32,7 @@ public class ExamActivity extends BaseActivity implements ExamContract.View,
     private ExamLessonAdapter mAdapter;
     private ExamContract.Presenter mPresenter;
     private RecyclerView mRecyclerView;
-
+    
     public static Intent getExamActivity(Context context) {
         return new Intent(context, ExamActivity.class);
     }
@@ -91,6 +92,7 @@ public class ExamActivity extends BaseActivity implements ExamContract.View,
         mRecyclerView.setLayoutManager(new
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mAdapter);
+        mPresenter.updateMark(examLessons);
     }
 
     @Override

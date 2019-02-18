@@ -31,4 +31,9 @@ public class ExamLessonRepository implements ExamLessonDataSource.Local {
     public void getExams(ExamLesson examLesson, Callback<List<Exam>> callback) {
         mLocal.getExams(examLesson, callback);
     }
+
+    @Override
+    public void updateExam(ExamLesson examLesson, int mark, Callback<ExamLesson> callback) {
+        mLocal.updateExam(examLesson, mark, callback);
+    }
 }

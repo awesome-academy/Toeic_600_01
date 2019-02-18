@@ -2,14 +2,9 @@ package com.framgia.toeic.screen.base;
 
 import android.app.Dialog;
 import android.media.MediaPlayer;
-import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
@@ -78,7 +73,7 @@ public abstract class ResultTest extends BaseActivity implements View.OnClickLis
         mDialogResult = new Dialog(this);
         mDialogResult.setContentView(R.layout.dialog_result);
         TextView textViewRating = mDialogResult.findViewById(R.id.text_rating);
-        RatingBar ratingBar = mDialogResult.findViewById(R.id.ratingBar);
+        RatingBar ratingBar = mDialogResult.findViewById(R.id.rating_bar);
         TextView textViewTrue = mDialogResult.findViewById(R.id.text_number_question_true);
         mTextViewTimeResult = mDialogResult.findViewById(R.id.text_time);
         mTextViewFalse = mDialogResult.findViewById(R.id.text_number_question_false);

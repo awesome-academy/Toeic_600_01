@@ -10,6 +10,8 @@ import com.framgia.toeic.data.source.Callback;
 
 import java.util.List;
 
+import static com.framgia.toeic.screen.base.ModuleID.EXAM;
+
 public class ExamPresenter implements ExamContract.Presenter {
     private static final int MIN_MARK = 0;
     private ExamContract.View mView;
@@ -52,5 +54,18 @@ public class ExamPresenter implements ExamContract.Presenter {
                 mView.showError(error);
             }
         });
+    }
+
+    @Override
+    public void updateMark(List<ExamLesson> lessons) {
+        mMarkRepository.updateMark(EXAM, caculateMark(lessons));
+    }
+
+    public int caculateMark(List<ExamLesson> lessons) {
+        int totalMark = MIN_MARK;
+        for (Lesson lesson : lessons) {
+            totalMark += lesson.getRating();
+        }
+        return totalMark;
     }
 }

@@ -3,7 +3,9 @@ package com.framgia.toeic.screen.exam_detail;
 import android.media.MediaPlayer;
 
 import com.framgia.toeic.data.model.Exam;
+import com.framgia.toeic.data.model.ExamLesson;
 import com.framgia.toeic.data.repository.ExamLessonRepository;
+import com.framgia.toeic.data.source.Callback;
 import com.framgia.toeic.screen.base.MediaPlayerManager;
 import com.framgia.toeic.screen.base.RatingCaculator;
 import com.framgia.toeic.screen.base.RatingResult;
@@ -55,5 +57,23 @@ public class ExamDetailPresenter extends RatingCaculator implements ExamDetailCo
             return;
         }
         mView.listenMedia();
+    }
+
+    @Override
+    public void updateLesson(ExamLesson examLesson, int mark) {
+        if (mark > examLesson.getRating()){
+            mRepository.updateExam(examLesson, mark, new Callback<ExamLesson>() {
+                @Override
+                public void onGetDataSuccess(ExamLesson examLesson) {
+                    
+                }
+
+                @Override
+                public void onGetDataFail(Exception error) {
+                    mView.showError(error);
+                }
+            });
+            examLesson.setRating(mark);
+        }
     }
 }
