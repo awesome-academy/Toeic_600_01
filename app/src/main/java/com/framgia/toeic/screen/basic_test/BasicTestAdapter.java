@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -55,7 +54,7 @@ public class BasicTestAdapter extends RecyclerView.Adapter<BasicTestAdapter.Basi
             mListener = listener;
             mTextTitle = itemView.findViewById(R.id.text_name_basic);
             mCardView = itemView.findViewById(R.id.cardview_basic);
-            mRatingBar = itemView.findViewById(R.id.ratingBar);
+            mRatingBar = itemView.findViewById(R.id.rating_bar);
             mCardView.setOnClickListener(this);
         }
 

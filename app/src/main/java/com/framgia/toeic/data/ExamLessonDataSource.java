@@ -12,7 +12,7 @@ public interface ExamLessonDataSource {
 
         void getExams(ExamLesson examLesson, Callback<List<Exam>> callback);
 
-        void updateExamLesson(ExamLesson examLesson, int mark, Callback<ExamLesson> callback);
+        void updateExam(ExamLesson examLesson, int mark, Callback<ExamLesson> callback);
     }
 
     interface Remote {

@@ -1,7 +1,6 @@
 package com.framgia.toeic.screen.exam_detail;
 
 import android.media.MediaPlayer;
-import android.widget.Toast;
 
 import com.framgia.toeic.data.model.Exam;
 import com.framgia.toeic.data.model.ExamLesson;
@@ -63,10 +62,10 @@ public class ExamDetailPresenter extends RatingCaculator implements ExamDetailCo
     @Override
     public void updateLesson(ExamLesson examLesson, int mark) {
         if (mark > examLesson.getRating()){
-            mRepository.updateExamLesson(examLesson, mark, new Callback<ExamLesson>() {
+            mRepository.updateExam(examLesson, mark, new Callback<ExamLesson>() {
                 @Override
                 public void onGetDataSuccess(ExamLesson examLesson) {
-
+                    
                 }
 
                 @Override

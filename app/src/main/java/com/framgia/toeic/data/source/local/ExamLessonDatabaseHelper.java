@@ -96,7 +96,7 @@ public class ExamLessonDatabaseHelper implements ExamLessonDataSource.Local {
     }
 
     @Override
-    public void updateExamLesson(ExamLesson examLesson, int mark, Callback<ExamLesson> callback) {
+    public void updateExam(ExamLesson examLesson, int mark, Callback<ExamLesson> callback) {
         try {
             mDBHelper.openDatabase();
         } catch (IOException e) {
@@ -107,6 +107,7 @@ public class ExamLessonDatabaseHelper implements ExamLessonDataSource.Local {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_MAX_MARK, mark);
         db.update(TABLE_LESSON_EXAM, contentValues, COLUMN_ID_LESSON + "=?", new String[]{examLesson.getId() + ""});
+        callback.onGetDataSuccess(examLesson);
         db.close();
     }
 }

@@ -8,7 +8,6 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +27,7 @@ import com.framgia.toeic.screen.vocabulary_detail.fragment_vocabulary.Vocabulary
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.framgia.toeic.screen.base.IDModules.ID_VOCABULARY;
+import static com.framgia.toeic.screen.base.ModuleID.VOCABULARY;
 
 
 public class VocabularyDetailActivity extends ResultTest
@@ -117,7 +116,7 @@ public class VocabularyDetailActivity extends ResultTest
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.text_submit:
-                mPresenter.checkResult(ID_VOCABULARY,  mVocabularies);
+                mPresenter.checkResult(VOCABULARY,  mVocabularies);
                 mHandler.removeCallbacksAndMessages(null);
                 notifyFragments();
                 mViewPager.addOnPageChangeListener(this);

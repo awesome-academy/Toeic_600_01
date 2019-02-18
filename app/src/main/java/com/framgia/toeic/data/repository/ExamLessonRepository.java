@@ -33,7 +33,7 @@ public class ExamLessonRepository implements ExamLessonDataSource.Local {
     }
 
     @Override
-    public void updateExamLesson(ExamLesson examLesson, int mark, Callback<ExamLesson> callback) {
-        mLocal.updateExamLesson(examLesson, mark, callback);
+    public void updateExam(ExamLesson examLesson, int mark, Callback<ExamLesson> callback) {
+        mLocal.updateExam(examLesson, mark, callback);
     }
 }

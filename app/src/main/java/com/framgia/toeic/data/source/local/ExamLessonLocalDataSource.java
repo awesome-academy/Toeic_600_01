@@ -25,7 +25,7 @@ public class ExamLessonLocalDataSource implements ExamLessonDataSource.Local {
     }
 
     @Override
-    public void updateExamLesson(ExamLesson examLesson, int mark, Callback<ExamLesson> callback) {
-        mDatabaseHelper.updateExamLesson(examLesson, mark, callback);
+    public void updateExam(ExamLesson examLesson, int mark, Callback<ExamLesson> callback) {
+        mDatabaseHelper.updateExam(examLesson, mark, callback);
     }
 }

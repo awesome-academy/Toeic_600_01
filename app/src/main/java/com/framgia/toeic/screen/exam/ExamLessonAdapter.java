@@ -57,7 +57,7 @@ public class ExamLessonAdapter extends RecyclerView.Adapter<ExamLessonAdapter.Vi
             mImageView = itemView.findViewById(R.id.image_grammar);
             mTextTitle = itemView.findViewById(R.id.text_name_grammar);
             mCardView = itemView.findViewById(R.id.cardview_grammar);
-            mRatingBar = itemView.findViewById(R.id.ratingBar);
+            mRatingBar = itemView.findViewById(R.id.rating_bar);
             mCardView.setOnClickListener(this);
         }
 
