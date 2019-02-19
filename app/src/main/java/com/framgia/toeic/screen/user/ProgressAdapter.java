@@ -44,8 +44,7 @@ public class ProgressAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     static class ProgressViewHolder extends RecyclerView.ViewHolder{
-        private static final int NUMBER_CALCULATE_PERCENT = 100
-                ;
+        private static final int NUMBER_CALCULATE_PERCENT = 100;
         private TextView mTextViewTitle;
         private TextView mTextViewPercent;
         private ProgressBar mProgressBar;

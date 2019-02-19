@@ -22,7 +22,6 @@ import com.framgia.toeic.screen.base.BaseActivity;
 import java.util.List;
 
 public class UserActivity extends BaseActivity implements UserContract.View {
-    private static final String PREFNAME = "data_user";
     private RecyclerView mRecyclerView;
     private UserContract.Presenter mPresenter;
 
