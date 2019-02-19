@@ -48,12 +48,17 @@ public class VocabularyActivity extends BaseActionBar implements View.OnClickLis
         mPresenter = new VocabularyPresenter(this,
                 VocabularyLessonRepository.getInstance(new VocabularyLessonLocalDataSource(
                         new VocabularyLessonDatabaseHelper(new DBHelper(this)))));
-        mPresenter.getVocabularies();
     }
 
     @Override
     public void onClick(View view) {
         mPresenter.pushVocabularies();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mPresenter.getVocabularies();
     }
 
     @Override
@@ -81,8 +86,13 @@ public class VocabularyActivity extends BaseActionBar implements View.OnClickLis
                 vocabularies.addAll(vocabularyLessonItem.getVocabularies());
             }
         }
-        Collections.shuffle(vocabularies);
-        startActivity(VocabularyDetailActivity.getIntent(this, vocabularies));
+        if (vocabularies.size() == 0) {
+            Toast.makeText(this, getResources().getString(R.string.toast_forget_check)
+                    , Toast.LENGTH_LONG).show();
+        } else {
+            Collections.shuffle(vocabularies);
+            startActivity(VocabularyDetailActivity.getIntent(this, vocabularies));
+        }
     }
 
     @Override

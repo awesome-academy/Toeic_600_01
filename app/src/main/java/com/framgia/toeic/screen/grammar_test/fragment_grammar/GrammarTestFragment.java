@@ -2,6 +2,7 @@ package com.framgia.toeic.screen.grammar_test.fragment_grammar;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -91,22 +92,22 @@ public class GrammarTestFragment extends QuestionFragment
 
     @Override
     public void onAnswerARight() {
-        mRadioAnswerA.setBackgroundColor(Color.RED);
+        mRadioAnswerA.setTextColor(getResources().getColor(R.color.material_teal_500));
     }
 
     @Override
     public void onAnswerBRight() {
-        mRadioAnswerB.setBackgroundColor(Color.RED);
+        mRadioAnswerB.setTextColor(getResources().getColor(R.color.material_teal_500));
     }
 
     @Override
     public void onAnswerCRight() {
-        mRadioAnswerC.setBackgroundColor(Color.RED);
+        mRadioAnswerC.setTextColor(getResources().getColor(R.color.material_teal_500));
     }
 
     @Override
     public void onAnswerDRight() {
-        mRadioAnswerD.setBackgroundColor(Color.RED);
+        mRadioAnswerD.setTextColor(getResources().getColor(R.color.material_teal_500));
     }
 
     @Override

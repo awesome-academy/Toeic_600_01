@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".screen.user.UserActivity"></activity>
+        <activity android:name=".screen.user.UserActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".screen.splash.SplashActivity"
             android:label="@string/app_name"
@@ -28,7 +29,7 @@
             android:name=".screen.vocabulary_detail.VocabularyDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".screen.grammar.GrammarActivity" />
-        <activity android:name=".screen.grammar_detail.GrammarDetailAcvitity" />
+        <activity android:name=".screen.grammar_detail.GrammarDetailAcvitity"/>
         <activity android:name=".screen.vocabulary.VocabularyActivity" />
         <activity
             android:name=".screen.grammar_test.GrammarTestActivity"

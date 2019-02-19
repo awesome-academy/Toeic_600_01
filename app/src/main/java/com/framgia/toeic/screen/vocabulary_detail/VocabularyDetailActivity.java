@@ -24,6 +24,7 @@ import com.framgia.toeic.screen.base.DepthPageTransformer;
 import com.framgia.toeic.screen.base.DisplayAnswerListener;
 import com.framgia.toeic.screen.base.ResultTest;
 import com.framgia.toeic.screen.base.ShowAnswerListener;
+import com.framgia.toeic.screen.vocabulary.VocabularyActivity;
 import com.framgia.toeic.screen.vocabulary_detail.fragment_vocabulary.VocabularyDetailFragment;
 
 import java.util.ArrayList;
@@ -94,9 +95,9 @@ public class VocabularyDetailActivity extends ResultTest
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                mHandler.postDelayed(this, TRANFER_SECOND_TO_MILISECOND);
                 mCountTime++;
-                mTextViewTime.setText(getStringDatefromlong(mCountTime));
+                mTextViewTime.setText(getStringDatefromlong(mCountTime*TRANFER_SECOND_TO_MILISECOND));
+                mHandler.postDelayed(this, TRANFER_SECOND_TO_MILISECOND);
             }
         });
     }
@@ -121,7 +122,7 @@ public class VocabularyDetailActivity extends ResultTest
     @Override
     public void showDialogResult(int mark, int rating) {
         super.showDialogResult(mark, rating);
-        mTextViewFalse.setText(mark+"");
+        mTextViewFalse.setText(mVocabularies.size()-mark+"");
         mTextViewTimeResult.setText(mTextViewTime.getText());
     }
 
