@@ -23,7 +23,7 @@ public interface BasicTestDetailContract {
     interface Presenter {
         void checkAnswer(List<BasicTest> basicTests);
 
-        void checkListening();
+        void changeMediaStatus();
 
         void updateLesson(BasicTestLesson lesson, int mark);
 

@@ -70,52 +70,14 @@ public class BasicTestDetailActivity extends ResultTest
         mPresenter = getBasicTestDetailPresenter();
         mTextViewSubmit.setOnClickListener(this);
         mImagePlayPause.setOnClickListener(this);
-        listnerViewPagerChange();
-    }
-
-    public void listnerViewPagerChange() {
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-                if(sflag_submit){
-                    notifyFragments();
-                }
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-                mPresenter.changeMediaFile(++i, mLesson.getId());
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
+        listenerViewPagerChange();
     }
 
     @Override
     public void showData() {
         super.showData();
-        mCountDownTimer = new CountDownTimer(
-                TIMELINE * TRANFER_MINIUTE_TO_SECOND * TRANFER_SECOND_TO_MILISECOND,
-                TRANFER_SECOND_TO_MILISECOND) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                mTextViewTime.setText(getStringDatefromlong(millisUntilFinished) + "");
-            }
-
-            @Override
-            public void onFinish() {
-                submitAnswer();
-            }
-        };
-        try {
-            playMedia(mLesson.getBasicTests().get(0).getIdImage(), EXTENSION_MEDIA);
-        } catch (IOException e) {
-            Toast.makeText(this, getResources().getString(R.string.error_audio), Toast.LENGTH_LONG).show();
-        }
-        mCountDownTimer.start();
+        defaultMedia();
+        startTimer();
     }
 
     @Override
@@ -133,7 +95,6 @@ public class BasicTestDetailActivity extends ResultTest
                 });
     }
 
-
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -141,10 +102,10 @@ public class BasicTestDetailActivity extends ResultTest
             case R.id.text_submit:
                 sflag_submit = true;
                 submitAnswer();
-                listnerViewPagerChange();
+                listenerViewPagerChange();
                 break;
             case R.id.image_play_pause:
-                mPresenter.checkListening();
+                mPresenter.changeMediaStatus();
         }
     }
 
@@ -215,6 +176,33 @@ public class BasicTestDetailActivity extends ResultTest
         }
     }
 
+    private void defaultMedia() {
+        mPresenter.changeMediaFile(1,mLesson.getId());
+    }
+
+    private void startTimer() {
+        mCountDownTimer = new CountDownTimer(
+                TIMELINE * TRANFER_MINIUTE_TO_SECOND * TRANFER_SECOND_TO_MILISECOND,
+                TRANFER_SECOND_TO_MILISECOND) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                mTextViewTime.setText(getStringDatefromlong(millisUntilFinished) + "");
+            }
+
+            @Override
+            public void onFinish() {
+                submitAnswer();
+            }
+        };
+        mCountDownTimer.start();
+    }
+
+    private BasicTestDetailPresenter getBasicTestDetailPresenter() {
+        return new BasicTestDetailPresenter(this, BasicTestRepository
+                .getInstance(new BasicTestLocalDatasource(new BasicTestDatabaseHelper(
+                        new DBHelper(this)))));
+    }
+
     public void submitAnswer() {
         mPresenter.checkAnswer(mLesson.getBasicTests());
         mCountDownTimer.cancel();
@@ -222,9 +210,24 @@ public class BasicTestDetailActivity extends ResultTest
         notifyFragments();
     }
 
-    private BasicTestDetailPresenter getBasicTestDetailPresenter() {
-        return new BasicTestDetailPresenter(this, BasicTestRepository
-                .getInstance(new BasicTestLocalDatasource(new BasicTestDatabaseHelper(
-                        new DBHelper(this)))));
+    public void listenerViewPagerChange() {
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+                if(sflag_submit){
+                    notifyFragments();
+                }
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                mPresenter.changeMediaFile(++i, mLesson.getId());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
     }
 }

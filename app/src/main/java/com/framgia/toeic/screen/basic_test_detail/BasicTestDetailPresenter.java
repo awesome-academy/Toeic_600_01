@@ -56,7 +56,7 @@ public class BasicTestDetailPresenter extends RatingCaculator implements BasicTe
     }
 
     @Override
-    public void checkListening() {
+    public void changeMediaStatus() {
         if (MediaPlayerManager.getInstance(new MediaPlayer()).isPlaying()) {
             mView.pauseAudio();
             return;
