@@ -33,7 +33,7 @@ public class BasicTestDetailActivity extends ResultTest
     private static final String EXTRA_BASIC_TEST_LESSON = "EXTRA_BASIC_TEST_LESSON";
     private static final String EXTENSION_MEDIA = ".mp3";
     private static final int TIMELINE = 15;
-    private static boolean sflag_submit = false;
+    private boolean mFlag_submit = false;
     private TextView mTextViewTime;
     private TextView mTextViewSubmit;
     private ImageView mImagePlayPause;
@@ -70,13 +70,13 @@ public class BasicTestDetailActivity extends ResultTest
         mPresenter = getBasicTestDetailPresenter();
         mTextViewSubmit.setOnClickListener(this);
         mImagePlayPause.setOnClickListener(this);
-        listenerViewPagerChange();
+        addViewPagerListener();
     }
 
     @Override
     public void showData() {
         super.showData();
-        defaultMedia();
+        setDefaultMedia();
         startTimer();
     }
 
@@ -100,9 +100,9 @@ public class BasicTestDetailActivity extends ResultTest
         super.onClick(v);
         switch (v.getId()) {
             case R.id.text_submit:
-                sflag_submit = true;
+                mFlag_submit = true;
                 submitAnswer();
-                listenerViewPagerChange();
+                addViewPagerListener();
                 break;
             case R.id.image_play_pause:
                 mPresenter.changeMediaStatus();
@@ -176,7 +176,7 @@ public class BasicTestDetailActivity extends ResultTest
         }
     }
 
-    private void defaultMedia() {
+    private void setDefaultMedia() {
         mPresenter.changeMediaFile(1,mLesson.getId());
     }
 
@@ -210,11 +210,11 @@ public class BasicTestDetailActivity extends ResultTest
         notifyFragments();
     }
 
-    public void listenerViewPagerChange() {
+    public void addViewPagerListener() {
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
-                if(sflag_submit){
+                if(mFlag_submit){
                     notifyFragments();
                 }
             }
