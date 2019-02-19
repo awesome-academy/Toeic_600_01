@@ -56,7 +56,7 @@ public class BasicTestDetailPresenter extends RatingCaculator implements BasicTe
     }
 
     @Override
-    public void changeMediaStatus() {
+    public void changeAudioStatus() {
         if (MediaPlayerManager.getInstance(new MediaPlayer()).isPlaying()) {
             mView.pauseAudio();
             return;
@@ -82,10 +82,10 @@ public class BasicTestDetailPresenter extends RatingCaculator implements BasicTe
     }
 
     @Override
-    public void changeMediaFile(int part, int idLesson) {
+    public void changeAudioFile(int part, int idLesson) {
         if (part <= NUMBER_MEDIA_EACH_LESSON) {
             int id = (idLesson - 1) * NUMBER_MEDIA_EACH_LESSON + part;
-            mView.changeMedia(id);
+            mView.changeAudio(id);
             return;
         }
         mView.hideSeekBar();

@@ -15,7 +15,7 @@ public interface BasicTestDetailContract {
 
         void hideSeekBar();
 
-        void changeMedia(int id);
+        void changeAudio(int id);
 
         void showError(Exception e);
     }
@@ -23,11 +23,11 @@ public interface BasicTestDetailContract {
     interface Presenter {
         void checkAnswer(List<BasicTest> basicTests);
 
-        void changeMediaStatus();
+        void changeAudioStatus();
 
         void updateLesson(BasicTestLesson lesson, int mark);
 
-        void changeMediaFile(int part, int idLesson);
+        void changeAudioFile(int part, int idLesson);
 
     }
 }

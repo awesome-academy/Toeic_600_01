@@ -33,7 +33,7 @@ public class BasicTestDetailActivity extends ResultTest
     private static final String EXTRA_BASIC_TEST_LESSON = "EXTRA_BASIC_TEST_LESSON";
     private static final String EXTENSION_MEDIA = ".mp3";
     private static final int TIMELINE = 15;
-    private boolean mFlag_submit = false;
+    private boolean mFlagSubmit = false;
     private TextView mTextViewTime;
     private TextView mTextViewSubmit;
     private ImageView mImagePlayPause;
@@ -77,7 +77,7 @@ public class BasicTestDetailActivity extends ResultTest
     public void showData() {
         super.showData();
         setDefaultMedia();
-        startTimer();
+        startCountDownTimer();
     }
 
     @Override
@@ -100,12 +100,12 @@ public class BasicTestDetailActivity extends ResultTest
         super.onClick(v);
         switch (v.getId()) {
             case R.id.text_submit:
-                mFlag_submit = true;
+                mFlagSubmit = true;
                 submitAnswer();
                 addViewPagerListener();
                 break;
             case R.id.image_play_pause:
-                mPresenter.changeMediaStatus();
+                mPresenter.changeAudioStatus();
         }
     }
 
@@ -129,7 +129,7 @@ public class BasicTestDetailActivity extends ResultTest
     }
 
     @Override
-    public void changeMedia(int id) {
+    public void changeAudio(int id) {
         mSeekBar.setVisibility(View.VISIBLE);
         mSeekBar.setProgress(0);
         mImagePlayPause.setVisibility(View.VISIBLE);
@@ -177,10 +177,10 @@ public class BasicTestDetailActivity extends ResultTest
     }
 
     private void setDefaultMedia() {
-        mPresenter.changeMediaFile(1,mLesson.getId());
+        mPresenter.changeAudioFile(1,mLesson.getId());
     }
 
-    private void startTimer() {
+    private void startCountDownTimer() {
         mCountDownTimer = new CountDownTimer(
                 TIMELINE * TRANFER_MINIUTE_TO_SECOND * TRANFER_SECOND_TO_MILISECOND,
                 TRANFER_SECOND_TO_MILISECOND) {
@@ -214,14 +214,14 @@ public class BasicTestDetailActivity extends ResultTest
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
-                if(mFlag_submit){
+                if(mFlagSubmit){
                     notifyFragments();
                 }
             }
 
             @Override
             public void onPageSelected(int i) {
-                mPresenter.changeMediaFile(++i, mLesson.getId());
+                mPresenter.changeAudioFile(++i, mLesson.getId());
             }
 
             @Override
