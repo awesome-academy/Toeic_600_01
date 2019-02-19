@@ -56,4 +56,5 @@
     <string name="action_cancel">Hủy</string>
     <string name="title_part">Phần:</string>
     <string name="error_audio">Âm thanh không thể khởi chạy</string>
+    <string name="hint_target">Mục tiêu của bạn</string>
 </resources>
