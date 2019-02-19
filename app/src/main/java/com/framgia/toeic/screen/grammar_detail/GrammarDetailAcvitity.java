@@ -2,21 +2,21 @@ package com.framgia.toeic.screen.grammar_detail;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.framgia.toeic.R;
 import com.framgia.toeic.data.model.GrammarLesson;
-import com.framgia.toeic.screen.base.BaseActivity;
+import com.framgia.toeic.screen.base.BaseActionBar;
 import com.framgia.toeic.screen.grammar_test.GrammarTestActivity;
 import com.github.barteksc.pdfviewer.PDFView;
 
-public class GrammarDetailAcvitity extends BaseActivity {
+public class GrammarDetailAcvitity extends BaseActionBar {
     static final String EXTRA_LESSON = "EXTRA_LESSON";
     private PDFView mPDFView;
     private GrammarLesson mLesson;
+
     public static Intent getIntent(Context context, GrammarLesson grammarLesson) {
         Intent intent = new Intent(context, GrammarDetailAcvitity.class);
         intent.putExtra(EXTRA_LESSON, grammarLesson);
@@ -35,11 +35,7 @@ public class GrammarDetailAcvitity extends BaseActivity {
 
     @Override
     protected void initComponent() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
-                .getColor(R.color.material_cyan_300)));
+        initActionBar("");
         mPDFView = findViewById(R.id.pdf_grammar);
     }
 

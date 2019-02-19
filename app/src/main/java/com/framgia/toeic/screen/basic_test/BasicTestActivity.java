@@ -2,13 +2,10 @@ package com.framgia.toeic.screen.basic_test;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.framgia.toeic.R;
 import com.framgia.toeic.data.model.BasicTestLesson;
@@ -19,12 +16,12 @@ import com.framgia.toeic.data.source.local.BasicTestLocalDatasource;
 import com.framgia.toeic.data.source.local.DBHelper;
 import com.framgia.toeic.data.source.local.MarkDatabaseHelper;
 import com.framgia.toeic.data.source.local.MarkLocalDataSource;
-import com.framgia.toeic.screen.base.BaseActivity;
 import com.framgia.toeic.screen.basic_test_detail.BasicTestDetailActivity;
+import com.framgia.toeic.screen.base.BaseActionBar;
 
 import java.util.List;
 
-public class BasicTestActivity extends BaseActivity
+public class BasicTestActivity extends BaseActionBar
         implements BasicTestContract.View, BasicTestAdapter.OnItemClickListener {
     private RecyclerView mRecyclerView;
     private BasicTestContract.Presenter mPresenter;
@@ -46,11 +43,7 @@ public class BasicTestActivity extends BaseActivity
 
     @Override
     protected void initComponent() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(getResources().getString(R.string.action_basic_test));
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor
-                (R.color.material_cyan_300)));
+        initActionBar(getResources().getString(R.string.action_basic_test));
         mRecyclerView = findViewById(R.id.recycle_basic_test);
         mPresenter = new BasicTestPresenter(this,
                 BasicTestRepository.getInstance(

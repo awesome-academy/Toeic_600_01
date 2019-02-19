@@ -2,7 +2,6 @@ package com.framgia.toeic.screen.grammar;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,12 +14,12 @@ import com.framgia.toeic.data.repository.GrammarLessonRepository;
 import com.framgia.toeic.data.source.local.DBHelper;
 import com.framgia.toeic.data.source.local.GrammarLessonDatabaseHelper;
 import com.framgia.toeic.data.source.local.GrammarLessonLocalDataSource;
-import com.framgia.toeic.screen.base.BaseActivity;
+import com.framgia.toeic.screen.base.BaseActionBar;
 import com.framgia.toeic.screen.grammar_detail.GrammarDetailAcvitity;
 
 import java.util.List;
 
-public class GrammarActivity extends BaseActivity implements GrammarContract.View,
+public class GrammarActivity extends BaseActionBar implements GrammarContract.View,
         GrammarLessonAdapter.OnItemClickListener {
     private GrammarLessonAdapter mLessonAdapter;
     private GrammarContract.Presenter mPresenter;
@@ -42,11 +41,7 @@ public class GrammarActivity extends BaseActivity implements GrammarContract.Vie
 
     @Override
     protected void initComponent() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(getResources().getString(R.string.action_grammar));
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor
-                (R.color.material_cyan_300)));
+        initActionBar(getResources().getString(R.string.action_grammar));
         mRecyclerView = findViewById(R.id.recycle_lesson_grammar);
     }
 
