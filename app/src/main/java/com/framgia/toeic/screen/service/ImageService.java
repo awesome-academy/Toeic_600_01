@@ -1,24 +1,27 @@
-package com.framgia.toeic.screen.splash;
+package com.framgia.toeic.screen.service;
 
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 
+import com.framgia.toeic.screen.splash.Downloader;
+import com.framgia.toeic.screen.splash.OnWriteData;
+
 import java.util.List;
 
-public class AudioService extends IntentService {
+public class ImageService extends IntentService {
     private static List<String> data;
-    private static final String FOLDER_AUDIO = "audio";
-    private static final String NAME = "audio_service";
+    private static final String FOLDER_IMAGE = "image";
+    private static final String NAME = "image_service";
 
-    public static Intent getIntentAudioService(Context context, List links) {
-        data = links;
-        Intent intent = new Intent(context, AudioService.class);
+    public static Intent getIntentImageService(Context context, List links) {
+        ImageService.data = links;
+        Intent intent = new Intent(context, ImageService.class);
         return intent;
     }
 
-    public AudioService() {
+    public ImageService() {
         super(NAME);
     }
 
@@ -34,8 +37,8 @@ public class AudioService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        Downloader downloadAudio = new Downloader(getBaseContext(), data);
-        downloadAudio.download(new OnWriteData() {
+        Downloader downloadImage = new Downloader(getBaseContext(),data);
+        downloadImage.download(new OnWriteData() {
             @Override
             public void writeFileError(Exception e) {
 
@@ -45,7 +48,7 @@ public class AudioService extends IntentService {
             public void writeFileSuccess(String link) {
 
             }
-        }, FOLDER_AUDIO);
+        },FOLDER_IMAGE);
     }
 
     @Override

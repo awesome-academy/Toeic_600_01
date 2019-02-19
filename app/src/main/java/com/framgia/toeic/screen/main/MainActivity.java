@@ -18,18 +18,11 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.framgia.toeic.R;
-import com.framgia.toeic.data.model.Mark;
-import com.framgia.toeic.data.repository.MarkRepository;
-import com.framgia.toeic.data.repository.VocabularyLessonRepository;
-import com.framgia.toeic.data.source.local.DBHelper;
-import com.framgia.toeic.data.source.local.MarkDatabaseHelper;
-import com.framgia.toeic.data.source.local.MarkLocalDataSource;
-import com.framgia.toeic.data.source.local.VocabularyLessonDatabaseHelper;
-import com.framgia.toeic.data.source.local.VocabularyLessonLocalDataSource;
 import com.framgia.toeic.screen.base.BaseActivity;
 import com.framgia.toeic.screen.basic_test.BasicTestActivity;
 import com.framgia.toeic.screen.exam.ExamActivity;
 import com.framgia.toeic.screen.grammar.GrammarActivity;
+import com.framgia.toeic.screen.user.UserActivity;
 import com.framgia.toeic.screen.vocabulary.VocabularyActivity;
 
 public class MainActivity extends BaseActivity
@@ -177,6 +170,7 @@ public class MainActivity extends BaseActivity
                 startActivity(ExamActivity.getExamActivity(this));
                 break;
             case R.id.card_user:
+                startActivity(UserActivity.getIntent(this));
                 break;
         }
     }
