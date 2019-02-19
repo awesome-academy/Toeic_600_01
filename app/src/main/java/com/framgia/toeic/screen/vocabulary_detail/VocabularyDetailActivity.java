@@ -8,7 +8,9 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +39,8 @@ public class VocabularyDetailActivity extends ResultTest
     private ViewPager mViewPager;
     private TextView mTextViewCheck;
     private TextView mTextViewTime;
+    private ImageView mImageNext;
+    private ImageView mImageBack;
     private ArrayList<Vocabulary> mVocabularies;
     private List<Fragment> mVocabularyFragments;
     private VocabularyDetailContract.Presenter mPresenter;
@@ -53,6 +57,13 @@ public class VocabularyDetailActivity extends ResultTest
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        setDefaultBack();
+        addViewPagerListener();
+    }
+
+    @Override
     protected int getLayoutResource() {
         return R.layout.activity_vocabulary_detail;
     }
@@ -61,6 +72,8 @@ public class VocabularyDetailActivity extends ResultTest
     protected void initComponent() {
         mViewPager = findViewById(R.id.view_pager);
         mTextViewCheck = findViewById(R.id.text_submit);
+        mImageNext = findViewById(R.id.image_next);
+        mImageBack = findViewById(R.id.image_back);
         mTextViewCheck.setOnClickListener(this);
         mTextViewTime = findViewById(R.id.text_timer);
         mVocabularyFragments = new ArrayList();
@@ -152,5 +165,34 @@ public class VocabularyDetailActivity extends ResultTest
 
     @Override
     public void onPageScrollStateChanged(int i) {
+    }
+
+    public void addViewPagerListener() {
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position == 0){
+                    mImageBack.setVisibility(View.GONE);
+                }else if(position == mVocabularies.size()-1){
+                    mImageNext.setVisibility(View.GONE);
+                } else {
+                    mImageBack.setVisibility(View.VISIBLE);
+                    mImageNext.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+    }
+
+    private void setDefaultBack() {
+        mImageBack.setVisibility(View.GONE);
     }
 }

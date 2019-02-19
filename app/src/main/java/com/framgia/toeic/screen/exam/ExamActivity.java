@@ -2,14 +2,10 @@ package com.framgia.toeic.screen.exam;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.framgia.toeic.R;
@@ -21,18 +17,17 @@ import com.framgia.toeic.data.source.local.ExamLessonDatabaseHelper;
 import com.framgia.toeic.data.source.local.ExamLessonLocalDataSource;
 import com.framgia.toeic.data.source.local.MarkDatabaseHelper;
 import com.framgia.toeic.data.source.local.MarkLocalDataSource;
-import com.framgia.toeic.screen.base.BaseActivity;
+import com.framgia.toeic.screen.base.BaseActionBar;
 import com.framgia.toeic.screen.exam_detail.ExamDetailActivity;
 
-import java.io.IOException;
 import java.util.List;
 
-public class ExamActivity extends BaseActivity implements ExamContract.View,
+public class ExamActivity extends BaseActionBar implements ExamContract.View,
         ExamLessonAdapter.OnItemClickListener {
     private ExamLessonAdapter mAdapter;
     private ExamContract.Presenter mPresenter;
     private RecyclerView mRecyclerView;
-    
+
     public static Intent getExamActivity(Context context) {
         return new Intent(context, ExamActivity.class);
     }
@@ -49,11 +44,7 @@ public class ExamActivity extends BaseActivity implements ExamContract.View,
 
     @Override
     protected void initComponent() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(getResources().getString(R.string.action_exam));
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor
-                (R.color.material_cyan_300)));
+        initActionBar(getResources().getString(R.string.action_exam));
         mRecyclerView = findViewById(R.id.recycler_exam);
     }
 
