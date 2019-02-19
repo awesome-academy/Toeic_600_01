@@ -20,6 +20,7 @@ import com.framgia.toeic.data.source.local.DBHelper;
 import com.framgia.toeic.data.source.local.MarkDatabaseHelper;
 import com.framgia.toeic.data.source.local.MarkLocalDataSource;
 import com.framgia.toeic.screen.base.BaseActivity;
+import com.framgia.toeic.screen.basic_test_detail.BasicTestDetailActivity;
 
 import java.util.List;
 
@@ -91,5 +92,6 @@ public class BasicTestActivity extends BaseActivity
 
     @Override
     public void onClick(BasicTestLesson basicTestLesson) {
+        startActivity(BasicTestDetailActivity.getIntent(this, basicTestLesson));
     }
 }
