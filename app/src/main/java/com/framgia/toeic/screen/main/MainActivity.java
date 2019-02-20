@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,8 +17,12 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.framgia.toeic.R;
+import com.framgia.toeic.data.model.User;
+import com.framgia.toeic.data.repository.UserRepository;
+import com.framgia.toeic.data.source.local.UserLocalDataSource;
 import com.framgia.toeic.screen.base.BaseActivity;
 import com.framgia.toeic.screen.basic_test.BasicTestActivity;
 import com.framgia.toeic.screen.exam.ExamActivity;
@@ -27,21 +32,20 @@ import com.framgia.toeic.screen.vocabulary.VocabularyActivity;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        View.OnClickListener {
-    private static final String DATA = "data_user";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_TARGET = "target";
-    private static final String TARGET = "600";
+        View.OnClickListener, MainContract.View {
     private Toolbar mToolbar;
     private NavigationView mNavigationView;
     private DrawerLayout mDrawer;
     private CardView mCardVocabulary, mCardGrammar, mCardBasicTest, mCardExam, mCardUser;
-    private SharedPreferences mPreferences;
     private TextView mTextName;
     private TextView mTextTarget;
+    private MainContract.Presenter mPresenter;
 
     public static Intent getMainIntent(Context context) {
-        return new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        return intent;
     }
 
     @Override
@@ -53,11 +57,6 @@ public class MainActivity extends BaseActivity
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(this.getResources().getColor(R.color.marterial_indigo_500));
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     @Override
@@ -82,11 +81,11 @@ public class MainActivity extends BaseActivity
         mCardGrammar = findViewById(R.id.card_grammar);
         mCardExam = findViewById(R.id.card_exam);
         mCardUser = findViewById(R.id.card_user);
-        mPreferences = getSharedPreferences(DATA, MODE_PRIVATE);
         mTextName = findViewById(R.id.text_name);
         mTextTarget = findViewById(R.id.text_target);
+        mPresenter = new MainPresenter(UserRepository.getInstance(
+                new UserLocalDataSource(PreferenceManager.getDefaultSharedPreferences(this))), this);
     }
-
 
     @Override
     protected void initData() {
@@ -116,31 +115,23 @@ public class MainActivity extends BaseActivity
             case R.id.nav_vocabulary:
                 startActivity(VocabularyActivity.getVocabularyIntent(this));
                 break;
-
             case R.id.nav_grammar:
                 startActivity(GrammarActivity.getGrammarIntent(this));
                 break;
-
             case R.id.nav_basic_test:
                 startActivity(BasicTestActivity.getIntent(this));
                 break;
-
             case R.id.nav_exam:
                 startActivity(ExamActivity.getExamActivity(this));
                 break;
-
             case R.id.nav_share:
                 break;
-
             case R.id.nav_setting:
                 break;
-
             case R.id.nav_rating:
                 break;
-
             case R.id.nav_about:
                 break;
-
         }
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
@@ -149,6 +140,7 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onStart() {
         super.onStart();
+        mPresenter.getUser();
     }
 
     @Override
@@ -157,15 +149,12 @@ public class MainActivity extends BaseActivity
             case R.id.card_vocabulary:
                 startActivity(VocabularyActivity.getVocabularyIntent(this));
                 break;
-
             case R.id.card_grammar:
                 startActivity(GrammarActivity.getGrammarIntent(this));
                 break;
-
             case R.id.card_basic_test:
                 startActivity(BasicTestActivity.getIntent(this));
                 break;
-
             case R.id.card_exam:
                 startActivity(ExamActivity.getExamActivity(this));
                 break;
@@ -175,10 +164,14 @@ public class MainActivity extends BaseActivity
         }
     }
 
-    public void restoringPreferences() {
-        String name = mPreferences.getString(KEY_NAME,getResources().getString(R.string.hint_name));
-        String target = mPreferences.getString(KEY_TARGET,TARGET);
-        mTextName.setText(name);
-        mTextTarget.setText(target);
+    @Override
+    public void showError(Exception error) {
+        Toast.makeText(this, error.getMessage(), Toast.LENGTH_LONG);
+    }
+
+    @Override
+    public void showUser(User user) {
+        mTextName.setText(user.getName());
+        mTextTarget.setText(user.getTarget());
     }
 }
