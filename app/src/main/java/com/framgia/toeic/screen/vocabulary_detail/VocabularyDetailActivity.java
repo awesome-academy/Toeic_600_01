@@ -122,7 +122,7 @@ public class VocabularyDetailActivity extends ResultTest
     @Override
     public void showDialogResult(int mark, int rating) {
         super.showDialogResult(mark, rating);
-        mTextViewFalse.setText(mVocabularies.size()-mark+"");
+        mTextViewFalse.setText(String.valueOf(mVocabularies.size()-mark));
         mTextViewTimeResult.setText(mTextViewTime.getText());
     }
 
