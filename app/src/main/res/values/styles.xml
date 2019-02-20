@@ -40,6 +40,11 @@
 
     <style name="StyleRadioButton" parent="Theme.AppCompat.NoActionBar">
     <item name="colorControlNormal">#43C6AC</item>
+    </style>
+    
     <item name="colorControlActivated">#43C6AC</item>
+    <style name="CustomProgressBarHorizontal" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:minHeight">5dip</item>
+        <item name="android:maxHeight">5dip</item>
     </style>
 </resources>

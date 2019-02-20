@@ -1,7 +1,9 @@
 package com.framgia.toeic.screen.splash;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
@@ -23,10 +25,11 @@ import com.google.firebase.FirebaseApp;
 import java.util.List;
 
 public class SplashActivity extends BaseActivity implements SplashContract.View, OnWriteData,
-        FragmentAdapter.OnPageChangeListener, View.OnClickListener {
+        FragmentAdapter.OnPageChangeListener {
     private static final int TIME = 3000;
     private static final int SIZE_DOT = 35;
     private static final String CODE_DOT = "&#8226";
+    private static final String FIRST_USE_APP = "FIRST_USE_APP";
     private SplashContract.Presenter mPresenter;
     private ViewPager mViewPager;
     private FragmentAdapter mAdapter;
@@ -54,12 +57,20 @@ public class SplashActivity extends BaseActivity implements SplashContract.View,
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean firstUseApp = sharedPreferences.getBoolean(FIRST_USE_APP, true);
+        if (!firstUseApp) {
+            startActivity(MainActivity.getMainIntent(this));
+        }
         getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         );
         addDots(0);
         FirebaseApp.initializeApp(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(FIRST_USE_APP, false);
+        editor.apply();
     }
 
     @Override
@@ -86,7 +97,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View,
     protected void initComponent() {
         mViewPager = findViewById(R.id.viewpager);
         mDotLayout = findViewById(R.id.linear_dot);
-        mAdapter = new FragmentAdapter(this,this);
+        mAdapter = new FragmentAdapter(this, this);
         mViewPager.setAdapter(mAdapter);
         mHandler = new Handler();
         mPresenter = new SplashPresenter(this, FileRepository.getInstance(
@@ -110,14 +121,12 @@ public class SplashActivity extends BaseActivity implements SplashContract.View,
 
     @Override
     protected void initData() {
-
     }
 
     public void pageChangeListener() {
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
@@ -132,11 +141,6 @@ public class SplashActivity extends BaseActivity implements SplashContract.View,
             public void onPageScrollStateChanged(int state) {
             }
         });
-    }
-
-    @Override
-    public void onClick(View view) {
-
     }
 
     @Override
@@ -156,7 +160,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View,
 
     @Override
     public void writeFileSuccess(String success) {
-
+        
     }
 
     @Override
