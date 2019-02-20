@@ -20,6 +20,7 @@ import com.framgia.toeic.data.source.local.MarkLocalDataSource;
 import com.framgia.toeic.screen.base.DisplayAnswerListener;
 import com.framgia.toeic.screen.base.ResultTest;
 import com.framgia.toeic.screen.base.ShowAnswerListener;
+import com.framgia.toeic.screen.grammar.GrammarActivity;
 import com.framgia.toeic.screen.grammar_test.fragment_grammar.GrammarTestFragment;
 
 import java.util.ArrayList;
@@ -73,14 +74,14 @@ public class GrammarTestActivity extends ResultTest implements ShowAnswerListene
         GrammarViewPagerAdapter adapter = new GrammarViewPagerAdapter(
                 getSupportFragmentManager(), mGrammars, mFragments);
         mViewPager.setAdapter(adapter);
-        mHandler.postDelayed(new Runnable() {
+        mHandler.post(new Runnable() {
             @Override
             public void run() {
                 mCountTime++;
+                mTextViewTime.setText(getStringDatefromlong(mCountTime*TRANFER_SECOND_TO_MILISECOND));
                 mHandler.postDelayed(this, TRANFER_SECOND_TO_MILISECOND);
-                mTextViewTime.setText(getStringDatefromlong(mCountTime));
             }
-        }, 0);
+        });
     }
 
     @Override

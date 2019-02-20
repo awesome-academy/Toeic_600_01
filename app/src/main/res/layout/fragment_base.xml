@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -34,16 +35,16 @@
         app:layout_constraintTop_toBottomOf="@+id/text_number_question" />
 
     <RadioGroup
-        android:layout_width="0dp"
         android:id="@+id/radio_group"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_16"
         android:layout_marginLeft="@dimen/dp_16"
         android:layout_marginTop="@dimen/dp_16"
         android:layout_marginEnd="@dimen/dp_16"
         android:layout_marginRight="@dimen/dp_16"
-        android:paddingLeft="@dimen/dp_16"
-        android:paddingRight="@dimen/dp_16"
+        android:paddingLeft="@dimen/dp_24"
+        android:paddingRight="@dimen/dp_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_content_question">
@@ -54,9 +55,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_24"
             android:layout_weight="1"
-            android:textColor="@color/design_default_color_primary_dark"
+            android:textColor="@color/material_gray_700"
             android:textSize="@dimen/sp_20"
-            android:textStyle="bold" />
+            android:theme="@style/StyleRadioButton" />
 
         <RadioButton
             android:id="@+id/radio_b"
@@ -64,9 +65,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_24"
             android:layout_weight="1"
-            android:textColor="@color/design_default_color_primary_dark"
+            android:textColor="@color/material_gray_700"
             android:textSize="@dimen/sp_20"
-            android:textStyle="bold" />
+            android:theme="@style/StyleRadioButton" />
 
         <RadioButton
             android:id="@+id/radio_c"
@@ -74,18 +75,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_24"
             android:layout_weight="1"
-            android:textColor="@color/design_default_color_primary_dark"
+            android:textColor="@color/material_gray_700"
             android:textSize="@dimen/sp_20"
-            android:textStyle="bold" />
+            android:theme="@style/StyleRadioButton" />
 
         <RadioButton
             android:id="@+id/radio_d"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/design_default_color_primary_dark"
-            android:textSize="@dimen/sp_20"
-            android:textStyle="bold"
             android:layout_marginTop="@dimen/dp_24"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@color/material_gray_700"
+            android:textSize="@dimen/sp_20"
+            android:theme="@style/StyleRadioButton" />
     </RadioGroup>
 </android.support.constraint.ConstraintLayout>

@@ -7,10 +7,10 @@
     android:background="@drawable/gradient_vocabulary"
     tools:context=".screen.basic_test_detail.BasicTestDetailActivity">
     <TextView
-        android:id="@+id/text_background"
+        android:id="@+id/text_back_ground"
         android:layout_width="0dp"
         android:layout_height="@dimen/dp_50"
-        android:background="@color/material_cyan_300"
+        android:background="@color/material_teal_500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,7 @@
         android:layout_marginLeft="@dimen/dp_8"
         android:layout_marginTop="@dimen/dp_8"
         android:layout_marginBottom="@dimen/dp_8"
-        app:layout_constraintBottom_toBottomOf="@+id/text_background"
+        app:layout_constraintBottom_toBottomOf="@+id/text_back_ground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_alarm"
@@ -41,7 +41,7 @@
         android:textColor="@android:color/background_light"
         android:textSize="@dimen/sp_20"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/text_background"
+        app:layout_constraintBottom_toBottomOf="@+id/text_back_ground"
         app:layout_constraintStart_toEndOf="@+id/image_alarm"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -57,7 +57,7 @@
         android:textColor="@android:color/background_light"
         android:textSize="@dimen/sp_20"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/text_background"
+        app:layout_constraintBottom_toBottomOf="@+id/text_back_ground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -69,7 +69,7 @@
         android:layout_marginEnd="@dimen/dp_8"
         android:layout_marginRight="@dimen/dp_8"
         android:background="@android:color/background_light"
-        app:layout_constraintBottom_toBottomOf="@+id/text_background"
+        app:layout_constraintBottom_toBottomOf="@+id/text_back_ground"
         app:layout_constraintEnd_toStartOf="@+id/text_submit"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -81,7 +81,7 @@
         app:layout_constraintBottom_toTopOf="@+id/card_media"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_background" />
+        app:layout_constraintTop_toBottomOf="@+id/text_back_ground" />
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_media"

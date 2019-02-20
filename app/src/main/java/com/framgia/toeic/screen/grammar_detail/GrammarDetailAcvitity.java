@@ -52,6 +52,7 @@ public class GrammarDetailAcvitity extends BaseActionBar {
                 finish();
                 break;
             case R.id.action_next:
+                finish();
                 startActivity(GrammarTestActivity.getIntent(this, mLesson.getGrammars()));
                 break;
         }

@@ -95,8 +95,9 @@ public class ExamDetailActivity extends ResultTest implements ExamDetailContract
     @Override
     public void showDialogResult(int mark, int rating) {
         super.showDialogResult(mark, rating);
-        mTextViewFalse.setText(mLesson.getExams().size() - mark + "");
+        mTextViewFalse.setText(String.valueOf(mLesson.getExams().size() - mark));
         mPresenter.updateLesson(mLesson, mark);
+        mImagePlayPause.setEnabled(false);
     }
 
     @Override

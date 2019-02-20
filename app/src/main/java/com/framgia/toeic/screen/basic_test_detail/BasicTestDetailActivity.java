@@ -159,6 +159,7 @@ public class BasicTestDetailActivity extends ResultTest
         mTextViewFalse.setText(mLesson.getBasicTests().size() - mark + "");
         mPresenter.updateLesson(mLesson, mark);
         mImagePlayPause.setEnabled(false);
+        mSeekBar.setEnabled(false);
     }
 
     @Override
