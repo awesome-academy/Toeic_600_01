@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,8 @@ public class GrammarTestActivity extends ResultTest implements ShowAnswerListene
     private ViewPager mViewPager;
     private TextView mTextViewCheck;
     private TextView mTextViewTime;
+    private ImageView mImageNext;
+    private ImageView mImageBack;
     private ArrayList<Grammar> mGrammars;
     private List<Fragment> mFragments;
     private GrammarTestContract.Presenter mPresenter;
@@ -45,8 +48,10 @@ public class GrammarTestActivity extends ResultTest implements ShowAnswerListene
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onResume() {
+        super.onResume();
+        setDefaultBack();
+        addViewPagerListener();
     }
 
     @Override
@@ -60,6 +65,8 @@ public class GrammarTestActivity extends ResultTest implements ShowAnswerListene
         mTextViewCheck = findViewById(R.id.text_submit);
         mTextViewCheck.setOnClickListener(this);
         mTextViewTime = findViewById(R.id.text_timer);
+        mImageNext = findViewById(R.id.image_next_1);
+        mImageBack = findViewById(R.id.image_back_1);
         mFragments = new ArrayList<>();
         mPresenter = new GrammarTestPresenter(this,
                 MarkRepository.getInstance(new MarkLocalDataSource(
@@ -144,5 +151,33 @@ public class GrammarTestActivity extends ResultTest implements ShowAnswerListene
                 finish();
                 break;
         }
+    }
+    public void addViewPagerListener() {
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position == 0){
+                    mImageBack.setVisibility(View.GONE);
+                }else if(position == mGrammars.size()-1){
+                    mImageNext.setVisibility(View.GONE);
+                } else {
+                    mImageBack.setVisibility(View.VISIBLE);
+                    mImageNext.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+    }
+
+    private void setDefaultBack() {
+        mImageBack.setVisibility(View.GONE);
     }
 }
