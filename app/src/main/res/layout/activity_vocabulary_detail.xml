@@ -95,7 +95,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view_pager"
-        app:srcCompat="@drawable/ic_next_1" />
+        app:srcCompat="@drawable/ic_next_page" />
 
     <ImageView
         android:id="@+id/image_back"

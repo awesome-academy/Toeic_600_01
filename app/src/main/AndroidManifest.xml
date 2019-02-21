@@ -46,6 +46,13 @@
         <service android:name=".screen.service.AudioService" />
         <activity android:name=".screen.basic_test_detail.BasicTestDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <meta-data
+            android:name = "com.facebook.sdk.ApplicationId"
+            android:value = "@string/facebook_app_id" />
+        <provider android:authorities="com.facebook.app.FacebookContentProvider1005167796338475"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
+        <activity android:name=".screen.about.AboutActivity" />
     </application>
 
 </manifest>

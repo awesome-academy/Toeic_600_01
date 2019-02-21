@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,9 +33,11 @@ public class GrammarTestActivity extends ResultTest implements ShowAnswerListene
         GrammarTestContract.View, GrammarTestFragment.OnAnswerChangeListener, ViewPager.OnPageChangeListener {
     static final String EXTRA_LIST_GRAMMAR = "EXTRA_LIST_GRAMMAR";
     private ViewPager mViewPager;
-    private TextView mTextViewCheck;
-    private TextView mTextViewTime;
-    private ArrayList<Grammar> mGrammars;
+    private TextView mTextCheck;
+    private TextView mTextTime;
+    private ImageView mImageNext;
+    private ImageView mImageBack;
+    private List<Grammar> mGrammars;
     private List<Fragment> mFragments;
     private GrammarTestContract.Presenter mPresenter;
 
@@ -45,8 +48,10 @@ public class GrammarTestActivity extends ResultTest implements ShowAnswerListene
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onResume() {
+        super.onResume();
+        setDefaultBack();
+        addViewPagerListener();
     }
 
     @Override
@@ -57,9 +62,11 @@ public class GrammarTestActivity extends ResultTest implements ShowAnswerListene
     @Override
     protected void initComponent() {
         mViewPager = findViewById(R.id.view_pager);
-        mTextViewCheck = findViewById(R.id.text_submit);
-        mTextViewCheck.setOnClickListener(this);
-        mTextViewTime = findViewById(R.id.text_timer);
+        mTextCheck = findViewById(R.id.text_submit);
+        mTextCheck.setOnClickListener(this);
+        mTextTime = findViewById(R.id.text_timer);
+        mImageNext = findViewById(R.id.image_next_first);
+        mImageBack = findViewById(R.id.image_back_first);
         mFragments = new ArrayList<>();
         mPresenter = new GrammarTestPresenter(this,
                 MarkRepository.getInstance(new MarkLocalDataSource(
@@ -78,7 +85,7 @@ public class GrammarTestActivity extends ResultTest implements ShowAnswerListene
             @Override
             public void run() {
                 mCountTime++;
-                mTextViewTime.setText(getStringDatefromlong(mCountTime*TRANFER_SECOND_TO_MILISECOND));
+                mTextTime.setText(getStringDatefromlong(mCountTime*TRANFER_SECOND_TO_MILISECOND));
                 mHandler.postDelayed(this, TRANFER_SECOND_TO_MILISECOND);
             }
         });
@@ -110,7 +117,7 @@ public class GrammarTestActivity extends ResultTest implements ShowAnswerListene
     public void showDialogResult(int mark, int rating) {
         super.showDialogResult(mark, rating);
         mTextViewFalse.setText(mGrammars.size() - mark + "");
-        mTextViewTimeResult.setText(mTextViewTime.getText());
+        mTextViewTimeResult.setText(mTextTime.getText());
     }
 
     @Override
@@ -144,5 +151,33 @@ public class GrammarTestActivity extends ResultTest implements ShowAnswerListene
                 finish();
                 break;
         }
+    }
+    public void addViewPagerListener() {
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position == 0){
+                    mImageBack.setVisibility(View.GONE);
+                }else if(position == mGrammars.size()-1){
+                    mImageNext.setVisibility(View.GONE);
+                } else {
+                    mImageBack.setVisibility(View.VISIBLE);
+                    mImageNext.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+    }
+
+    private void setDefaultBack() {
+        mImageBack.setVisibility(View.GONE);
     }
 }

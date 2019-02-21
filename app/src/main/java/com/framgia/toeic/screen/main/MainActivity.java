@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
@@ -19,10 +20,13 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.framgia.toeic.R;
 import com.framgia.toeic.data.model.User;
 import com.framgia.toeic.data.repository.UserRepository;
 import com.framgia.toeic.data.source.local.UserLocalDataSource;
+import com.framgia.toeic.screen.about.AboutActivity;
 import com.framgia.toeic.screen.base.BaseActivity;
 import com.framgia.toeic.screen.basic_test.BasicTestActivity;
 import com.framgia.toeic.screen.exam.ExamActivity;
@@ -33,13 +37,20 @@ import com.framgia.toeic.screen.vocabulary.VocabularyActivity;
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         View.OnClickListener, MainContract.View {
+    private static final String URL_SHARE = "https://www.facebook.com/thanh.pham.927980";
     private Toolbar mToolbar;
     private NavigationView mNavigationView;
     private DrawerLayout mDrawer;
-    private CardView mCardVocabulary, mCardGrammar, mCardBasicTest, mCardExam, mCardUser;
+    private CardView mCardVocabulary;
+    private CardView mCardGrammar;
+    private CardView mCardBasicTest;
+    private CardView mCardExam;
+    private CardView mCardUser;
     private TextView mTextName;
     private TextView mTextTarget;
     private MainContract.Presenter mPresenter;
+    private ShareDialog mShareDialog;
+    private ShareLinkContent mShareLinkContent;
 
     public static Intent getMainIntent(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -125,12 +136,14 @@ public class MainActivity extends BaseActivity
                 startActivity(ExamActivity.getExamActivity(this));
                 break;
             case R.id.nav_share:
+                shareFaceBook();
                 break;
             case R.id.nav_setting:
                 break;
             case R.id.nav_rating:
                 break;
             case R.id.nav_about:
+                startActivity(AboutActivity.getIntent(this));
                 break;
         }
         mDrawer.closeDrawer(GravityCompat.START);
@@ -173,5 +186,16 @@ public class MainActivity extends BaseActivity
     public void showUser(User user) {
         mTextName.setText(user.getName());
         mTextTarget.setText(user.getTarget());
+    }
+
+    public void shareFaceBook(){
+        mShareDialog = new ShareDialog(this);
+        if(ShareDialog.canShow(ShareLinkContent.class)){
+            mShareLinkContent = new ShareLinkContent.Builder()
+                    .setContentTitle(getResources().getString(R.string.app_name))
+                    .setContentUrl(Uri.parse(URL_SHARE))
+                    .build();
+        }
+        mShareDialog.show(mShareLinkContent);
     }
 }
