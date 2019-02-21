@@ -41,7 +41,11 @@ public class MainActivity extends BaseActivity
     private Toolbar mToolbar;
     private NavigationView mNavigationView;
     private DrawerLayout mDrawer;
-    private CardView mCardVocabulary, mCardGrammar, mCardBasicTest, mCardExam, mCardUser;
+    private CardView mCardVocabulary;
+    private CardView mCardGrammar;
+    private CardView mCardBasicTest;
+    private CardView mCardExam;
+    private CardView mCardUser;
     private TextView mTextName;
     private TextView mTextTarget;
     private MainContract.Presenter mPresenter;
@@ -139,7 +143,7 @@ public class MainActivity extends BaseActivity
             case R.id.nav_rating:
                 break;
             case R.id.nav_about:
-                startActivity(AboutActivity.getAboutActivity(this));
+                startActivity(AboutActivity.getIntent(this));
                 break;
         }
         mDrawer.closeDrawer(GravityCompat.START);

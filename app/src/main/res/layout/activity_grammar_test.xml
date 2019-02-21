@@ -83,7 +83,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text_back_ground" />
 
     <ImageView
-        android:id="@+id/image_next_1"
+        android:id="@+id/image_next_first"
         android:layout_width="@dimen/dp_30"
         android:layout_height="@dimen/dp_30"
         android:layout_marginTop="@dimen/dp_8"
@@ -91,10 +91,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view_pager"
-        app:srcCompat="@drawable/ic_next_1" />
+        app:srcCompat="@drawable/ic_next_page" />
 
     <ImageView
-        android:id="@+id/image_back_1"
+        android:id="@+id/image_back_first"
         android:layout_width="@dimen/dp_30"
         android:layout_height="@dimen/dp_30"
         android:layout_marginStart="@dimen/dp_8"

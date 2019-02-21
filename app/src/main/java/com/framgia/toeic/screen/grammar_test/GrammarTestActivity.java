@@ -33,11 +33,11 @@ public class GrammarTestActivity extends ResultTest implements ShowAnswerListene
         GrammarTestContract.View, GrammarTestFragment.OnAnswerChangeListener, ViewPager.OnPageChangeListener {
     static final String EXTRA_LIST_GRAMMAR = "EXTRA_LIST_GRAMMAR";
     private ViewPager mViewPager;
-    private TextView mTextViewCheck;
-    private TextView mTextViewTime;
+    private TextView mTextCheck;
+    private TextView mTextTime;
     private ImageView mImageNext;
     private ImageView mImageBack;
-    private ArrayList<Grammar> mGrammars;
+    private List<Grammar> mGrammars;
     private List<Fragment> mFragments;
     private GrammarTestContract.Presenter mPresenter;
 
@@ -62,11 +62,11 @@ public class GrammarTestActivity extends ResultTest implements ShowAnswerListene
     @Override
     protected void initComponent() {
         mViewPager = findViewById(R.id.view_pager);
-        mTextViewCheck = findViewById(R.id.text_submit);
-        mTextViewCheck.setOnClickListener(this);
-        mTextViewTime = findViewById(R.id.text_timer);
-        mImageNext = findViewById(R.id.image_next_1);
-        mImageBack = findViewById(R.id.image_back_1);
+        mTextCheck = findViewById(R.id.text_submit);
+        mTextCheck.setOnClickListener(this);
+        mTextTime = findViewById(R.id.text_timer);
+        mImageNext = findViewById(R.id.image_next_first);
+        mImageBack = findViewById(R.id.image_back_first);
         mFragments = new ArrayList<>();
         mPresenter = new GrammarTestPresenter(this,
                 MarkRepository.getInstance(new MarkLocalDataSource(
@@ -85,7 +85,7 @@ public class GrammarTestActivity extends ResultTest implements ShowAnswerListene
             @Override
             public void run() {
                 mCountTime++;
-                mTextViewTime.setText(getStringDatefromlong(mCountTime*TRANFER_SECOND_TO_MILISECOND));
+                mTextTime.setText(getStringDatefromlong(mCountTime*TRANFER_SECOND_TO_MILISECOND));
                 mHandler.postDelayed(this, TRANFER_SECOND_TO_MILISECOND);
             }
         });
@@ -117,7 +117,7 @@ public class GrammarTestActivity extends ResultTest implements ShowAnswerListene
     public void showDialogResult(int mark, int rating) {
         super.showDialogResult(mark, rating);
         mTextViewFalse.setText(mGrammars.size() - mark + "");
-        mTextViewTimeResult.setText(mTextViewTime.getText());
+        mTextViewTimeResult.setText(mTextTime.getText());
     }
 
     @Override

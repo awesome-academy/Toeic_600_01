@@ -12,7 +12,7 @@ public class AboutActivity extends BaseActionBar {
     private static final String URL = "file:///android_asset/about.html";
     private WebView mWebView;
 
-    public static Intent getAboutActivity(Context context) {
+    public static Intent getIntent(Context context) {
         return new Intent(context, AboutActivity.class);
     }
 
