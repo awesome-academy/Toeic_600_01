@@ -39,8 +39,8 @@ public class GrammarLesson extends Lesson implements Parcelable {
         parcel.writeTypedList(mGrammars);
     }
 
-    public GrammarLesson(int id, String name) {
-        super(id, name);
+    public GrammarLesson(int id, String name, int maxMark) {
+        super(id, name, maxMark);
     }
 
     public List<Grammar> getGrammars() {

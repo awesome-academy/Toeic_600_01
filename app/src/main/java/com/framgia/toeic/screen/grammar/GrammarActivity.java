@@ -59,6 +59,11 @@ public class GrammarActivity extends BaseActionBar implements GrammarContract.Vi
     protected void initData() {
         mPresenter = new GrammarPresenter(this, GrammarLessonRepository.getInstance(
                 new GrammarLessonLocalDataSource(new GrammarLessonDatabaseHelper(new DBHelper(this)))));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         mPresenter.getGrammarLessons();
     }
 
